@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         keys.add(findViewById(R.id.bplus));
         keys.add(findViewById(R.id.bequal));
         keys.add(findViewById(R.id.bclear));
+        keys.add(findViewById(R.id.bdecimal));
 
         for(int i = 0; i < 10; i++) {
             final int aux = i;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         keys.get(10).setOnClickListener(view -> useCalculator("+"));
         keys.get(11).setOnClickListener(view -> addXY());
         keys.get(12).setOnClickListener(view -> useCalculator("C"));
+        keys.get(13).setOnClickListener(view -> useCalculator("."));
     }
 
     protected void addXY() {
