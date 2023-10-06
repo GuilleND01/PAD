@@ -70,11 +70,15 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MiApp", editTextX.getText() + " + " + editTextY.getText());
 
         if( !editTextX.getText().toString().isEmpty() && !editTextY.getText().toString().isEmpty()){
-            Intent intent = new Intent(this, CalculatorResultActivity.class);
-            intent.putExtra("result", calc.addNumbers(Double.valueOf(editTextX.getText().toString()),
-                    Double.valueOf(editTextY.getText().toString())));
+            try{
+                Intent intent = new Intent(this, CalculatorResultActivity.class);
+                intent.putExtra("result", calc.addNumbers(Double.valueOf(editTextX.getText().toString()),
+                        Double.valueOf(editTextY.getText().toString())));
 
-            startActivity(intent);
+                startActivity(intent);
+            }catch (Exception e){
+                Log.w("MiApp", "Formato incorrecto");
+            }
         }
         else{
             Log.w("MiApp", "TextField vacío");
