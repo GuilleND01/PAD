@@ -13,12 +13,6 @@
         android:layout_margin="40dp"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="400dp"
-            android:layout_height="550dp"
-            app:srcCompat="@drawable/lolita_columna">
-        </ImageView>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

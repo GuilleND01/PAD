@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,11 +66,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void addXY() {
-        Intent intent = new Intent(this, CalculatorResultActivity.class);
-        intent.putExtra("result", calc.addNumbers(Double.valueOf(editTextX.getText().toString()),
-                Double.valueOf(editTextY.getText().toString())));
 
-        startActivity(intent);
+        Log.i("MiApp", editTextX.getText() + " + " + editTextY.getText());
+
+        if( !editTextX.getText().toString().isEmpty() && !editTextY.getText().toString().isEmpty()){
+            Intent intent = new Intent(this, CalculatorResultActivity.class);
+            intent.putExtra("result", calc.addNumbers(Double.valueOf(editTextX.getText().toString()),
+                    Double.valueOf(editTextY.getText().toString())));
+
+            startActivity(intent);
+        }
+        else{
+            Log.w("MiApp", "TextField vacío");
+        }
+
+
     }
 
     protected void useCalculator(String e) {

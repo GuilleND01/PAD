@@ -1,5 +1,6 @@
 package es.fdi.ucm.calculator;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,5 +22,14 @@ public class CalculatorResultActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textView);
         textView.setText(String.valueOf(result));
+
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent2 = new Intent(this, MainActivity.class);
+        startActivity(intent2);
+        finish();
+    }
+
 }
