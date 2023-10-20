@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GoogleBooksClient</string>
+    <string name="libro">Libro</string>
+    <string name="revista">Revista</string>
+    <string name="titulo">Título</string>
+    <string name="autor">Autor(as)</string>
+</resources>
