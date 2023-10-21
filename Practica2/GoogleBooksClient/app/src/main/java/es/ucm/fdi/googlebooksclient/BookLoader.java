@@ -17,12 +17,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
-public class BookLoader extends AsyncTaskLoader<String> {
+public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     final String BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
     final String QUERY_PARAM = "q";
     final String MAX_RESULTS = "maxResults";
     final String PRINT_TYPE = "printType";
+    final String KEY_VALUE = "AIzaSyCB7ezrFGV8cCcMbq1oauWKttTYrKsbBJo";
+    final String KEY = "key";
     String queryString;
     String printType;
 
@@ -35,11 +38,12 @@ public class BookLoader extends AsyncTaskLoader<String> {
 
     @Nullable
     @Override
-    public String loadInBackground() {
+    public List<BookInfo> loadInBackground() {
         Uri builtURI = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(QUERY_PARAM, queryString)
                 .appendQueryParameter(MAX_RESULTS, "10")
                 .appendQueryParameter(PRINT_TYPE, printType)
+                .appendQueryParameter(KEY, KEY_VALUE)
                 .build();
         try {
             this.requestURL = new URL(builtURI.toString());

@@ -9,8 +9,13 @@ import android.view.View;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private BookLoaderCallbacks bookLoaderCallbacks;
+    private BooksResultListAdapter booksResultListAdapter;
+    private String queryString;
+    private String printType;
     private static final int BOOK_LOADER_ID  = 53785;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +28,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void searchBooks(View view){
-
+    public void searchBooks(View view) {
+        // TODO obtener queryString y printType
+        Bundle queryBundle = new Bundle();
+        queryBundle.putString(BookLoaderCallbacks.EXTRA_QUERY, queryString);
+        queryBundle.putString(BookLoaderCallbacks.EXTRA_PRINT_TYPE, printType);
+        LoaderManager.getInstance(this)
+                .restartLoader(BOOK_LOADER_ID, queryBundle, bookLoaderCallbacks);
     }
 
-
+    void updateBooksResultList(List<BookInfo> bookInfos) {
+        booksResultListAdapter.setBooksData(bookInfos);
+        booksResultListAdapter.notifyDataSetChanged();
+    }
 }
