@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     final String BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
-    final String QUERY_PARAM = "q=";
+    final String QUERY_PARAM = "q";
     final String MAX_RESULTS = "maxResults";
     final String PRINT_TYPE = "printType";
     final String KEY_VALUE = "AIzaSyCB7ezrFGV8cCcMbq1oauWKttTYrKsbBJo";
@@ -46,10 +47,15 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
                 .build();
         try {
             this.requestURL = new URL(builtURI.toString());
+            String json = getBookInfoJson();
+            return BookInfo.fromJsonResponse(json);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
@@ -57,7 +63,7 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
         forceLoad();
     }
 
-    public String getBookInfoJson(String queryString, String printType) throws IOException {
+    public String getBookInfoJson() throws IOException {
         HttpURLConnection conn = null;
         InputStream is = null;
 

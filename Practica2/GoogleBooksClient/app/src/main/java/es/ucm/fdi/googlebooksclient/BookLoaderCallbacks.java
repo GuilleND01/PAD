@@ -16,6 +16,7 @@ public class BookLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<B
     private String printType;
     public static final String EXTRA_QUERY = "queryString";
     public static final String EXTRA_PRINT_TYPE = "printType";
+    private List<BookInfo> result;
     @NonNull
     @Override
     public Loader<List<BookInfo>> onCreateLoader(int id, @Nullable Bundle args) {
@@ -24,7 +25,8 @@ public class BookLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<B
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<BookInfo>> loader, List<BookInfo> data) {
-
+        result = data;
+        ((MainActivity) ctx).updateBooksResultList(result);
     }
 
 
@@ -39,5 +41,7 @@ public class BookLoaderCallbacks implements LoaderManager.LoaderCallbacks<List<B
         this.queryS = queryString;
     }
 
-
+    public List<BookInfo> getData() {
+        return result;
+    }
 }

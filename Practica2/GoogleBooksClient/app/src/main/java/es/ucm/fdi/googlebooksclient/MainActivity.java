@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private String printType = "";
     private RadioGroup r1;
     private RadioGroup r2;
-    private SearchView searchview;
     private static final int BOOK_LOADER_ID  = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +51,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchview = findViewById(R.id.search);
-        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchView searchview = findViewById(R.id.search);
+        searchBooks(searchview);
+
+    }
+
+    public void searchBooks(View view) {
+        ((SearchView) view).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 if(r2.getCheckedRadioButtonId() == R.id.autor) {
@@ -85,22 +89,20 @@ public class MainActivity extends AppCompatActivity {
                     if(loaderManager.getLoader(BOOK_LOADER_ID) == null){
                         loaderManager.initLoader(BOOK_LOADER_ID, null, bookLoaderCallbacks);
                     }
-                }
 
+                    Bundle queryBundle = new Bundle();
+                    queryBundle.putString(BookLoaderCallbacks.EXTRA_QUERY, queryString);
+                    queryBundle.putString(BookLoaderCallbacks.EXTRA_PRINT_TYPE, printType);
+                    LoaderManager.getInstance(MainActivity.this)
+                            .restartLoader(BOOK_LOADER_ID, queryBundle, bookLoaderCallbacks);
+
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) { return false; }
         });
-    }
-
-    public void searchBooks(View view) {
-        Bundle queryBundle = new Bundle();
-        queryBundle.putString(BookLoaderCallbacks.EXTRA_QUERY, queryString);
-        queryBundle.putString(BookLoaderCallbacks.EXTRA_PRINT_TYPE, printType);
-        LoaderManager.getInstance(this)
-                .restartLoader(BOOK_LOADER_ID, queryBundle, bookLoaderCallbacks);
     }
 
     void updateBooksResultList(List<BookInfo> bookInfos) {
