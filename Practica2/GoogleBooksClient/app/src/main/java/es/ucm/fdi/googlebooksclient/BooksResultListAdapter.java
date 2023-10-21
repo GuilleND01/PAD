@@ -1,7 +1,9 @@
 package es.ucm.fdi.googlebooksclient;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,27 +19,44 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
     @NonNull
     @Override
     public BooksResultListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        // Cargar la vista desde el xml (con View)
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_view, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BooksResultListAdapter.ViewHolder holder, int position) {
+        BookInfo mCurrent = mBooksData.get(position);
+        holder.tit.setText(mCurrent.getTitle());
+        holder.aut.setText(mCurrent.getAuthors());
+        holder.link.setText(mCurrent.getinfoLink().toString());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mBooksData.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // public TextView wordItemView;
         private View lay;
+        public TextView tit;
+        public TextView aut;
+        public TextView link;
+
         public ViewHolder(View view) {
             super(view);
-            // TODO cambiar por nuestro layout
             this.lay = view;
-            // wordItemView = view.findViewById(R.id.word);
+
+            tit = view.findViewById(R.id.cardT);
+            aut = view.findViewById(R.id.cardA);
+            link = view.findViewById(R.id.cardL);
+
+
         }
     }
+
+
 }
