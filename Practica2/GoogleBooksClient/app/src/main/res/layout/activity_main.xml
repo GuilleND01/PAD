@@ -31,12 +31,13 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:id="@+id/r1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5">
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/libro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/libro"
@@ -44,21 +45,30 @@
                     android:textSize="20dp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/revista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/revista"
                     android:textColor="@color/fantasma"
                     android:textSize="20dp" />
+
+                <RadioButton
+                    android:id="@+id/todos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/todos"
+                    android:textColor="@color/fantasma"
+                    android:textSize="20dp" />
             </RadioGroup>
 
             <RadioGroup
+                android:id="@+id/r2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/titulo"
@@ -66,7 +76,7 @@
                     android:textSize="20dp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/autor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/fantasma"

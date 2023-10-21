@@ -6,6 +6,8 @@ import androidx.loader.app.LoaderManager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 
 import org.json.JSONObject;
 
@@ -16,16 +18,33 @@ public class MainActivity extends AppCompatActivity {
     private BooksResultListAdapter booksResultListAdapter;
     private String queryString;
     private String printType;
+    private RadioGroup r1;
+    private RadioGroup r2;
     private static final int BOOK_LOADER_ID  = 53785;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bookLoaderCallbacks = new BookLoaderCallbacks(this, "","");
+        r1 = findViewById(R.id.r1);
+        r2 = findViewById(R.id.r2);
+        r1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (radioGroup.getCheckedRadioButtonId() != 0) {
+                    findViewById(R.id.autor).setEnabled(false);
+                    findViewById(R.id.titulo).setEnabled(true);
+                }
+                else {
+                    findViewById(R.id.autor).setEnabled(true);
+                    findViewById(R.id.titulo).setEnabled(true);
+                }
+            }
+        });
+        /* bookLoaderCallbacks = new BookLoaderCallbacks(this, "","");
         LoaderManager loaderManager = LoaderManager.getInstance(this);
         if(loaderManager.getLoader(BOOK_LOADER_ID) != null){
             loaderManager.initLoader(BOOK_LOADER_ID, null, bookLoaderCallbacks);
-        }
+        } */
     }
 
     public void searchBooks(View view) {
