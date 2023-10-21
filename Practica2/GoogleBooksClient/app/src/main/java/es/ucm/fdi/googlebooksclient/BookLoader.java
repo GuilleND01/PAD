@@ -21,14 +21,13 @@ import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     final String BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
-    final String QUERY_PARAM = "q";
+    final String QUERY_PARAM = "q=";
     final String MAX_RESULTS = "maxResults";
     final String PRINT_TYPE = "printType";
     final String KEY_VALUE = "AIzaSyCB7ezrFGV8cCcMbq1oauWKttTYrKsbBJo";
     final String KEY = "key";
     String queryString;
     String printType;
-
     URL requestURL;
     public BookLoader(@NonNull Context context, String queryString, String printType) {
         super(context);
