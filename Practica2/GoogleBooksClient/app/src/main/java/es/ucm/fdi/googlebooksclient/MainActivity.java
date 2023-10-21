@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -28,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
         r1 = findViewById(R.id.r1);
         r2 = findViewById(R.id.r2);
         r1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (radioGroup.getCheckedRadioButtonId() != 0) {
+
+                if (radioGroup.getCheckedRadioButtonId() != 2131230954) {
                     findViewById(R.id.autor).setEnabled(false);
                     findViewById(R.id.titulo).setEnabled(true);
                 }
