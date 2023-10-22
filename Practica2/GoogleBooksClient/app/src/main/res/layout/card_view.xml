@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="201dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical">
@@ -96,11 +96,10 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="23dp"
+            android:id="@+id/img"
+            android:layout_width="164dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@tools:sample/avatars" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 

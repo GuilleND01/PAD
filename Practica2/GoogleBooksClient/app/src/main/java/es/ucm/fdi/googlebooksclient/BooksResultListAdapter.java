@@ -2,14 +2,19 @@ package es.ucm.fdi.googlebooksclient;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +56,17 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             }
         });
 
+        if(mCurrent.getImagen().equals("")){
+            holder.img.setVisibility(View.GONE);
+        }
+        else{
+            holder.img.setVisibility(View.VISIBLE);
+            holder.setImage(mCurrent.getImagen());
+        }
 
+        
     }
+
 
     @Override
     public int getItemCount() {
@@ -66,6 +80,8 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         public TextView aut;
         public TextView link;
 
+        public ImageView img;
+
         public CardView cardView;
         public TextView type;
 
@@ -78,7 +94,30 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             link = view.findViewById(R.id.cardL);
             type = view.findViewById(R.id.type);
             cardView = view.findViewById(R.id.cardView);
+            img = view.findViewById(R.id.img);
 
+
+        }
+
+        public void setImage(String url){
+            new LoadImageTask().execute(url);
+        }
+
+        public class LoadImageTask extends AsyncTask<String, Void, Void> {
+            @Override
+            protected Void doInBackground(String... params) {
+                try {
+                    String imageUrl = params[0];
+
+                    Glide.with(cardView)
+                            .load(imageUrl)
+                            .into(img);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
         }
     }
 

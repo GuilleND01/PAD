@@ -18,15 +18,18 @@ public class BookInfo {
     private String authors;
     private URL infoLink;
 
+    private String imagen;
+
     private String printType;
 
 
 
-    public BookInfo(String title, String authors, URL infoLink, String printType) {
+    public BookInfo(String title, String authors, URL infoLink, String printType, String imagen) {
         this.title = title;
         this.authors = authors;
         this.infoLink = infoLink;
         this.printType = printType;
+        this.imagen = imagen;
     }
 
     public static List<BookInfo> fromJsonResponse(String s, Context ctx) throws JSONException, MalformedURLException {
@@ -61,9 +64,16 @@ public class BookInfo {
                 type = ctx.getString(R.string.revista);
             }
 
+            String img = "";
+            if(clave.has("imageLinks") && clave.getJSONObject("imageLinks").has("smallThumbnail")){
+                img = clave.getJSONObject("imageLinks").getString("smallThumbnail");
+            }
+
+
+
             URL info = new URL(clave.getString("infoLink"));
 
-            book_info.add(new BookInfo(tit, aut, info, type));
+            book_info.add(new BookInfo(tit, aut, info, type, img));
         }
         return book_info;
     }
@@ -75,6 +85,8 @@ public class BookInfo {
         return authors;
     }
     public URL getinfoLink(){ return infoLink; }
+
+    public String getImagen(){return imagen;}
 
     public String getPrintType(){
         return printType;
