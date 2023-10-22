@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoogleBooksClient</string>
+    <string name="libro">Book</string>
+    <string name="revista">Magazine</string>
+    <string name="titulo">Title</string>
+    <string name="autor">Author</string>
+    <string name="todos">All</string>
+    <string name="noAut">No defined</string>
+    <string name="hayRes1">Have been found </string>
+    <string name="hayRes2"> results</string>
+    <string name="noHayRes">No results found</string>
+    <string name="link">Link</string>
+    <string name="carg">Loading...</string>
+</resources>

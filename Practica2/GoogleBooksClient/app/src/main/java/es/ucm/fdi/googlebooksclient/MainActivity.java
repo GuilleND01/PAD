@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         ((SearchView) view).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+
+
                 if(r2.getCheckedRadioButtonId() == R.id.autor) {
                     queryString = "inauthor:";
                 }
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         printType = "all";
                     }
+                    resultados.setText(getString(R.string.carg));
 
                     queryString.replace(" ", "-");
                     bookLoaderCallbacks = new BookLoaderCallbacks(MainActivity.this, queryString, printType);

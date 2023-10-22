@@ -33,17 +33,21 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
     @Override
     public void onBindViewHolder(@NonNull BooksResultListAdapter.ViewHolder holder, int position) {
         BookInfo mCurrent = mBooksData.get(position);
-        holder.tit.setText(mCurrent.getTitle());
-        holder.aut.setText(mCurrent.getAuthors());
-        holder.link.setText(mCurrent.getinfoLink().toString());
+        holder.tit.setText(": " + mCurrent.getTitle());
+        if(mCurrent.getAuthors().equals("")){
+            holder.lay.findViewById(R.id.a).setVisibility(View.GONE);
+        }
+        else{
+            holder.lay.findViewById(R.id.a).setVisibility(View.VISIBLE);
+        }
+        holder.aut.setText(": " + mCurrent.getAuthors());
+        holder.link.setText(": " + mCurrent.getinfoLink().toString());
         holder.type.setText(mCurrent.getPrintType());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = holder.link.toString();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                view.getContext().startActivity(intent);
+                new SearchGoogle(view.getContext()).execute(mCurrent.getinfoLink().toString());
             }
         });
 

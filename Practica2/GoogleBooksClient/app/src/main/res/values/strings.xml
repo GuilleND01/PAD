@@ -10,5 +10,6 @@
     <string name="hayRes2"> resultados</string>
     <string name="noHayRes">No se han encontrado resultados</string>
     <string name="link">Link</string>
+    <string name="carg">Cargando...</string>
 
 </resources>

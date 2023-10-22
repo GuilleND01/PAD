@@ -3,6 +3,7 @@ package es.ucm.fdi.googlebooksclient;
 import static android.provider.Settings.System.getString;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 
 import org.json.*;
@@ -28,7 +29,7 @@ public class BookInfo {
         this.printType = printType;
     }
 
-    public static List<BookInfo> fromJsonResponse(String s) throws JSONException, MalformedURLException {
+    public static List<BookInfo> fromJsonResponse(String s, Context ctx) throws JSONException, MalformedURLException {
         List<BookInfo> book_info = new ArrayList<>();
 
         JSONObject json = new JSONObject(s);
@@ -50,7 +51,14 @@ public class BookInfo {
             if(type.equals("BOOK") && clave.has("authors")){
                 aut = clave.getJSONArray("authors").toString();
             } else if (type.equals("BOOK")) {
-                aut = "...";
+                aut = ctx.getString(R.string.noAut);
+            }
+
+            if(type.equals("BOOK")){
+                type = ctx.getString(R.string.libro);
+            }
+            else{
+                type = ctx.getString(R.string.revista);
             }
 
             URL info = new URL(clave.getString("infoLink"));
@@ -69,7 +77,6 @@ public class BookInfo {
     public URL getinfoLink(){ return infoLink; }
 
     public String getPrintType(){
-        if (printType.equals("BOOK")){ return "Libro"; }
-        else return "Revista";
+        return printType;
     }
 }

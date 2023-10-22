@@ -32,10 +32,13 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     String queryString;
     String printType;
     URL requestURL;
+
+    Context ctx;
     public BookLoader(@NonNull Context context, String queryString, String printType) {
         super(context);
         this.printType = printType;
         this.queryString = queryString;
+        this.ctx = context;
     }
 
     @Nullable
@@ -50,7 +53,7 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
         try {
             this.requestURL = new URL(builtURI.toString());
             String json = getBookInfoJson();
-            return BookInfo.fromJsonResponse(json);
+            return BookInfo.fromJsonResponse(json, ctx);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
