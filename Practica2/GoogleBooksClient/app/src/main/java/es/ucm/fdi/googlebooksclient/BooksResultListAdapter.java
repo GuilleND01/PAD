@@ -1,8 +1,11 @@
 package es.ucm.fdi.googlebooksclient;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +14,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,7 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
 
     @Override
     public void onBindViewHolder(@NonNull BooksResultListAdapter.ViewHolder holder, int position) {
+
         BookInfo mCurrent = mBooksData.get(position);
         holder.tit.setText(": " + mCurrent.getTitle());
         if(mCurrent.getAuthors().equals("")){
@@ -56,15 +61,16 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             }
         });
 
-        if(mCurrent.getImagen().equals("")){
-            holder.img.setVisibility(View.GONE);
+        String s = mCurrent.getImagen();
+        if(!s.contains("https")){
+            s = s.replace("http", "https");
         }
-        else{
-            holder.img.setVisibility(View.VISIBLE);
-            holder.setImage(mCurrent.getImagen());
-        }
+        holder.img.setVisibility(View.VISIBLE);
+        Glide.with(holder.cardView)
+                .load(s)
+                .placeholder(R.drawable.libro_por_defecto)
+                .into(holder.img);
 
-        
     }
 
 
@@ -96,29 +102,8 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             cardView = view.findViewById(R.id.cardView);
             img = view.findViewById(R.id.img);
 
-
         }
 
-        public void setImage(String url){
-            new LoadImageTask().execute(url);
-        }
-
-        public class LoadImageTask extends AsyncTask<String, Void, Void> {
-            @Override
-            protected Void doInBackground(String... params) {
-                try {
-                    String imageUrl = params[0];
-
-                    Glide.with(cardView)
-                            .load(imageUrl)
-                            .into(img);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        }
     }
 
 

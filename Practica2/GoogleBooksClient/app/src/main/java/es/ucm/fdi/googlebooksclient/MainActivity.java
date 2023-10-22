@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
 
+                queryString ="";
 
                 if(r2.getCheckedRadioButtonId() == R.id.autor) {
                     queryString = "inauthor:";

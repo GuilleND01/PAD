@@ -65,8 +65,8 @@ public class BookInfo {
             }
 
             String img = "";
-            if(clave.has("imageLinks") && clave.getJSONObject("imageLinks").has("smallThumbnail")){
-                img = clave.getJSONObject("imageLinks").getString("smallThumbnail");
+            if(clave.has("imageLinks") && clave.getJSONObject("imageLinks").has("thumbnail")){
+                img = clave.getJSONObject("imageLinks").getString("thumbnail");
             }
 
 

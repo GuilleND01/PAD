@@ -7,8 +7,8 @@
     <string name="autor">Author</string>
     <string name="todos">All</string>
     <string name="noAut">No defined</string>
-    <string name="hayRes1">Have been found </string>
-    <string name="hayRes2"> results</string>
+    <string name="hayRes1"></string>
+    <string name="hayRes2"> results have been found</string>
     <string name="noHayRes">No results found</string>
     <string name="link">Link</string>
     <string name="carg">Loading...</string>

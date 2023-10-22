@@ -92,7 +92,7 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
             }
             return builder.toString();
         }catch(Exception e){
-            //TODO
+            throw new IOException();
         }
         finally {
             conn.disconnect();
@@ -100,6 +100,5 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
                 is.close();
             }
         }
-        return null;
     }
 }
