@@ -1,11 +1,14 @@
 package es.ucm.fdi.googlebooksclient;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         // Cargar la vista desde el xml (con View)
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view, parent, false);
+
+
         return new ViewHolder(view);
     }
 
@@ -32,7 +37,15 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         holder.aut.setText(mCurrent.getAuthors());
         holder.link.setText(mCurrent.getinfoLink().toString());
         holder.type.setText(mCurrent.getPrintType());
-        int a = R.string.noAut;
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = holder.link.toString();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                view.getContext().startActivity(intent);
+            }
+        });
 
 
     }
@@ -49,6 +62,7 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         public TextView aut;
         public TextView link;
 
+        public CardView cardView;
         public TextView type;
 
         public ViewHolder(View view) {
@@ -59,6 +73,7 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             aut = view.findViewById(R.id.cardA);
             link = view.findViewById(R.id.cardL);
             type = view.findViewById(R.id.type);
+            cardView = view.findViewById(R.id.cardView);
 
         }
     }

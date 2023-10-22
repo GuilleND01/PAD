@@ -136,10 +136,11 @@ public class MainActivity extends AppCompatActivity {
         booksResultListAdapter.notifyDataSetChanged();
         if(!bookInfos.isEmpty()){
 
-            resultados.setText(R.string.hayRes1 +bookInfos.size() + R.string.hayRes2);
+            resultados.setText(getString(R.string.hayRes1) +" " +  bookInfos.size() + " " +getString(R.string.hayRes2));
+
         }
         else{
-            resultados.setText(R.string.noHayRes);
+            resultados.setText(getString(R.string.noHayRes));
         }
 
     }
