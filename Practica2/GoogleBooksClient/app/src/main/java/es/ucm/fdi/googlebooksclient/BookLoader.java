@@ -27,6 +27,8 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     final String PRINT_TYPE = "printType";
     final String KEY_VALUE = "AIzaSyCB7ezrFGV8cCcMbq1oauWKttTYrKsbBJo";
     final String KEY = "key";
+
+    final String MAX_RES = "40";
     String queryString;
     String printType;
     URL requestURL;
@@ -41,7 +43,7 @@ public class BookLoader extends AsyncTaskLoader<List<BookInfo>> {
     public List<BookInfo> loadInBackground() {
         Uri builtURI = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(QUERY_PARAM, queryString)
-                .appendQueryParameter(MAX_RESULTS, "10")
+                .appendQueryParameter(MAX_RESULTS, MAX_RES)
                 .appendQueryParameter(PRINT_TYPE, printType)
                 .appendQueryParameter(KEY, KEY_VALUE)
                 .build();

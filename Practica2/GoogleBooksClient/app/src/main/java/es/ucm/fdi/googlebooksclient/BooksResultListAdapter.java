@@ -31,6 +31,9 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         holder.tit.setText(mCurrent.getTitle());
         holder.aut.setText(mCurrent.getAuthors());
         holder.link.setText(mCurrent.getinfoLink().toString());
+        holder.type.setText(mCurrent.getPrintType());
+        int a = R.string.noAut;
+
 
     }
 
@@ -46,6 +49,8 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         public TextView aut;
         public TextView link;
 
+        public TextView type;
+
         public ViewHolder(View view) {
             super(view);
             this.lay = view;
@@ -53,7 +58,7 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
             tit = view.findViewById(R.id.cardT);
             aut = view.findViewById(R.id.cardA);
             link = view.findViewById(R.id.cardL);
-
+            type = view.findViewById(R.id.type);
 
         }
     }

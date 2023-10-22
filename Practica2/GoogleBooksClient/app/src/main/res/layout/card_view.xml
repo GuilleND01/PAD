@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
+    app:cardBackgroundColor="#F7E6C4"
     app:cardCornerRadius="20dp"><!-- Radio de las esquinas del CardView -->
 
     <LinearLayout
@@ -15,11 +16,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="Libro:"
+            android:textStyle="bold"
             tools:ignore="Suspicious0dp" />
 
         <LinearLayout
@@ -32,7 +33,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Título:" />
+                android:text="@string/titulo" />
 
             <TextView
                 android:id="@+id/cardT"
@@ -53,7 +54,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Autor/a:" />
+                android:text="@string/autor" />
 
             <TextView
                 android:id="@+id/cardA"
@@ -74,7 +75,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Link:" />
+                android:text="@string/link" />
 
             <TextView
                 android:id="@+id/cardL"
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:contextClickable="true"
                 android:text="TextView" />
         </LinearLayout>
 

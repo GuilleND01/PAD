@@ -3,12 +3,15 @@ package es.ucm.fdi.googlebooksclient;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -30,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private String printType = "";
     private RadioGroup r1;
     private RadioGroup r2;
+
+    private TextView resultados;
+
+
     private static final int BOOK_LOADER_ID  = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SearchView searchview = findViewById(R.id.search);
-        searchBooks(searchview);
+        resultados = findViewById(R.id.resId);
+
+        SearchView searchView = findViewById(R.id.search);
+        searchBooks(searchView);
 
     }
 
@@ -124,5 +134,13 @@ public class MainActivity extends AppCompatActivity {
     void updateBooksResultList(List<BookInfo> bookInfos) {
         booksResultListAdapter.setBooksData(bookInfos);
         booksResultListAdapter.notifyDataSetChanged();
+        if(!bookInfos.isEmpty()){
+
+            resultados.setText(R.string.hayRes1 +bookInfos.size() + R.string.hayRes2);
+        }
+        else{
+            resultados.setText(R.string.noHayRes);
+        }
+
     }
 }

@@ -5,4 +5,10 @@
     <string name="titulo">Título</string>
     <string name="autor">Autor(as)</string>
     <string name="todos">Todos</string>
+    <string name="noAut">No definido</string>
+    <string name="hayRes1">Se han encontrado </string>
+    <string name="hayRes2"> resultados</string>
+    <string name="noHayRes">No se han encontrado resultados</string>
+    <string name="link">Link</string>
+
 </resources>
