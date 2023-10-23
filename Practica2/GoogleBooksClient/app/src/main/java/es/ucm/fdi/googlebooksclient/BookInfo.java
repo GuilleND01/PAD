@@ -46,7 +46,7 @@ public class BookInfo {
             JSONObject object = jar.getJSONObject(i);
             JSONObject clave = object.getJSONObject("volumeInfo");
 
-            String tit = clave.getString("title");
+
 
             String type = clave.getString("printType");
             String aut = "";
@@ -55,6 +55,14 @@ public class BookInfo {
                 aut = clave.getJSONArray("authors").toString();
             } else if (type.equals("BOOK")) {
                 aut = ctx.getString(R.string.noAut);
+            }
+
+            String tit = "";
+            if(clave.has("title")){
+                tit = clave.getString("title");
+            }
+            else{
+                tit = ctx.getString(R.string.noAut);
             }
 
             if(type.equals("BOOK")){
