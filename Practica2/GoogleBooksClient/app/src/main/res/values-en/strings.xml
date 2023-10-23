@@ -12,4 +12,5 @@
     <string name="noHayRes">No results found</string>
     <string name="link">Link</string>
     <string name="carg">Loading...</string>
+    <string name="hint_busc">Enter the search term...</string>
 </resources>

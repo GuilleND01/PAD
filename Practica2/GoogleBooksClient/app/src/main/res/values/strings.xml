@@ -11,5 +11,5 @@
     <string name="noHayRes">No se han encontrado resultados</string>
     <string name="link">Link</string>
     <string name="carg">Cargando...</string>
-
+    <string name="hint_busc">Introduzca el término de búsqueda...</string>
 </resources>

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private String printType = "";
     private RadioGroup r1;
     private RadioGroup r2;
-
+    private RecyclerView recyclerView;
     private TextView resultados;
 
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rId);
+        recyclerView = (RecyclerView) findViewById(R.id.rId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(booksResultListAdapter);
@@ -136,16 +136,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void updateBooksResultList(List<BookInfo> bookInfos) {
-        booksResultListAdapter.setBooksData(bookInfos);
-        booksResultListAdapter.notifyDataSetChanged();
         if(!bookInfos.isEmpty()){
-
             resultados.setText(getString(R.string.hayRes1) +" " +  bookInfos.size() + " " +getString(R.string.hayRes2));
-
         }
         else{
             resultados.setText(getString(R.string.noHayRes));
         }
-
+        booksResultListAdapter.setBooksData(bookInfos);
+        booksResultListAdapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
     }
 }

@@ -22,6 +22,7 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="63dp"
+            android:queryHint="@string/hint_busc"
             android:background="@drawable/shape" />
 
         <LinearLayout
