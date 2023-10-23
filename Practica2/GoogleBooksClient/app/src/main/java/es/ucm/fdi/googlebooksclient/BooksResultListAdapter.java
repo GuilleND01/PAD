@@ -62,6 +62,7 @@ public class BooksResultListAdapter extends RecyclerView.Adapter<BooksResultList
         });
 
         String s = mCurrent.getImagen();
+        
         if(!s.contains("https")){
             s = s.replace("http", "https");
         }
