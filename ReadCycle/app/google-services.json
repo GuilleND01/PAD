@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "453941125279",
+    "project_id": "readcycle-4f72f",
+    "storage_bucket": "readcycle-4f72f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453941125279:android:4fe391df998ef8e0cbc2aa",
+        "android_client_info": {
+          "package_name": "es.ucm.fdi.readcycle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIIHmcbpNi2Y8pj_LAeobVOaHd4qlYDYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
