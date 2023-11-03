@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //CARGAMOS LA BIBLIOTECA DE PRIMERAS
+        this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();
+
         //Navbar
         BottomNavigationView navbar = (BottomNavigationView) this.findViewById(R.id.navigationView);
         navbar.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener)(new NavigationBarView.OnItemSelectedListener(){
@@ -36,7 +40,15 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();//remplazo el blanco por el fragmento nuevo
                     return true;
                 }
-                else return true;
+                else if(item.getItemId() == R.id.navbar_buscar){
+                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new BuscarFragment()).commit();
+                    return true;
+                }
+                else if(item.getItemId() == R.id.navbar_perfil){
+                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new PerfilFragment()).commit();
+                    return true;
+                }
+                return true;
             }
         }));
 
