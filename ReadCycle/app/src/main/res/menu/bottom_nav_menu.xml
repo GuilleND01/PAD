@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/navbar_biblioteca"
+        android:id="@+id/navbar_biblioteca"
+        android:icon="@drawable/libro"/>
+    <item android:title="@string/navbar_buscar"
+        android:id="@+id/navbar_buscar"
+        android:icon="@drawable/lupa"/>
+    <item android:title="@string/navbar_perfil"
+        android:id="@+id/navbar_perfil"
+        android:icon="@drawable/perfil"/>
+</menu>

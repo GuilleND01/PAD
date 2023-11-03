@@ -1,8 +1,10 @@
-package es.ucm.fdi.readcycle;
+package es.ucm.fdi.readcycle.presentacion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import es.ucm.fdi.readcycle.R;
 
 public class MainActivity extends AppCompatActivity {
 

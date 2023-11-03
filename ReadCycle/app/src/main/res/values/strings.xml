@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ReadCycle</string>
+    <string name="navbar_buscar">Buscar</string>
+    <string name="navbar_perfil">Perfil</string>
+    <string name="navbar_biblioteca">Mi biblioteca</string>
+
+
 </resources>
