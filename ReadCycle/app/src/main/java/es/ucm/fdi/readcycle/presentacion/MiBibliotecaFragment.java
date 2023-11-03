@@ -9,12 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import es.ucm.fdi.readcycle.R;
+import kotlin.jvm.internal.Intrinsics;
+
 public class MiBibliotecaFragment extends Fragment {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        Intrinsics.checkNotNullParameter(inflater, "inflater"); //comprobamos que lo que llega no es ulo
+        return inflater.inflate(R.layout.fragment_biblioteca, container, false); //sustituyo el trozo blanco por el fragmento
+
     }
 }

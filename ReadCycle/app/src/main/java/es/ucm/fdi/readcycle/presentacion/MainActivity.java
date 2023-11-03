@@ -4,12 +4,16 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,11 +25,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //Navbar
+        BottomNavigationView navbar = (BottomNavigationView) this.findViewById(R.id.navigationView);
+        navbar.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener)(new NavigationBarView.OnItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.navbar_biblioteca){
+                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();//remplazo el blanco por el fragmento nuevo
+                    return true;
+                }
+                else return true;
+            }
+        }));
+
 
 
         //conexion con la base de datos//////////////////
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        /*
         //prueba de lectura
         db.collection("Usuarios")
                 .get()
@@ -42,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         setContentView(R.layout.activity_main);
+
+
+     */
 
     }
 

@@ -5,4 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="presentacion.MiBibliotecaFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:text="SOY LA BIBLIOTECA" />
+
 </FrameLayout>
