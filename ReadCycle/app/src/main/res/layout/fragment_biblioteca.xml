@@ -6,10 +6,51 @@
     android:layout_height="match_parent"
     tools:context="presentacion.MiBibliotecaFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:text="SOY LA BIBLIOTECA" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/fondoClaro">
+
+        <TextView
+            android:id="@+id/tit_tibiblioteca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/titbblioteca"
+            android:textColor="@color/navbar"
+            android:textSize="34sp" />
+
+        <LinearLayout
+            android:id="@+id/lay_biblioteca"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/addBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:src="@drawable/mas"
+                    android:textColorHighlight="@color/fondoClaro"
+                    android:textColorLink="@color/fondoClaro"
+                    app:strokeColor="@color/navbar" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

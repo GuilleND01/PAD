@@ -3,6 +3,10 @@
     <string name="navbar_buscar">Buscar</string>
     <string name="navbar_perfil">Perfil</string>
     <string name="navbar_biblioteca">Mi biblioteca</string>
+    <string name="titbblioteca">Tu biblioteca</string>
+    <string name="buscarLibro">Encuentra un libro</string>
+    <string name="autor">Autor</string>
+    <string name="titulo">Titulo</string>
 
 
 </resources>

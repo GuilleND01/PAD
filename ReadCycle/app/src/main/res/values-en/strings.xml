@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReadCycle</string>
+    <string name="navbar_buscar">Search</string>
+    <string name="navbar_perfil">Profile</string>
+    <string name="navbar_biblioteca">My library</string>
+    <string name="titbblioteca">Your library</string>
+    <string name="buscarLibro">Find a book</string>
+    <string name="autor">Author</string>
+    <string name="titulo">Title</string>
+</resources>
