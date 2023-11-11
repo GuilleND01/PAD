@@ -8,4 +8,13 @@
     <string name="buscarLibro">Find a book</string>
     <string name="autor">Author</string>
     <string name="titulo">Title</string>
+
+    <!--Formulario añadir libro-->
+    <string name="titaddlibro">Add book</string>
+    <string name="form_titulolibro">Book´s Title</string>
+    <string name="form_genero">Genre</string>
+    <string name="form_numpaginas">Page num.</string>
+    <string name="form_libroestado">Book´s condition</string>
+    <string name="form_resumen">Summary</string>
+    <string name="form_añadir">Add</string>
 </resources>

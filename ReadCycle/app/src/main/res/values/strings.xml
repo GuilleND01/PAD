@@ -8,5 +8,12 @@
     <string name="autor">Autor</string>
     <string name="titulo">Titulo</string>
 
-
+    <!--Formulario añadir libro-->
+    <string name="titaddlibro">Añadir libro</string>
+    <string name="form_titulolibro">Titulo Libro</string>
+    <string name="form_genero">Género</string>
+    <string name="form_numpaginas">Num. Páginas</string>
+    <string name="form_libroestado">Estado del libro</string>
+    <string name="form_resumen">Resumen</string>
+    <string name="form_añadir">Añadir</string>
 </resources>
