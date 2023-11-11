@@ -5,6 +5,8 @@
     <color name="navbar">#6d8b89</color>
     <color name="fondoClaro">#D5E0B5</color>
     <color name="botonAdd">#47667B</color>
+    <color name="fondoOscuro">#A5C3A7</color>
+
 
 
 </resources>
