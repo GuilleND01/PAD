@@ -190,7 +190,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/formresumen"
                     android:layout_width="379dp"
                     android:layout_height="115dp"
                     android:layout_weight="1"
@@ -211,7 +211,7 @@
 
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/buttonAñadir"
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
