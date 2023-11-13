@@ -47,24 +47,6 @@ public class MiBibliotecaFragment extends Fragment {
             }
         });
 
-        //TODO QUITAR ESTO, esta solo para ver que va el recyclerView
-        BookInfo b1 = new BookInfo("HOLA", "");
-        BookInfo b2 = new BookInfo("DOS", "");
-        BookInfo b3 = new BookInfo("POP", "");
-        ArrayList<BookInfo> a = new ArrayList<>();
-        a.add(b1);
-        a.add(b2);
-        a.add(b3);
-
-        BookAdapter ba = new BookAdapter();
-        ba.setBookData(a);
-        RecyclerView recyclerView = view.findViewById(R.id.reclyclerView);
-        recyclerView.setAdapter(ba);
-
-
-
-
-
         return view;
 
     }
