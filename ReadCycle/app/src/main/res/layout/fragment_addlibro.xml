@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/form_background"
     tools:context="presentacion.AddLibroFragment">
 
@@ -39,35 +39,35 @@
 
         </LinearLayout>
 
-
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_height="fill_parent"
+            android:paddingStart="6pt"
+            android:paddingEnd="6pt"
+            android:paddingTop="10pt">
 
             <LinearLayout
                 android:id="@+id/lay_biblioteca"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="fill_parent"
+
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginTop="6pt"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/formtitulo"
-                        android:layout_width="368dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/form_background"
                         android:hint="@string/form_titulolibro"
                         android:inputType="text"
-                        android:paddingLeft="15dp"
-                        android:textSize="25dp"/>
+                        android:paddingLeft="15dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,7 +78,7 @@
 
                     <ImageButton
                         android:id="@+id/addBtn"
-                        android:layout_width="130dp"
+                        android:layout_width="150dp"
                         android:layout_height="167dp"
                         android:background="@drawable/shape"
                         android:src="@drawable/mas"
@@ -90,14 +90,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/formgenero"
-                        android:layout_width="368dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/form_background"
                         android:ems="10"
@@ -107,14 +107,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/formautor"
-                        android:layout_width="368dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/form_background"
                         android:ems="10"
@@ -131,7 +131,7 @@
 
                     <TextView
                         android:id="@+id/textView3"
-                        android:layout_width="145dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight="1"
@@ -142,7 +142,7 @@
 
                     <EditText
                         android:id="@+id/editTextNumberSigned2"
-                        android:layout_width="166dp"
+                        android:layout_width="154dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/form_background"
@@ -159,14 +159,14 @@
 
                         <ImageButton
                             android:id="@+id/imageButton3"
-                            android:layout_width="50dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:src="@drawable/arrow_up" />
 
                         <ImageButton
                             android:id="@+id/imageButton4"
-                            android:layout_width="50dp"
+                            android:layout_width="69dp"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:src="@drawable/arrow_down" />
@@ -174,14 +174,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/formestado"
-                        android:layout_width="368dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/form_background"
                         android:ems="10"
@@ -191,14 +191,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/formresumen"
-                        android:layout_width="379dp"
+                        android:layout_width="match_parent"
                         android:layout_height="115dp"
                         android:layout_weight="1"
                         android:background="@drawable/form_background"
@@ -214,6 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:paddingBottom="3pt"
                     android:orientation="horizontal">
 
 
@@ -224,6 +225,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:layout_weight="1"
+
                         android:text="@string/form_añadir" />
 
                 </LinearLayout>
