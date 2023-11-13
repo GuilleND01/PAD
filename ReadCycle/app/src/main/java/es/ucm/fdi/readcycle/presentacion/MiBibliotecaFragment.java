@@ -11,8 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.negocio.BookInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class MiBibliotecaFragment extends Fragment {
@@ -23,7 +27,7 @@ public class MiBibliotecaFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        Intrinsics.checkNotNullParameter(inflater, "inflater"); //comprobamos que lo que llega no es ulo
         View view = inflater.inflate(R.layout.fragment_biblioteca, container, false);
 
         addBtn = view.findViewById(R.id.addBtn);
@@ -43,8 +47,24 @@ public class MiBibliotecaFragment extends Fragment {
             }
         });
 
+        //TODO QUITAR ESTO, esta solo para ver que va el recyclerView
+        BookInfo b1 = new BookInfo("HOLA", "");
+        BookInfo b2 = new BookInfo("DOS", "");
+        BookInfo b3 = new BookInfo("POP", "");
+        ArrayList<BookInfo> a = new ArrayList<>();
+        a.add(b1);
+        a.add(b2);
+        a.add(b3);
 
-        Intrinsics.checkNotNullParameter(inflater, "inflater"); //comprobamos que lo que llega no es ulo
+        BookAdapter ba = new BookAdapter();
+        ba.setBookData(a);
+        RecyclerView recyclerView = view.findViewById(R.id.reclyclerView);
+        recyclerView.setAdapter(ba);
+
+
+
+
+
         return view;
 
     }

@@ -39,6 +39,7 @@
 
         </LinearLayout>
 
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -65,7 +66,8 @@
                         android:background="@drawable/form_background"
                         android:hint="@string/form_titulolibro"
                         android:inputType="text"
-                        android:paddingLeft="15dp" />
+                        android:paddingLeft="15dp"
+                        android:textSize="25dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,7 +142,7 @@
 
                     <EditText
                         android:id="@+id/editTextNumberSigned2"
-                        android:layout_width="154dp"
+                        android:layout_width="166dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/form_background"
@@ -157,14 +159,14 @@
 
                         <ImageButton
                             android:id="@+id/imageButton3"
-                            android:layout_width="match_parent"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:src="@drawable/arrow_up" />
 
                         <ImageButton
                             android:id="@+id/imageButton4"
-                            android:layout_width="69dp"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:src="@drawable/arrow_down" />
