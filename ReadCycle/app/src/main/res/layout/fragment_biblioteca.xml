@@ -34,23 +34,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/addBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape"
-                    android:src="@drawable/mas"
-                    android:textColorHighlight="@color/fondoClaro"
-                    android:textColorLink="@color/fondoClaro"
-                    app:strokeColor="@color/navbar" />
-
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/reclyclerView"
+                android:id="@+id/reclyclerViewBook"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

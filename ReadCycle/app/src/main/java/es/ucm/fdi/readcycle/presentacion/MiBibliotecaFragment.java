@@ -30,11 +30,30 @@ public class MiBibliotecaFragment extends Fragment {
         Intrinsics.checkNotNullParameter(inflater, "inflater"); //comprobamos que lo que llega no es ulo
         View view = inflater.inflate(R.layout.fragment_biblioteca, container, false);
 
-        addBtn = view.findViewById(R.id.addBtn);
+        //PRUEBA PARA LAS CARDS
+
+        BookInfo book1 = new BookInfo("Hola","Terror", "","","","", 1);
+        BookInfo book2 = new BookInfo("ADIOS","Terror", "","","","", 1);
+        BookInfo book3 = new BookInfo("DCNDJKC","Terror", "","","","", 1);
+        ArrayList<BookInfo> a = new ArrayList<>();
+        a.add(book1);
+        a.add(book2);
+        a.add(book3);
+
+        BookAdapter b = new BookAdapter();
+        b.setBookData(a);
+        RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
+        recyclerView.setAdapter(b);
+
+
+
+
+        /*addBtn = view.findViewById(R.id.addBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
+
                 //  Creamos el nuevo libro
                 AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -43,9 +62,11 @@ public class MiBibliotecaFragment extends Fragment {
                 transaction.replace(R.id.frameLayout, nuevoLibroFragment);
                 transaction.addToBackStack(null);
 
+                //String title, String genre, String author, String state, String description, String img, Integer pages
+
                 transaction.commit();
             }
-        });
+        });*/
 
         return view;
 
