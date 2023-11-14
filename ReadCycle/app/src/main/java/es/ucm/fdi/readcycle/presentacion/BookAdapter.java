@@ -1,5 +1,8 @@
 package es.ucm.fdi.readcycle.presentacion;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,6 +94,15 @@ public class BookAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     //TODO
                     Log.d("HOLA", "implementar add book");
+
+                    FragmentManager fragmentManager = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Reemplaza o agrega tu nuevo fragmento
+                    AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
+                    fragmentTransaction.replace(R.id.frameLayout, nuevoLibroFragment);
+                    fragmentTransaction.commit();
+
             /*        //  Creamos el nuevo libro
                     AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
                     FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -130,10 +144,8 @@ public class BookAdapter extends RecyclerView.Adapter {
 
         }*/
 
-
-
-
     }
+
 
     @Override
     public int getItemCount() {
