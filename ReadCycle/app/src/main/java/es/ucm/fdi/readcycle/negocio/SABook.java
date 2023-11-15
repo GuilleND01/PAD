@@ -6,10 +6,13 @@ public class SABook {
     /* No voy a hacer SABookImp ni hacerlo singleton porque si no nos queda el proyecto enorme, pero
     * esta clase se encarga de validar la lógica de negocio antes de guardar un libro*/
 
-    public boolean guardarLibro(BookInfo book){
+    public int guardarLibro(BookInfo book){
         DAOBook daoBook = new DAOBook();
-        if (!daoBook.existeLibro(book)){
-            return daoBook.guardarLibro(book);
-        } return false;
+        if (!daoBook.existeLibro(book)) {
+            if(daoBook.guardarLibro(book)){
+                return 1;
+            } else return -1;
+        } else return 0;
+
     }
 }

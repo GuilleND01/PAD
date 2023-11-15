@@ -23,10 +23,13 @@ import kotlin.jvm.internal.Intrinsics;
 public class AddLibroFragment extends Fragment {
 
     private EditText resumen, titulo, autor, estado, genero, num_paginas;
-    //private NumberPicker num_paginas;
     private Button añadirBtn;
 
     private String MSG_FORM_INCOMPLETO = "Formulario incompleto";
+    private String MSG_EROR_YA_EXISTE = "El libro ya existe en tu biblioteca";
+    private String MSG_EROR_EXITO = "Libro añadido con éxito";
+    private String MSG_ERROR_GENERAL = "Algo ha salido mal. Vuelve a intentarlo";
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,9 +47,10 @@ public class AddLibroFragment extends Fragment {
                 autor = view.findViewById(R.id.formautor);
                 estado = view.findViewById(R.id.formestado);
                 resumen = view.findViewById(R.id.formresumen);
+                num_paginas = view.findViewById(R.id.formnumpaginas);
 
                 ArrayList<EditText> editTextObligatorios = new ArrayList<EditText>() {{add(titulo);
-                        add(genero); add(autor); add(estado); add(resumen);}};
+                        add(genero); add(autor); add(estado);}};
 
                 boolean form_valido = true;
 
@@ -67,8 +71,12 @@ public class AddLibroFragment extends Fragment {
                             Integer.parseInt(num_paginas.getText().toString()));
 
                     SABook saBookInfo = new SABook();
-
-                    // Guardar en DB, se debería comprobar si el usuario ya tiene un libro igual no??
+                    int res_guardar = saBookInfo.guardarLibro(nuevo_libro);
+                    if (res_guardar == 1) {
+                        Toast.makeText(view.getContext(), MSG_EROR_EXITO, Toast.LENGTH_LONG).show();
+                    } else if (res_guardar == 0){
+                        Toast.makeText(view.getContext(), MSG_EROR_YA_EXISTE, Toast.LENGTH_LONG).show();
+                    } else Toast.makeText(view.getContext(), MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -14,12 +14,31 @@ public class BookInfo {
         this.pages=pages;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public String getImg(){
+    public String getImg() {
         return img;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getPages() {
+        return pages;
+    }
 }
