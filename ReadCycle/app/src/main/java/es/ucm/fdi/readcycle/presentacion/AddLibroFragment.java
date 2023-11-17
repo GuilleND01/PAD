@@ -53,12 +53,14 @@ public class AddLibroFragment extends Fragment {
 
         genero = view.findViewById(R.id.formgenero);
         resetGeneros = view.findViewById(R.id.btn_reset_genero);
+        lista_generos_view = view.findViewById(R.id.generos_anadidos);
+
 
         resetGeneros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lista_generos.clear();
-                lista_generos_view.setText("Géneros añadidos: ");
+                lista_generos_view.setText("No ha generos añadidos"); //TODO CAMBIAR A STRINGS
             }
         });
         añadirGenero.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +69,6 @@ public class AddLibroFragment extends Fragment {
             public void onClick(View v) {
                 String new_genero = genero.getText().toString();
                 if(!new_genero.trim().equals("")){
-                    lista_generos_view = view.findViewById(R.id.generos_anadidos);
                     lista_generos.add(genero.getText().toString());
                     genero.setText("");
                     lista_generos_view.setText("Géneros añadidos: " + lista_generos.toString());
