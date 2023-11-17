@@ -17,4 +17,17 @@
     <string name="form_libroestado">Estado del libro</string>
     <string name="form_resumen">Resumen</string>
     <string name="form_añadir">Añadir</string>
+
+    <!--Formulario login y registro-->
+    <string name="correo">Correo electronico</string>
+    <string name="nombre">Nombre</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="contraseñaConfirm">Confirmar Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="entrarGoogle">Entrar con Google</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="registrarseGoogle">Registrarse con Google</string>
+    <string name="contacto">Forma de contacto</string>
+    <string name="zona">Zona de localización</string>
+
 </resources>
