@@ -1,5 +1,13 @@
 package es.ucm.fdi.readcycle.integracion;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,5 +57,42 @@ public class DAOBook {
         } catch (Exception e){
             return false;
         }
+    }
+
+    public ArrayList<BookInfo> bucarLibros(BookInfo b){
+        ArrayList<BookInfo> bs = new ArrayList<>();
+        if(b.getAuthor() != null){
+            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Autor",
+                    b.getAuthor()).get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot d: task.getResult()){
+                        BookInfo book = new BookInfo(d.get("Titulo").toString(),
+                                (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
+                                d.get("Estado").toString(),
+                                d.get("Descripcion").toString(), null,
+                                Integer.parseInt(d.get("Paginas").toString()));
+                        b.setPropietario(d.get("Propietario").toString());
+                        bs.add(book);
+                    }
+                }
+            });
+        }
+        else{
+            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Titulo",
+                    b.getTitle()).get().addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot d: task.getResult()){
+                                BookInfo book = new BookInfo(d.get("Titulo").toString(),
+                                        (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
+                                        d.get("Estado").toString(),
+                                        d.get("Descripcion").toString(), null,
+                                        Integer.parseInt(d.get("Paginas").toString()));
+                                b.setPropietario(d.get("Propietario").toString());
+                                bs.add(book);
+                            }
+                        }
+                    });
+        }
+        return null;
     }
 }

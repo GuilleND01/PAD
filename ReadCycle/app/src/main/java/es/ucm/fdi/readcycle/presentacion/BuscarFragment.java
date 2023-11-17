@@ -1,6 +1,7 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.negocio.BookInfo;
+import es.ucm.fdi.readcycle.negocio.SABook;
 import kotlin.jvm.internal.Intrinsics;
 
 public class BuscarFragment extends Fragment {
@@ -37,12 +40,18 @@ public class BuscarFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                SABook service = new SABook();
+                BookInfo b = new BookInfo();
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo){
-
+                    b.setTitle(query);
+                    b.setAuthor(null);
+                    Log.d("BUS", service.bucarLibros(b).toString());
                 }
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor){
-
+                    b.setTitle(null);
+                    b.setAuthor(query);
+                    String p = service.bucarLibros(b).toString();
+                    Log.d("BUS", p);
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();

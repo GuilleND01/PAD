@@ -1,5 +1,7 @@
 package es.ucm.fdi.readcycle.negocio;
 
+import java.util.ArrayList;
+
 import es.ucm.fdi.readcycle.integracion.DAOBook;
 
 public class SABook {
@@ -15,5 +17,9 @@ public class SABook {
         } else return 0;
 
     }
-    
+
+    public ArrayList<BookInfo> bucarLibros(BookInfo b){
+        DAOBook daoBook = new DAOBook();
+        return daoBook.bucarLibros(b);
+    }
 }

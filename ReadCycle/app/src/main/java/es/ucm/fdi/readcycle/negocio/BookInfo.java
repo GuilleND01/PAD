@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class BookInfo {
 
-    private String title, img, author, state, description;
+    private String title, img, author, state, description, propietario;
     private ArrayList<String> genres;
     private Integer pages;
 
@@ -18,6 +18,7 @@ public class BookInfo {
         this.description=description;
         this.pages=pages;
     }
+    public BookInfo(){};
 
     public String getTitle() {
         return title;
@@ -45,5 +46,19 @@ public class BookInfo {
 
     public Integer getPages() {
         return pages;
+    }
+
+    public String getPropietario(){return propietario; }
+
+    public void setPropietario(String propietario){
+        this.propietario=propietario;
+    }
+
+    public void setTitle(String title){
+        this.title=title;
+    }
+
+    public void setAuthor(String author){
+        this.author=author;
     }
 }
