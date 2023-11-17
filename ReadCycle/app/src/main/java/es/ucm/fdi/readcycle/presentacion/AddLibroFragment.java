@@ -29,13 +29,16 @@ public class AddLibroFragment extends Fragment {
 
     private TextView lista_generos_view;
 
-    private ArrayList<String> lista_generos;
+    private ArrayList<String> lista_generos = new ArrayList<String>();
+
 
     private String MSG_FORM_INCOMPLETO = "Formulario incompleto";
     private String MSG_EROR_YA_EXISTE = "El libro ya existe en tu biblioteca";
     private String MSG_EROR_EXITO = "Libro añadido con éxito";
     private String MSG_ERROR_GENERAL = "Algo ha salido mal. Vuelve a intentarlo";
     private View view;
+
+
 
 
     @Override
@@ -50,7 +53,6 @@ public class AddLibroFragment extends Fragment {
 
         genero = view.findViewById(R.id.formgenero);
         resetGeneros = view.findViewById(R.id.btn_reset_genero);
-        lista_generos = new ArrayList<String>();
 
         resetGeneros.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +86,7 @@ public class AddLibroFragment extends Fragment {
                 num_paginas = view.findViewById(R.id.formnumpaginas);
 
                 ArrayList<EditText> editTextObligatorios = new ArrayList<EditText>() {{add(titulo);
-                        add(genero); add(autor); add(estado);}};
+                        add(autor); add(estado);}};
 
                 boolean form_valido = true;
 
@@ -97,6 +99,10 @@ public class AddLibroFragment extends Fragment {
                     }
                 }
 
+                if (lista_generos.isEmpty()){
+                    form_valido = false;
+                    genero.setError("Requerido");
+                }
                 if (!form_valido) {
                     Toast.makeText(view.getContext(), MSG_FORM_INCOMPLETO, Toast.LENGTH_LONG).show();
                 } else {
