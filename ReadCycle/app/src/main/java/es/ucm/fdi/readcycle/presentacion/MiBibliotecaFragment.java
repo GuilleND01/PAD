@@ -32,9 +32,11 @@ public class MiBibliotecaFragment extends Fragment {
 
         //PRUEBA PARA LAS CARDS
 
-        BookInfo book1 = new BookInfo("Hola","Terror", "","","","", 1);
-        BookInfo book2 = new BookInfo("ADIOS","Terror", "","","","", 1);
-        BookInfo book3 = new BookInfo("DCNDJKC","Terror", "","","","", 1);
+        ArrayList<String> g = new ArrayList<String>();
+        g.add("Terror");
+        BookInfo book1 = new BookInfo("Hola",g, "","","","", 1);
+        BookInfo book2 = new BookInfo("ADIOS",g, "","","","", 1);
+        BookInfo book3 = new BookInfo("DCNDJKC",g, "","","","", 1);
         ArrayList<BookInfo> a = new ArrayList<>();
         a.add(book1);
         a.add(book2);
