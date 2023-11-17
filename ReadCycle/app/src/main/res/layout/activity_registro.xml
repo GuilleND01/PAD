@@ -34,7 +34,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="text"
-                android:hint="Nombre" />
+                android:hint="@string/nombre" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +50,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="textEmailAddress"
-                android:hint="Correo" />
+                android:hint="@string/correo" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="textPassword"
-                android:hint="Contraseña" />
+                android:hint="@string/contraseña" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="textPassword"
-                android:hint="Confirmar Contraseña" />
+                android:hint="@string/contraseñaConfirm" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="text"
-                android:hint="Forma de contacto" />
+                android:hint="@string/contacto" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/shape_login"
                 android:inputType="text"
-                android:hint="Zona de localizacion" />
+                android:hint="@string/zona" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -125,7 +125,7 @@
             android:elevation="4dp"
             android:textColor="@color/fondoClaro"
             android:backgroundTint="@color/botonAdd"
-            android:text="Sign up" />
+            android:text="@string/registrarse" />
 
 
         <View
@@ -147,7 +147,7 @@
             android:elevation="4dp"
             android:textColor="@color/botonAdd"
             android:backgroundTint="@color/fondoClaro"
-            android:text="Sign in with google" />
+            android:text="@string/registrarseGoogle" />
 
 
 

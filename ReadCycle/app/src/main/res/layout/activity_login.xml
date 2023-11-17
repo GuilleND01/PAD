@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_login"
                 android:inputType="textEmailAddress"
-                android:hint="Correo electronico" />
+                android:hint="@string/correo" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_login"
                 android:inputType="textPassword"
-                android:hint="Contraseña" />
+                android:hint="@string/contraseña" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -64,7 +64,7 @@
             android:elevation="4dp"
             android:textColor="@color/fondoClaro"
             android:backgroundTint="@color/botonAdd"
-            android:text="Log in" />
+            android:text="@string/entrar" />
 
 
         <View
@@ -86,7 +86,7 @@
             android:elevation="4dp"
             android:textColor="@color/botonAdd"
             android:backgroundTint="@color/fondoClaro"
-            android:text="Log in with google" />
+            android:text="@string/entrarGoogle" />
 
         <View
             android:id="@+id/divider2"
@@ -106,7 +106,7 @@
             android:textColor="@color/fondoClaro"
             android:textSize="18dp"
             android:fontFamily="sans-serif-black"
-            android:text="Registrarse" />
+            android:text="@string/registrarse" />
 
 
     </LinearLayout>
