@@ -13,7 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.BuscarCallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
 import kotlin.jvm.internal.Intrinsics;
@@ -45,13 +48,22 @@ public class BuscarFragment extends Fragment {
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo){
                     b.setTitle(query);
                     b.setAuthor(null);
-                    Log.d("BUS", service.bucarLibros(b).toString());
+                    service.bucarLibros(b, new BuscarCallBacks() {
+                        @Override
+                        public void onCallback(ArrayList<BookInfo> bs) {
+                            Log.d("BUS", bs.toString());
+                        }
+                    });
                 }
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor){
                     b.setTitle(null);
                     b.setAuthor(query);
-                    String p = service.bucarLibros(b).toString();
-                    Log.d("BUS", p);
+                    service.bucarLibros(b, new BuscarCallBacks() {
+                        @Override
+                        public void onCallback(ArrayList<BookInfo> bs) {
+                            Log.d("BUS", bs.toString());
+                        }
+                    });
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();

@@ -10,6 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 
@@ -59,7 +60,7 @@ public class DAOBook {
         }
     }
 
-    public ArrayList<BookInfo> bucarLibros(BookInfo b){
+    public void bucarLibros(@NonNull BookInfo b, BuscarCallBacks callBacks){
         ArrayList<BookInfo> bs = new ArrayList<>();
         if(b.getAuthor() != null){
             SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Autor",
@@ -71,9 +72,10 @@ public class DAOBook {
                                 d.get("Estado").toString(),
                                 d.get("Descripcion").toString(), null,
                                 Integer.parseInt(d.get("Paginas").toString()));
-                        b.setPropietario(d.get("Propietario").toString());
+                        book.setPropietario(d.get("Propietario").toString());
                         bs.add(book);
                     }
+                    callBacks.onCallback(bs);
                 }
             });
         }
@@ -87,12 +89,12 @@ public class DAOBook {
                                         d.get("Estado").toString(),
                                         d.get("Descripcion").toString(), null,
                                         Integer.parseInt(d.get("Paginas").toString()));
-                                b.setPropietario(d.get("Propietario").toString());
+                                book.setPropietario(d.get("Propietario").toString());
                                 bs.add(book);
                             }
+                            callBacks.onCallback(bs);
                         }
                     });
         }
-        return null;
     }
 }
