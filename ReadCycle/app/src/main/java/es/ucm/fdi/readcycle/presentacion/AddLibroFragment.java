@@ -1,18 +1,30 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,6 +39,7 @@ public class AddLibroFragment extends Fragment {
     private EditText resumen, titulo, autor, estado, genero, num_paginas;
     private Button añadirBtn, añadirGenero, resetGeneros;
 
+    private ImageButton añadirFoto;
     private TextView lista_generos_view;
 
     private ArrayList<String> lista_generos = new ArrayList<String>();
@@ -37,6 +50,8 @@ public class AddLibroFragment extends Fragment {
     private String MSG_EROR_EXITO = "Libro añadido con éxito";
     private String MSG_ERROR_GENERAL = "Algo ha salido mal. Vuelve a intentarlo";
     private View view;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
 
 
@@ -54,6 +69,8 @@ public class AddLibroFragment extends Fragment {
         genero = view.findViewById(R.id.formgenero);
         resetGeneros = view.findViewById(R.id.btn_reset_genero);
         lista_generos_view = view.findViewById(R.id.generos_anadidos);
+
+        añadirFoto = view.findViewById(R.id.addPhotoBtn);
 
 
         resetGeneros.setOnClickListener(new View.OnClickListener() {
@@ -122,10 +139,35 @@ public class AddLibroFragment extends Fragment {
             }
         });
 
+
+        añadirFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //creamos un intent para acceder a la galeria
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
+                startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+            }
+        });
+
         Intrinsics.checkNotNullParameter(inflater, "inflater");
         return view;
+
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("CLAU", "ESTAMOS EN EL onactivity");
+        super.onActivityResult(requestCode, resultCode, data);
+        //seleccionamos la imagen y la sustituimos por el boton
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            Glide.with(requireContext())
+                    .load(selectedImageUri)
+                    .into(añadirFoto);
+            android.net.Uri selectedImage = data.getData();
+            // Hacer algo con la URI de la imagen seleccionada
+        }
+    }
 
 
 
