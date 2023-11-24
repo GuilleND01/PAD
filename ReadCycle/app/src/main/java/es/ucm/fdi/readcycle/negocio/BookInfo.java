@@ -3,17 +3,20 @@ package es.ucm.fdi.readcycle.negocio;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import es.ucm.fdi.readcycle.R;
+
 public class BookInfo {
 
-    private String title, img, author, state, description, propietario;
+    private String title, img, author, description, propietario;
+    private int state;
     private ArrayList<String> genres;
     private Integer pages;
 
-    public BookInfo(String title, ArrayList<String> genres, String author, String state, String description, String img, Integer pages){
+    public BookInfo(String title, ArrayList<String> genres, String author, int state, String description, String img, Integer pages){
         this.title=title;
         this.img=img;
-        this.genres=genres; // Debería ser un array?
-        this.author=author; // Debería ser un array?
+        this.genres=genres;
+        this.author=author;
         this.state=state;
         this.description=description;
         this.pages=pages;
@@ -36,9 +39,7 @@ public class BookInfo {
         return author;
     }
 
-    public String getState() {
-        return state;
-    }
+    public int getState() { return state; }
 
     public String getDescription() {
         return description;

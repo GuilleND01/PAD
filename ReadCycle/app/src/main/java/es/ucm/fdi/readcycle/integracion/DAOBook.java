@@ -28,17 +28,6 @@ public class DAOBook {
     private final String PROPIETARIO = "Propietario";
 
 
-
-
-
-
-
-    public boolean existeLibro (BookInfo libro){
-        //SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document("...").get();
-        // return doc.exists()
-        return false;
-    }
-
     public boolean guardarLibro (BookInfo libro) {
 
         try {
@@ -69,7 +58,7 @@ public class DAOBook {
                     for (QueryDocumentSnapshot d: task.getResult()){
                         BookInfo book = new BookInfo(d.get("Titulo").toString(),
                                 (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
-                                d.get("Estado").toString(),
+                                Integer.parseInt(d.get("Estado").toString()),
                                 d.get("Descripcion").toString(), null,
                                 Integer.parseInt(d.get("Paginas").toString()));
                         book.setPropietario(d.get("Propietario").toString());
@@ -86,7 +75,7 @@ public class DAOBook {
                             for (QueryDocumentSnapshot d: task.getResult()){
                                 BookInfo book = new BookInfo(d.get("Titulo").toString(),
                                         (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
-                                        d.get("Estado").toString(),
+                                        Integer.parseInt(d.get("Estado").toString()),
                                         d.get("Descripcion").toString(), null,
                                         Integer.parseInt(d.get("Paginas").toString()));
                                 book.setPropietario(d.get("Propietario").toString());

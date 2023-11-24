@@ -34,9 +34,9 @@ public class MiBibliotecaFragment extends Fragment {
 
         ArrayList<String> g = new ArrayList<String>();
         g.add("Terror");
-        BookInfo book1 = new BookInfo("Hola",g, "","","","", 1);
-        BookInfo book2 = new BookInfo("ADIOS",g, "","","","", 1);
-        BookInfo book3 = new BookInfo("DCNDJKC",g, "","","","", 1);
+        BookInfo book1 = new BookInfo("Hola",g, "",0,"","", 1);
+        BookInfo book2 = new BookInfo("ADIOS",g, "",0,"","", 1);
+        BookInfo book3 = new BookInfo("DCNDJKC",g, "",0,"","", 1);
         ArrayList<BookInfo> a = new ArrayList<>();
         a.add(book1);
         a.add(book2);

@@ -11,11 +11,9 @@ public class SABook {
 
     public int guardarLibro(BookInfo book){
         DAOBook daoBook = new DAOBook();
-        if (!daoBook.existeLibro(book)) {
             if(daoBook.guardarLibro(book)){
                 return 1;
             } else return -1;
-        } else return 0;
 
     }
 

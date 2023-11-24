@@ -30,4 +30,12 @@
     <string name="registrarseGoogle">Sign up with  Google</string>
     <string name="contacto">Contact form</string>
     <string name="zona">Localization area</string>
+
+    <!-- Posibles estados de un libro -->
+    <string-array name="books_array">
+        <item>New</item>
+        <item>Used</item>
+        <item>Antique</item>
+        <item>Restored</item>
+    </string-array>
 </resources>

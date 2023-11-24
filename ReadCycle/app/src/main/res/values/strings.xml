@@ -32,4 +32,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Posibles estados de un libro -->
+    <string-array name="books_array">
+        <item>Nuevo</item>
+        <item>Usado</item>
+        <item>Antiguo</item>
+        <item>Restaurado</item>
+    </string-array>
 </resources>
