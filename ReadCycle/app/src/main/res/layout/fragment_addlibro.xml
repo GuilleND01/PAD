@@ -188,15 +188,21 @@
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/formestado"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:text="@string/form_libroestado"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="8dp"
                         android:layout_height="35dp"
-                        android:background="@drawable/form_background"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/formestado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
                         android:ems="10"
-                        android:hint="@string/form_libroestado"
-                        android:inputType="text"
                         android:paddingLeft="15dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
