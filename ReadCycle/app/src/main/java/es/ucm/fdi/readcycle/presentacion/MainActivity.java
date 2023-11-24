@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(this, Registro.class);
+        startActivity(intent);
 
 
         //CARGAMOS LA BIBLIOTECA DE PRIMERAS

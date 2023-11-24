@@ -28,7 +28,9 @@
             android:layout_marginLeft="30dp"
             >
 
-            <com.google.android.material.textfield.TextInputEditText
+
+
+            <EditText
                 android:id="@+id/nombreRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -44,7 +46,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/correoRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -59,7 +61,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/contraseñaRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -74,7 +76,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/confimContraseñaRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -89,7 +91,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/formaContactoRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -104,7 +106,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/zonaLocalizacionRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -116,7 +118,7 @@
 
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/registro"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

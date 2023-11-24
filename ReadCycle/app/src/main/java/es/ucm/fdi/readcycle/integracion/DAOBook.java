@@ -31,8 +31,6 @@ public class DAOBook {
 
 
 
-
-
     public boolean existeLibro (BookInfo libro){
         //SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document("...").get();
         // return doc.exists()
