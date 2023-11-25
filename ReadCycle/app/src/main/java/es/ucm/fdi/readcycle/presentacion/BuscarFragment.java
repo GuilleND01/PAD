@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
@@ -48,12 +49,6 @@ public class BuscarFragment extends Fragment {
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo){
                     b.setTitle(query);
                     b.setAuthor(null);
-                    service.bucarLibros(b, new BuscarCallBacks() {
-                        @Override
-                        public void onCallback(ArrayList<BookInfo> bs) {
-                            Log.d("BUS", bs.toString());
-                        }
-                    });
                 }
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor){
                     b.setTitle(null);
@@ -68,6 +63,18 @@ public class BuscarFragment extends Fragment {
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
                 }
+                service.bucarLibros(b, new BuscarCallBacks() {
+                    @Override
+                    public void onCallback(ArrayList<BookInfo> bs) {
+                        MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
+                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, mostrarResultadosFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                        Log.d("BUS", bs.toString());
+                    }
+                });
                 return false;
             }
 
