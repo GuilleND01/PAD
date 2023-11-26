@@ -1,11 +1,14 @@
 package es.ucm.fdi.readcycle.integracion;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,32 +29,48 @@ public class DAOBook {
     private final String NUM_PAGINAS = "Paginas";
     private final String TITULO = "Titulo";
     private final String PROPIETARIO = "Propietario";
+    private final String RUTA_IMAGEN = "Ruta_Imagen";
 
 
 
 
-
-    public boolean existeLibro (BookInfo libro){
-        //SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document("...").get();
-        // return doc.exists()
-        return false;
-    }
 
     public boolean guardarLibro (BookInfo libro) {
 
         try {
-            // Id provisonal hay que pensar cuál dar
-            String id = String.format("%s-%s", libro.getTitle(), "Nadie de momento");
-            Map<String, Object> data = new HashMap<>();
-            data.put(AUTOR, libro.getAuthor());
-            data.put(TITULO, libro.getTitle());
-            data.put(DESC, libro.getDescription());
-            data.put(NUM_PAGINAS, libro.getPages());
-            data.put(ESTADO, libro.getState());
-            data.put(GENERO, libro.getGenre());
-            data.put(PROPIETARIO, "Nadie de momento");
+                // Id provisonal hay que pensar cuál dar
+                FirebaseImageStorage imageStorage = new FirebaseImageStorage();
 
-            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(id).set(data);
+                String id = String.format("%s-%s", libro.getTitle(), "Nadie de momento");
+                Map<String, Object> data = new HashMap<>();
+                data.put(AUTOR, libro.getAuthor());
+                data.put(TITULO, libro.getTitle());
+                data.put(DESC, libro.getDescription());
+                data.put(NUM_PAGINAS, libro.getPages());
+                data.put(ESTADO, libro.getState());
+                data.put(GENERO, libro.getGenre());
+                data.put(PROPIETARIO, "Nadie de momento");
+
+                // TODO hay que meter el campo imagen una vez se haya subido
+                //data.put(RUTA_IMAGEN, downloadUrl);
+
+
+                String nombreImagen = String.format("%s-%s", libro.getTitle(), "Nadie de momento");
+                StorageReference fileReference = imageStorage.getStorageRef().child(nombreImagen);
+
+                Log.d("file reference", fileReference.toString());
+                fileReference.child(nombreImagen + ".png").putFile(libro.getSelectedImage())
+                        .addOnSuccessListener(taskSnapshot -> {
+
+                            fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                                String downloadUrl = uri.toString();
+                            });
+
+                        });
+
+                SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(id).set(data);
+
+                
             return true;
         } catch (Exception e){
             return false;
@@ -59,7 +78,8 @@ public class DAOBook {
     }
 
     public void bucarLibros(@NonNull BookInfo b, BuscarCallBacks callBacks){
-        ArrayList<BookInfo> bs = new ArrayList<>();
+
+        /*ArrayList<BookInfo> bs = new ArrayList<>();
         if(b.getAuthor() != null){
             SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Autor",
                     b.getAuthor()).get().addOnCompleteListener(task -> {
@@ -93,6 +113,7 @@ public class DAOBook {
                             callBacks.onCallback(bs);
                         }
                     });
-        }
+        } */
+
     }
 }

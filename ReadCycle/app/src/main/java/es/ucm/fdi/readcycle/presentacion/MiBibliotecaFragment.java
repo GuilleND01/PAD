@@ -34,9 +34,10 @@ public class MiBibliotecaFragment extends Fragment {
 
         ArrayList<String> g = new ArrayList<String>();
         g.add("Terror");
-        BookInfo book1 = new BookInfo("Hola",g, "",0,"","", 1);
-        BookInfo book2 = new BookInfo("ADIOS",g, "",0,"","", 1);
-        BookInfo book3 = new BookInfo("DCNDJKC",g, "",0,"","", 1);
+        android.net.Uri selectedImage =null;
+        BookInfo book1 = new BookInfo("Hola",g, "",0,"","", 1, selectedImage);
+        BookInfo book2 = new BookInfo("ADIOS",g, "",0,"","", 1, selectedImage);
+        BookInfo book3 = new BookInfo("DCNDJKC",g, "",0,"","", 1, selectedImage);
         ArrayList<BookInfo> a = new ArrayList<>();
         a.add(book1);
         a.add(book2);
