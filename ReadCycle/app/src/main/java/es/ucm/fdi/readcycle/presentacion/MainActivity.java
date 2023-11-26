@@ -23,6 +23,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.negocio.SAUser;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 
 public class MainActivity extends AppCompatActivity {
 

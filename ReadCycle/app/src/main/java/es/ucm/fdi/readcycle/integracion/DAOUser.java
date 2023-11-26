@@ -7,25 +7,31 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
+import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 import es.ucm.fdi.readcycle.presentacion.Registro;
 
 public class DAOUser {
     private FirebaseAuth mAuth;
-    private final String NOMBRE = "nombre;";
+    private final String NOMBRE = "nombre";
     private final String CONTACTO = "contacto";
     private final String CORREO = "correo";
     private final String ZONA = "zona";
 
     private final String COL_USUARIOS = "Usuarios";
+
+
 
 
 
@@ -92,5 +98,24 @@ public class DAOUser {
                     }
                 });
     }
+
+    public void getUsuario(String email, UsuarioCallBacks callBacks){
+        UserInfo user = new UserInfo();
+        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo("correo",
+                email).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for (QueryDocumentSnapshot d: task.getResult()){
+
+                     user.setNombre(d.get(NOMBRE).toString());
+                     user.setContacto(d.get(CONTACTO).toString());
+                     user.setCorreo(d.get(CORREO).toString());
+                     user.setZona(d.get(ZONA).toString());
+                }
+                callBacks.onCallback(user);
+            }
+        });
+
+    }
+
 
 }
