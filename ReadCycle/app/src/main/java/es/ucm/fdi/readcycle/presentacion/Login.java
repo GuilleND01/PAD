@@ -43,15 +43,25 @@ public class Login extends AppCompatActivity {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SAUser saUser = new SAUser();
-                saUser.entrarUsuario(correo.getText().toString(), contraseña.getText().toString());
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Intent intent2 = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent2);
-                    }
-                }, 1000);
+
+                if (correo.getText().toString().trim().equals("")){
+                    correo.setError(getString(R.string.req));
+
+                } else if (contraseña.getText().toString().trim().equals("")) {
+                    contraseña.setError(getString(R.string.req));
+                }
+                else{
+                    SAUser saUser = new SAUser();
+                    saUser.entrarUsuario(correo.getText().toString(), contraseña.getText().toString());
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Intent intent2 = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent2);
+                        }
+                    }, 1000);
+                }
+
 
             }
         });

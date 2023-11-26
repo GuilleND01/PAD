@@ -30,6 +30,15 @@
     <string name="contacto">Forma de contacto</string>
     <string name="zona">Zona de localización</string>
 
+    <!--Manejo de errores en formularios de inicio y registro-->
+    <string name="req">Requerido</string>
+    <string name="errorNombre">Formato del nombre no válido</string>
+    <string name="errorCorreo">Formato del correo no válido</string>
+    <string name="errorContraseña">La contraseña debe tener almenos 6 caracteres y un número</string>
+    <string name="contraseñasDiferentes">Las contraseñas deben coincidir</string>
+    <string name="correoExiste">Ya existe una cuenta con ese correo</string>
+    <string name="datosNoValidos">El usuario o la contraseña son incorrectos</string>
+
     <!--Mostar búsqueda-->
     <string name="resultados">resultados:</string>
 

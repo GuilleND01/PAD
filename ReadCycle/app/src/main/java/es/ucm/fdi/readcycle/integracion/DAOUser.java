@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -40,11 +41,13 @@ public class DAOUser {
     }
 
 
-    public void createAccount(UserInfo usuarioInsertar){
+    public void createAccount(UserInfo usuarioInsertar) throws FirebaseAuthUserCollisionException {
+
         mAuth.createUserWithEmailAndPassword(usuarioInsertar.getCorreo(), usuarioInsertar.getContraseña())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task)  {
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("USUARIO", "createUserWithEmail:success");
@@ -52,26 +55,22 @@ public class DAOUser {
                             //updateUI(user);
 
                             //metemos en la bd la informacion del usuario
-                            try {
-                                // Id provisonal hay que pensar cuál dar
-                                Map<String, Object> data = new HashMap<>();
-                                data.put(NOMBRE, usuarioInsertar.getNombre());
-                                data.put(CONTACTO, usuarioInsertar.getContacto());
-                                data.put(ZONA, usuarioInsertar.getZona());
-                                data.put(CORREO, usuarioInsertar.getCorreo());
 
-                                //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
-                                SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
+                            // Id provisonal hay que pensar cuál dar
+                            Map<String, Object> data = new HashMap<>();
+                            data.put(NOMBRE, usuarioInsertar.getNombre());
+                            data.put(CONTACTO, usuarioInsertar.getContacto());
+                            data.put(ZONA, usuarioInsertar.getZona());
+                            data.put(CORREO, usuarioInsertar.getCorreo());
 
-                            } catch (Exception e){
+                            //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
+                            SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
 
-                            }
+
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("USUARIO", "createUserWithEmail:failure", task.getException());
-                            //Toast.makeText(Registro.this, "Authentication failed.", Toast.LENGTH_SHORT).show(); TODO UN BOOL
-                            //updateUI(null);*/
                         }
                     }
                 });

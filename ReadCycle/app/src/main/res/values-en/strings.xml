@@ -30,7 +30,16 @@
     <string name="registrarseGoogle">Sign up with  Google</string>
     <string name="contacto">Contact form</string>
     <string name="zona">Localization area</string>
-    t
+
+    <!--Manejo de errores en formularios de inicio y registro-->
+    <string name="req">Required</string>
+    <string name="errorNombre">Invalid name format</string>
+    <string name="errorCorreo">Invalid email format </string>
+    <string name="errorContraseña">Password must have 6 characters and at least a number</string>
+    <string name="contraseñasDiferentes">Passwords must match</string>
+    <string name="correoExiste">There is already an account with this email address</string>
+    <string name="datosNoValidos">User or password are incorrect</string>
+
     <!-- Posibles estados de un libro -->
     <string-array name="books_array">
         <item>New</item>
