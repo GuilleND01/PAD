@@ -64,7 +64,7 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.ViewHo
             autor = itemView.findViewById(R.id.b_autor);
             estado = itemView.findViewById(R.id.b_estado);
             imagen = itemView.findViewById(R.id.b_imagen);
-            card = itemView.findViewById(R.id.b_card);
+            //card = itemView.findViewById(R.id.b_card);
         }
     }
 }

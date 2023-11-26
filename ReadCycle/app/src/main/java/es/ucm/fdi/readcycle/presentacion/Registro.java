@@ -2,6 +2,7 @@ package es.ucm.fdi.readcycle.presentacion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ private Button registrarse;
                 SAUser saUser = new SAUser();
                 UserInfo u = new UserInfo(nombre.getText().toString(), correo.getText().toString(), contraseña.getText().toString(), zona.getText().toString(), contacto.getText().toString());
                 saUser.crearUsuario(u);
+                Intent intent = new Intent(Registro.this, MainActivity.class);
+                startActivity(intent);
 
             }
         });

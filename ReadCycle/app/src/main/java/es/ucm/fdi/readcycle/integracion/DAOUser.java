@@ -71,4 +71,26 @@ public class DAOUser {
                 });
     }
 
+    public void logOut(){
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    public void entrar(String correo, String contraseña){
+        mAuth.signInWithEmailAndPassword(correo, contraseña)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("CLAU", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("CLAU", "signInWithEmail:failure", task.getException());
+
+                        }
+                    }
+                });
+    }
+
 }
