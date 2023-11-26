@@ -29,9 +29,10 @@ public class MostrarResultadosFragment extends Fragment {
         BusquedaAdapter adapter = new BusquedaAdapter();
         ArrayList<String> g = new ArrayList<String>();
         g.add("Terror");
-        BookInfo book1 = new BookInfo("Hola",g, "Manolo",1,"","", 1);
-        BookInfo book2 = new BookInfo("ADIOS",g, "Esther",1,"","", 1);
-        BookInfo book3 = new BookInfo("DCNDJKC",g, "Gerardo",0,"","", 1);
+        android.net.Uri selectedImage =null;
+        BookInfo book1 = new BookInfo("Hola",g, "Manolo",1,"","", 1, selectedImage);
+        BookInfo book2 = new BookInfo("ADIOS",g, "Esther",1,"","", 1, selectedImage);
+        BookInfo book3 = new BookInfo("DCNDJKC",g, "Gerardo",0,"","", 1, selectedImage);
         ArrayList<BookInfo> a = new ArrayList<>();
         a.add(book1);
         a.add(book2);

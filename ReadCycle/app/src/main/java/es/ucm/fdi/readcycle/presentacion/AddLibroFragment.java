@@ -41,6 +41,9 @@ public class AddLibroFragment extends Fragment {
 
     private EditText resumen, titulo, autor, genero, num_paginas;
     private Spinner estado;
+
+    private android.net.Uri selectedImage;
+
     private Button añadirBtn, añadirGenero, resetGeneros;
 
     private ImageButton añadirFoto;
@@ -152,7 +155,7 @@ public class AddLibroFragment extends Fragment {
                 } else {
                     BookInfo nuevo_libro = new BookInfo(titulo.getText().toString(), lista_generos,
                             autor.getText().toString(), estado_sel, resumen.getText().toString(), "",
-                            Integer.parseInt(num_paginas.getText().toString()));
+                            Integer.parseInt(num_paginas.getText().toString()), selectedImage);
 
                     SABook saBookInfo = new SABook();
                     int res_guardar = saBookInfo.guardarLibro(nuevo_libro);
@@ -188,7 +191,7 @@ public class AddLibroFragment extends Fragment {
             Glide.with(requireContext())
                     .load(selectedImageUri)
                     .into(añadirFoto);
-            android.net.Uri selectedImage = data.getData();
+            selectedImage = data.getData();
             // Hacer algo con la URI de la imagen seleccionada
         }
     }

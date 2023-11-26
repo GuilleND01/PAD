@@ -12,7 +12,11 @@ public class BookInfo {
     private ArrayList<String> genres;
     private Integer pages;
 
-    public BookInfo(String title, ArrayList<String> genres, String author, int state, String description, String img, Integer pages){
+    private android.net.Uri selectedImage;
+
+
+    public BookInfo(String title, ArrayList<String> genres, String author, int state, String description, String img, Integer pages, android.net.Uri selectedImage)
+    {
         this.title=title;
         this.img=img;
         this.genres=genres;
@@ -20,8 +24,13 @@ public class BookInfo {
         this.state=state;
         this.description=description;
         this.pages=pages;
+        this.selectedImage=selectedImage;
     }
     public BookInfo(){};
+
+    public android.net.Uri getSelectedImage() {
+        return selectedImage;
+    }
 
     public String getTitle() {
         return title;
