@@ -6,6 +6,10 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
@@ -38,39 +42,44 @@ public class DAOBook {
     public boolean guardarLibro (BookInfo libro) {
 
         try {
-                // Id provisonal hay que pensar cuál dar
-                FirebaseImageStorage imageStorage = new FirebaseImageStorage();
+            // Id provisonal hay que pensar cuál dar
+            FirebaseImageStorage imageStorage = new FirebaseImageStorage();
+            CollectionReference booksCollection = SingletonDataBase.getInstance().getDB()
+                    .collection(COL_LIBROS);
 
-                String id = String.format("%s-%s", libro.getTitle(), "Nadie de momento");
-                Map<String, Object> data = new HashMap<>();
-                data.put(AUTOR, libro.getAuthor());
-                data.put(TITULO, libro.getTitle());
-                data.put(DESC, libro.getDescription());
-                data.put(NUM_PAGINAS, libro.getPages());
-                data.put(ESTADO, libro.getState());
-                data.put(GENERO, libro.getGenre());
-                data.put(PROPIETARIO, "Nadie de momento");
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
 
-                // TODO hay que meter el campo imagen una vez se haya subido
-                //data.put(RUTA_IMAGEN, downloadUrl);
+            String id = String.format("%s-%s", libro.getTitle(), libro.getAuthor());
+            Map<String, Object> data = new HashMap<>();
+            data.put(AUTOR, libro.getAuthor());
+            data.put(TITULO, libro.getTitle());
+            data.put(DESC, libro.getDescription());
+            data.put(NUM_PAGINAS, libro.getPages());
+            data.put(ESTADO, libro.getState());
+            data.put(GENERO, libro.getGenre());
+            data.put(PROPIETARIO, currentUser.getEmail());
 
+            StorageReference fileReference = imageStorage.getStorageRef().child(id + ".png");
 
-                String nombreImagen = String.format("%s-%s", libro.getTitle(), "Nadie de momento");
-                StorageReference fileReference = imageStorage.getStorageRef().child(nombreImagen);
+            fileReference.putFile(libro.getSelectedImage())
+                    .addOnSuccessListener(taskSnapshot -> {
 
-                Log.d("file reference", fileReference.toString());
-                fileReference.child(nombreImagen + ".png").putFile(libro.getSelectedImage())
-                        .addOnSuccessListener(taskSnapshot -> {
+                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
 
-                            fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                                String downloadUrl = uri.toString();
-                            });
+                            /* Esta es una URL HTTP que se puede utilizar directamente en un
+                            navegador web o con bibliotecas de carga de imágenes (como Glide o
+                            Picasso en Android) para recuperar y mostrar la imagen. */
+                            String downloadUrl = uri.toString();
+                            data.put(RUTA_IMAGEN, downloadUrl);
+
+                            Task<Void> updateTask = booksCollection.
+                                    document(currentUser.getEmail()).collection("Libros").
+                                    document(id).set(data);
 
                         });
 
-                SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(id).set(data);
-
-                
+                    });
             return true;
         } catch (Exception e){
             return false;

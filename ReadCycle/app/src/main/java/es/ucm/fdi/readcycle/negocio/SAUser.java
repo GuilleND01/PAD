@@ -22,7 +22,7 @@ public class SAUser {
 
     public void crearUsuario(UserInfo u){
         DAOUser dao = new DAOUser();
-        dao.createAccount(u);
+        //dao.createAccount(u);
     }
 
     public void entrarUsuario(String correo, String contraseña){
