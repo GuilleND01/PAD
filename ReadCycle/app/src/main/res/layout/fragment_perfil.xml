@@ -46,7 +46,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="274dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -54,12 +54,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:src="@drawable/perfil" />
+
+                <TextView
+                    android:id="@+id/nombreP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/botonAdd"
+                    android:text="NOMBRE" />
+
+                <TextView
+                    android:id="@+id/corrreoP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/botonAdd"
+                    android:gravity="center"
+                    android:text="CORREO" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/contacto" />
+                <TextView
+                    android:id="@+id/contactoP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/zona" />
+                <TextView
+                    android:id="@+id/zonaP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:text="" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="LOGOUT" />
         </LinearLayout>
 

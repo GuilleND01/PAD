@@ -41,7 +41,7 @@ public class DAOUser {
     }
 
 
-    public void createAccount(UserInfo usuarioInsertar) throws FirebaseAuthUserCollisionException {
+    public void createAccount(UserInfo usuarioInsertar)  {
 
         mAuth.createUserWithEmailAndPassword(usuarioInsertar.getCorreo(), usuarioInsertar.getContraseña())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
