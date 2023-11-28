@@ -1,11 +1,12 @@
 package es.ucm.fdi.readcycle.negocio;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
 
-public class BookInfo {
+public class BookInfo implements Serializable {
 
     private String title, img, author, description, propietario;
     private int state;

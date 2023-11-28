@@ -102,18 +102,6 @@ public class BookAdapter extends RecyclerView.Adapter {
                     AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
                     fragmentTransaction.replace(R.id.frameLayout, nuevoLibroFragment);
                     fragmentTransaction.commit();
-
-            /*        //  Creamos el nuevo libro
-                    AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
-                    FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-                    // Indicamos el contenedor a reemplazar
-                    transaction.replace(R.id.frameLayout, nuevoLibroFragment);
-                    transaction.addToBackStack(null);
-
-                    //String title, String genre, String author, String state, String description, String img, Integer pages
-
-                    transaction.commit();*/
                 }
             });
 
@@ -127,22 +115,41 @@ public class BookAdapter extends RecyclerView.Adapter {
                     .load(book.getImg())
                     .placeholder(R.drawable.libro)
                     .into(vhb.img);
+
+
+            vhb.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    // Obtener el libro específico según la posición en el RecyclerView
+                    BookInfo selectedBook = booksData.get(holder.getAdapterPosition());
+
+                    // Crear una instancia del fragmento VerLibroFragment y pasar el objeto BookInfo
+                    VerLibroFragment nuevoLibroFragment = VerLibroFragment.newInstance(selectedBook);
+
+                    // FragmentTransaction para reemplazar el fragmento actual
+                    FragmentManager fragmentManager = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frameLayout, nuevoLibroFragment);
+                    fragmentTransaction.addToBackStack(null); // Opcional, para agregar a la pila de retroceso
+                    fragmentTransaction.commit();
+                    //TODO
+                    /*
+                    Log.d("HOLA", "implementar add book");
+
+                    FragmentManager fragmentManager = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Reemplaza o agrega tu nuevo fragmento
+                    VerLibroFragment nuevoLibroFragment = new VerLibroFragment();
+                    fragmentTransaction.replace(R.id.frameLayout, nuevoLibroFragment);
+                    fragmentTransaction.commit();*/
+                }
+            });
+
+
         }
-        /*switch (a){
-            case ADD_BOOK:
-                ViewHolderAdd vha = (ViewHolderAdd) holder;
-                Log.d("CLAAAAAAAAAU", "SOY LA ADDCARD");
-            case NORMAL_BOOK:
-                ViewHolderBook vhb = (ViewHolderBook) holder;
-
-                BookInfo book = booksData.get(position);
-                vhb.title.setText(book.getTitle());
-                Glide.with(vhb.cardView)
-                        .load(book.getImg())
-                        .placeholder(R.drawable.libro)
-                        .into(vhb.img);
-
-        }*/
 
     }
 
