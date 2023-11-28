@@ -71,7 +71,7 @@
                     android:textSize="25dp"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/botonAdd"
-                    android:text="NOMBRE" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/corrreoP"
@@ -81,7 +81,7 @@
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/botonAdd"
                     android:gravity="center"
-                    android:text="CORREO" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -117,12 +117,6 @@
                     android:text="" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="LOGOUT" />
         </LinearLayout>
 
     </LinearLayout>

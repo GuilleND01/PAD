@@ -1,13 +1,17 @@
 package es.ucm.fdi.readcycle.presentacion;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -36,6 +40,7 @@ public class PerfilFragment extends Fragment {
     private Button logout;
     private TextView nombre, correo, contacto, zona;
     private ImageButton opt, notificaciones;
+    private EditText editZona, editContacto;
 
     @Nullable
     @Override
@@ -45,7 +50,6 @@ public class PerfilFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        logout = v.findViewById(R.id.logout);
         nombre = v.findViewById(R.id.nombreP);
         correo = v.findViewById(R.id.corrreoP);
         contacto = v.findViewById(R.id.contactoP);
@@ -54,14 +58,6 @@ public class PerfilFragment extends Fragment {
         notificaciones = v.findViewById(R.id.buttonNotification);
         opt = v.findViewById(R.id.perfilOpciones);
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         SAUser saUser = new SAUser();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -82,10 +78,32 @@ public class PerfilFragment extends Fragment {
         opt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(getActivity(), v);
+                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.EstiloMenu);
+                PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.perfil_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        int id = item.getItemId();
+                        if(id == R.id.editarPerfilMenu){
+                            mostrarDialog();
+                            return true;
+                        }
+                        else if(id == R.id.cerrarSesionMenu){
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
                 popup.show();
+
             }
         });
 
@@ -93,7 +111,51 @@ public class PerfilFragment extends Fragment {
 
     }
 
+    public void mostrarDialog(){
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View dialogView = inflater.inflate(R.layout.dialog_edit_profile, null);
 
+        editContacto = dialogView.findViewById(R.id.editarFormaContacto);
+        editZona = dialogView.findViewById(R.id.editarZona);
+        Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
+        Button btnAceptar = dialogView.findViewById(R.id.btnAceptar);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(dialogView);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        AlertDialog dialog = builder.create();
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nuevaZona = editZona.getText().toString();
+                String nuevaFormaContacto = editContacto.getText().toString();
+                SAUser saUser = new SAUser();
+
+                //si se ha editado solo la forma de contacto
+                if(nuevaZona.equals("") && !nuevaFormaContacto.equals("")){
+                    saUser.editarContacto(nuevaFormaContacto, currentUser.getEmail().toString());
+                }
+                //si se ha editado solo la zona
+                else if (!nuevaZona.equals("") && nuevaFormaContacto.equals("")) {
+                    saUser.editarZona(nuevaZona, currentUser.getEmail().toString());
+                }
+                //si se han editado ambas
+                else if (!nuevaZona.equals("") && !nuevaFormaContacto.equals("")) {
+                    saUser.editarZonaYContacto(nuevaZona, nuevaFormaContacto, currentUser.getEmail().toString());
+                }
+                dialog.dismiss();
+            }
+        });
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
 }

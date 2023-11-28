@@ -46,4 +46,19 @@ public class SAUser {
         return  new Pair<>(true, 0);
     }
 
+    public void editarZona(String zona, String correo){
+        DAOUser dao = new DAOUser();
+        dao.editZona(zona, correo);
+    }
+
+    public void editarContacto(String contacto, String correo){
+        DAOUser dao = new DAOUser();
+        dao.editContacto(contacto, correo);
+    }
+
+    public void editarZonaYContacto(String zona, String contacto, String correo){
+        DAOUser dao = new DAOUser();
+        dao.editZona(zona, correo);
+        dao.editContacto(contacto, correo);
+    }
 }

@@ -35,7 +35,6 @@ public class DAOUser {
 
 
 
-
     public DAOUser(){
         this.mAuth = FirebaseAuth.getInstance();
     }
@@ -115,6 +114,15 @@ public class DAOUser {
         });
 
     }
+
+    public void editZona(String nuevaZona, String correo){
+        //TODO
+    }
+
+    public void editContacto(String nuevoContacto, String correo){
+        //TODO
+    }
+
 
 
 }

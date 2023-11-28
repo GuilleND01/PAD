@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/editarPerfilMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/edit"
         android:title="@string/editar" />
     <item
+        android:id="@+id/cerrarSesionMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/cerrar" />

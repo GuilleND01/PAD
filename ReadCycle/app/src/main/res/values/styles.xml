@@ -3,4 +3,9 @@
     <style name="EstiloBoton">
         <item name="android:background">@drawable/shape_addlibro</item>
     </style>
+    <style name="EstiloMenu">
+        <item name="android:background">@color/navbar</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
 </resources>
