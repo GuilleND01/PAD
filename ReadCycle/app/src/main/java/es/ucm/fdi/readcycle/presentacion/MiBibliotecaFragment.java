@@ -1,6 +1,7 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,16 @@ public class MiBibliotecaFragment extends Fragment {
         //PRUEBA PARA LAS CARDS
 
         ArrayList<String> g = new ArrayList<String>();
-        g.add("Terror");
-        android.net.Uri selectedImage =null;
+        g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");
+        g.add("Suspense");
+        g.add("Comedia");
+
+        //android.net.Uri selectedImage =null;
+        android.net.Uri selectedImage = Uri.parse("https://books.google.com/books/content?id=e8DwuncELaoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");;
+
         BookInfo book1 = new BookInfo("Hola",g, "",0,"","", 1, selectedImage);
-        BookInfo book2 = new BookInfo("ADIOS",g, "",0,"","", 1, selectedImage);
-        BookInfo book3 = new BookInfo("DCNDJKC",g, "",0,"","", 1, selectedImage);
+        BookInfo book2 = new BookInfo("Jonas",g, "Nick",0,"mu bonito el libro ooooooo ooo ooo oo  oo oooooo ooo o oo oo o oo o o oooooooo o oo oo oo oo oo o oo ooo","", 100, selectedImage);
+        BookInfo book3 = new BookInfo("PRUEBA",g, "antonio",3,"","", 1, selectedImage);
         ArrayList<BookInfo> a = new ArrayList<>();
         a.add(book1);
         a.add(book2);
