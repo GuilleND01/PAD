@@ -50,4 +50,8 @@
 
     <!--Mostar búsqueda-->
     <string name="resultados">results:</string>
+
+    <!--Menu perfil -->
+    <string name="editar">Edit profile</string>
+    <string name="cerrar">Log out</string>
 </resources>

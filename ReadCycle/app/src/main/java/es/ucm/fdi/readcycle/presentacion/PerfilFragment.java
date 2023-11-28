@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,7 @@ public class PerfilFragment extends Fragment {
 
     private Button logout;
     private TextView nombre, correo, contacto, zona;
+    private ImageButton opt, notificaciones;
 
     @Nullable
     @Override
@@ -46,6 +50,9 @@ public class PerfilFragment extends Fragment {
         correo = v.findViewById(R.id.corrreoP);
         contacto = v.findViewById(R.id.contactoP);
         zona = v.findViewById(R.id.zonaP);
+
+        notificaciones = v.findViewById(R.id.buttonNotification);
+        opt = v.findViewById(R.id.perfilOpciones);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +79,21 @@ public class PerfilFragment extends Fragment {
 
         });
 
+        opt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(getActivity(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.perfil_menu, popup.getMenu());
+                popup.show();
+            }
+        });
+
         return v;
 
     }
+
+
+
+
 }

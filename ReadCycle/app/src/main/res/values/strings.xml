@@ -50,5 +50,8 @@
         <item>Restaurado</item>
     </string-array>
 
+    <!--Menu perfil -->
+    <string name="editar">Editar perfil</string>
+    <string name="cerrar">Cerrar sesion</string>
 
 </resources>
