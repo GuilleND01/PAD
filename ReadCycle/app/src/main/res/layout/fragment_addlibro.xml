@@ -21,7 +21,7 @@
             android:layout_marginTop="40dp">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/btn_back_verlibro"
                 android:layout_width="37dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

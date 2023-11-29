@@ -41,7 +41,7 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.ViewHo
         holder.autor.setText(b_current.getAuthor());
         holder.estado.setText(b_current.getState());
         Glide.with(holder.card)
-                .load(b_current.getImg())
+                .load(b_current.getSelectedImage())
                 .placeholder(R.drawable.libro)
                 .into(holder.imagen);
     }

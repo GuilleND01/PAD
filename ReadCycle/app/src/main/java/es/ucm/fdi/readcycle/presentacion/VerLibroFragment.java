@@ -2,14 +2,15 @@ package es.ucm.fdi.readcycle.presentacion;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +24,12 @@ import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
+import es.ucm.fdi.readcycle.negocio.SABook;
 import kotlin.jvm.internal.Intrinsics;
 
 public class VerLibroFragment extends Fragment {
 
+    private  BookInfo bookInfo;
     private static final String ARG_BOOK_INFO = "book_info";
 
     private TextView textTitulo, textGenero, textAutor, textPag, textEstado, textResumen, titResumen;
@@ -34,6 +37,8 @@ public class VerLibroFragment extends Fragment {
 
     private FrameLayout layout;
     private Button btnSolicitar, btnEliminar;
+
+    private String MSG_ERROR = "El libro no se ha podido eliminar, vuelva a intentarlo más tarde";
 
     public static VerLibroFragment newInstance(BookInfo bookInfo) {
         VerLibroFragment fragment = new VerLibroFragment();
@@ -51,7 +56,7 @@ public class VerLibroFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            BookInfo bookInfo = (BookInfo) args.getSerializable(ARG_BOOK_INFO);
+            this.bookInfo = (BookInfo) args.getSerializable(ARG_BOOK_INFO);
             Log.d("JULIA", bookInfo.getTitle());
 
             textTitulo =  v.findViewById(R.id.tit_verlibro);
@@ -95,7 +100,7 @@ public class VerLibroFragment extends Fragment {
 
             Glide.with(layout)
                     .load(bookInfo.getSelectedImage())
-                    .placeholder(R.drawable.libro)
+                    .placeholder(R.drawable.libro_2)
                     .into(img);
 
 
@@ -112,12 +117,22 @@ public class VerLibroFragment extends Fragment {
                    @Override
                    public void onClick(View v) {
                         //TODO -- llamar al SA
-                       //redirigir a la biblioteca despues de eliminar el libro
+
+
+                       SABook saBookInfo = new SABook();
+                       int res_eliminar = saBookInfo.eliminarLibro(bookInfo);
+                       if (res_eliminar == 1) {  //redirigir a la biblioteca si se ha podido eliminar el libro
+                              /*
+                           MiBibliotecaFragment miBibliotecaFragment = new MiBibliotecaFragment();
+                           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                           transaction.replace(R.id.frameLayout, miBibliotecaFragment);
+                           transaction.addToBackStack(null);
+                           transaction.commit();
+                           */
+                       } else Toast.makeText(v.getContext(), MSG_ERROR, Toast.LENGTH_LONG).show();
+
                    }
                });
-
-
-
             }else{
                 btnEliminar.setVisibility(View.GONE);
                 btnSolicitar.setOnClickListener(new View.OnClickListener() {

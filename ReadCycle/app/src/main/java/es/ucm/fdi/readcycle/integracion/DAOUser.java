@@ -123,6 +123,10 @@ public class DAOUser {
         //TODO
     }
 
+    //Te trae la biblioteca del carreo q le llega
+    public void getBiblioteca(String correo){
+        //TODO
+    }
 
 
 }

@@ -21,4 +21,11 @@ public class SABook {
         DAOBook daoBook = new DAOBook();
         daoBook.bucarLibros(b, callBacks);
     }
+
+    public int eliminarLibro(BookInfo book){
+        DAOBook daoBook = new DAOBook();
+        if(daoBook.eliminarLibro(book)){
+            return 1;
+        } else return -1;
+    }
 }

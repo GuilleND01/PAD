@@ -154,7 +154,7 @@ public class AddLibroFragment extends Fragment {
                     Toast.makeText(view.getContext(), MSG_FORM_INCOMPLETO, Toast.LENGTH_LONG).show();
                 } else {
                     BookInfo nuevo_libro = new BookInfo(titulo.getText().toString(), lista_generos,
-                            autor.getText().toString(), estado_sel, resumen.getText().toString(), "",
+                            autor.getText().toString(), estado_sel, resumen.getText().toString(),
                             Integer.parseInt(num_paginas.getText().toString()), selectedImage);
 
                     SABook saBookInfo = new SABook();

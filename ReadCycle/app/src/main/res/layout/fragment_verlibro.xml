@@ -29,8 +29,8 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="37dp"
+                    android:id="@+id/btn_back_verlibro"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
@@ -40,8 +40,10 @@
                     android:id="@+id/tit_verlibro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="Libro"
+                    android:text="Libro  "
                     android:textColor="@color/navbar"
                     android:textSize="34sp" />
 
@@ -64,7 +66,8 @@
                         android:layout_height="200dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
-                        android:src="@drawable/libro" />
+                        android:src="@drawable/libro_2"
+                        app:srcCompat="@drawable/libro" />
 
                     <Button
                         android:id="@+id/btn_solicitar"

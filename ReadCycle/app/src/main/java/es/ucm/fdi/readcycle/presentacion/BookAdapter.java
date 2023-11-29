@@ -1,9 +1,7 @@
 package es.ucm.fdi.readcycle.presentacion;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,8 +109,10 @@ public class BookAdapter extends RecyclerView.Adapter {
 
             BookInfo book = booksData.get(position);
             vhb.title.setText(book.getTitle());
+            vhb.title.setAutoSizeTextTypeUniformWithConfiguration(8, 24, 2, TypedValue.COMPLEX_UNIT_SP);
+
             Glide.with(vhb.cardView)
-                    .load(book.getImg())
+                    .load(book.getSelectedImage())
                     .placeholder(R.drawable.libro)
                     .into(vhb.img);
 

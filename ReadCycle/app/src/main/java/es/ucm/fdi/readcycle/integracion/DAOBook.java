@@ -145,4 +145,11 @@ public class DAOBook {
         } */
 
     }
+
+    public boolean eliminarLibro(BookInfo libro){
+        //TODO
+        return true;
+    }
+
+
 }
