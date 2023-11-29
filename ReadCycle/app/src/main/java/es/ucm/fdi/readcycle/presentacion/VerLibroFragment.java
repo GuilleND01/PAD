@@ -75,10 +75,11 @@ public class VerLibroFragment extends Fragment {
             textPag.setText(bookInfo.getPages().toString());
 
             //Genero un string con los generos
-            ArrayList<String> generos = bookInfo.getGenre();
+            String[] generoArray = getResources().getStringArray(R.array.genero_array);
+            ArrayList<Integer> generos = bookInfo.getGenre();
             String g = "";
             for(int i = 0; i<generos.size();i++){
-                g += generos.get(i);
+                g += generoArray[generos.get(i)];
                 if(i != generos.size()-1){ //Si no es el útimo elmento añado la coma
                     g += ", ";
                 }

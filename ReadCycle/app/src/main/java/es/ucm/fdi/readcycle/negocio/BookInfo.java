@@ -10,13 +10,13 @@ public class BookInfo implements Serializable {
 
     private String title, author, description, propietario, id;
     private int state;
-    private ArrayList<String> genres;
+    private ArrayList<Integer> genres;
     private Integer pages;
 
     private android.net.Uri selectedImage;
 
 
-    public BookInfo(String title, ArrayList<String> genres, String author, int state, String description, Integer pages, android.net.Uri selectedImage)
+    public BookInfo(String title, ArrayList<Integer> genres, String author, int state, String description, Integer pages, android.net.Uri selectedImage)
     {
         this.title=title;
         this.genres=genres;
@@ -36,7 +36,7 @@ public class BookInfo implements Serializable {
         return title;
     }
 
-    public ArrayList<String> getGenre() {
+    public ArrayList<Integer> getGenre() {
         return genres;
     }
 

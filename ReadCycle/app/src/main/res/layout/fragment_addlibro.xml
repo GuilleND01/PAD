@@ -94,14 +94,22 @@
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/formgenero"
-                        android:layout_width="286dp"
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:background="@drawable/form_background"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/form_genero"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/formestado2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
                         android:ems="10"
-                        android:hint="@string/form_genero"
-                        android:inputType="text"
                         android:paddingLeft="15dp" />
 
                     <Button
@@ -111,13 +119,13 @@
                         android:layout_weight="1"
                         android:text="+"
                         />
+
                     <Button
                         android:id="@+id/btn_reset_genero"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_weight="1"
-                        android:text="+"
-                        />
+                        android:text="-" />
                 </LinearLayout>
 
                 <LinearLayout

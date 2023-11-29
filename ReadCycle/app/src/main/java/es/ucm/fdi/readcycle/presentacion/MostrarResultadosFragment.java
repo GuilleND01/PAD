@@ -27,8 +27,8 @@ public class MostrarResultadosFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_mostrar_resultados, container, false);
 
         BusquedaAdapter adapter = new BusquedaAdapter();
-        ArrayList<String> g = new ArrayList<String>();
-        g.add("Terror");
+        ArrayList<Integer> g = new ArrayList<Integer>();
+        g.add(0);
         android.net.Uri selectedImage =null;
         BookInfo book1 = new BookInfo("Hola",g, "Manolo",1,"", 1, selectedImage);
         BookInfo book2 = new BookInfo("ADIOS",g, "Esther",1,"", 1, selectedImage);

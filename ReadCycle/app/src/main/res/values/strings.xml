@@ -50,6 +50,28 @@
         <item>Restaurado</item>
     </string-array>
 
+    <!-- Posibles generos -->
+    <string-array name="genero_array">
+        <item>Acción</item>
+        <item>Aventuras</item>
+        <item>Biográfica</item>
+        <item>Ciencia Ficción</item>
+        <item>Comedia</item>
+        <item>Drama</item>
+        <item>Fantasia</item>
+        <item>Infantil</item>
+        <item>Juvenil</item>
+        <item>Misterio</item>
+        <item>Novela</item>
+        <item>Poesía</item>
+        <item>Policiaca</item>
+        <item>Política</item>
+        <item>Romance</item>
+        <item>Suspense</item>
+        <item>Teatro</item>
+        <item>Terror</item>
+    </string-array>
+
     <!--Menu perfil -->
     <string name="editar">Editar perfil</string>
     <string name="cerrar">Cerrar sesion</string>

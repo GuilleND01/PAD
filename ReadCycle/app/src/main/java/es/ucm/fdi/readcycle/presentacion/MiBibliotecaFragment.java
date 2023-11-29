@@ -33,10 +33,12 @@ public class MiBibliotecaFragment extends Fragment {
 
         //PRUEBA PARA LAS CARDS
 
-        ArrayList<String> g = new ArrayList<String>();
-        g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");g.add("Terror");
-        g.add("Suspense");
-        g.add("Comedia");
+        ArrayList<Integer> g = new ArrayList<Integer>();
+        g.add(0);
+        g.add(1);
+        g.add(2);
+        g.add(3);
+        g.add(4);
 
         android.net.Uri selectedImage2 =null;
         android.net.Uri selectedImage = Uri.parse("https://books.google.com/books/content?id=e8DwuncELaoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");;
