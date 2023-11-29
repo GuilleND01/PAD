@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class VerLibroFragment extends Fragment {
     private ImageView img;
 
     private FrameLayout layout;
+    private Button btnSolicitar, btnEliminar;
 
     public static VerLibroFragment newInstance(BookInfo bookInfo) {
         VerLibroFragment fragment = new VerLibroFragment();
@@ -93,6 +97,38 @@ public class VerLibroFragment extends Fragment {
                     .load(bookInfo.getSelectedImage())
                     .placeholder(R.drawable.libro)
                     .into(img);
+
+
+            //Damos funcionalidad a los botones
+            btnSolicitar = v.findViewById(R.id.btn_solicitar);
+            btnEliminar = v.findViewById(R.id.btn_eliminar);
+
+            //Si el propietario del libro es el usuario registrado mostramos el boton de eliminar, si no el de solicitar
+            //De esta manera podemos reutilizar la vista
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if(bookInfo.getPropietario().equals(currentUser.getEmail())){
+                btnSolicitar.setVisibility(View.GONE);
+               btnEliminar.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                        //TODO -- llamar al SA
+                       //redirigir a la biblioteca despues de eliminar el libro
+                   }
+               });
+
+
+
+            }else{
+                btnEliminar.setVisibility(View.GONE);
+                btnSolicitar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO -- no se si esto lo vamos ha hacer al final asi q lo dejo asi
+                    }
+                });
+
+            }
+
 
         }
         return v;

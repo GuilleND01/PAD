@@ -41,10 +41,15 @@ public class MiBibliotecaFragment extends Fragment {
         //android.net.Uri selectedImage =null;
         android.net.Uri selectedImage = Uri.parse("https://books.google.com/books/content?id=e8DwuncELaoC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");;
 
-        BookInfo book1 = new BookInfo("Hola",g, "",0,"","", 1, selectedImage);
+        BookInfo bookAdd = new BookInfo("",g, "",0,"","", 0, selectedImage);
+        BookInfo book1 = new BookInfo("Soy un libro",g, "Nombre autor",1,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat enim a viverra dapibus. Ut ante dui, posuere in ante vitae, dapibus aliquam lectus. Etiam eu sapien sit amet ante pellentesque pretium ut id urna. Quisque mollis erat quis justo luctus, eget tempor quam commodo. Suspendisse sit amet condimentum nisi. Nullam ante libero, tempor eu viverra vel, tempus at augue. Praesent et vulputate ligula, eu sagittis velit.","", 1, selectedImage);
+        book1.setPropietario("juliaflu@ucm.es");
         BookInfo book2 = new BookInfo("Jonas",g, "Nick",0,"mu bonito el libro ooooooo ooo ooo oo  oo oooooo ooo o oo oo o oo o o oooooooo o oo oo oo oo oo o oo ooo","", 100, selectedImage);
+        book2.setPropietario("");
         BookInfo book3 = new BookInfo("PRUEBA",g, "antonio",3,"","", 1, selectedImage);
+        book3.setPropietario("");
         ArrayList<BookInfo> a = new ArrayList<>();
+        a.add(bookAdd);
         a.add(book1);
         a.add(book2);
         a.add(book3);

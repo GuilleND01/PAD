@@ -54,4 +54,9 @@
     <!--Menu perfil -->
     <string name="editar">Edit profile</string>
     <string name="cerrar">Log out</string>
+
+    <!--Ver libro-->
+    <string name="solicitar">Request</string>
+    <string name="eliminar">Delete</string>
+
 </resources>

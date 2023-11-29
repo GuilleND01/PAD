@@ -54,4 +54,8 @@
     <string name="editar">Editar perfil</string>
     <string name="cerrar">Cerrar sesion</string>
 
+    <!--Ver libro-->
+    <string name="solicitar">Solicitar</string>
+    <string name="eliminar">Eliminar</string>
+
 </resources>

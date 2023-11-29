@@ -61,10 +61,19 @@
                     <ImageView
                         android:id="@+id/libro_imagen"
                         android:layout_width="match_parent"
-                        android:layout_height="230dp"
+                        android:layout_height="200dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         android:src="@drawable/libro" />
+
+                    <Button
+                        android:id="@+id/btn_solicitar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/botonAdd"
+                        android:text="@string/solicitar" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -209,6 +218,16 @@
                             android:textSize="20dp" />
 
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_eliminar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/botonAdd"
+                        android:text="@string/eliminar" />
 
                 </LinearLayout>
             </ScrollView>
