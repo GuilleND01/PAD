@@ -166,16 +166,14 @@ public class DAOBook {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                     DocumentSnapshot ds = task.getResult();
+                    bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), Integer.parseInt(ds.getData().get(ESTADO).toString()),
+                            ds.getData().get(DESC).toString(), Integer.parseInt(ds.getData().get(NUM_PAGINAS).toString()), Uri.parse(ds.getData().get(RUTA_IMAGEN).toString()));
 
-                    Log.d("ah", ds.getData().toString());
-                //(ArrayList<Integer>) ds.getData().get(GENERO)
-
-
-                    bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), (Integer) ds.getData().get(ESTADO),
-                            ds.getData().get(DESC).toString(), (Integer) ds.getData().get(NUM_PAGINAS), (android.net.Uri)ds.getData().get(RUTA_IMAGEN));
+                    
+                    Log.d("JUL", bookInfo.getTitle());
 
 
-                    Log.d("CLAU", bookInfo.getAuthor());
+
                 }
 
             });
