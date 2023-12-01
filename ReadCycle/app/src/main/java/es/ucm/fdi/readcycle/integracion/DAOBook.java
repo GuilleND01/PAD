@@ -1,5 +1,6 @@
 package es.ucm.fdi.readcycle.integracion;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -118,17 +119,17 @@ public class DAOBook {
 
     public void bucarLibros(@NonNull BookInfo b, BuscarCallBacks callBacks){
 
-        /*ArrayList<BookInfo> bs = new ArrayList<>();
+        ArrayList<BookInfo> bs = new ArrayList<>();
         if(b.getAuthor() != null){
             SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Autor",
                     b.getAuthor()).get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot d: task.getResult()){
                         BookInfo book = new BookInfo(d.get("Titulo").toString(),
-                                (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
+                                (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
                                 Integer.parseInt(d.get("Estado").toString()),
-                                d.get("Descripcion").toString(), null,
-                                Integer.parseInt(d.get("Paginas").toString()));
+                                d.get("Descripcion").toString(),
+                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Imagen").toString()));
                         book.setPropietario(d.get("Propietario").toString());
                         bs.add(book);
                     }
@@ -139,23 +140,22 @@ public class DAOBook {
         else{
             SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Titulo",
                     b.getTitle()).get().addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot d: task.getResult()){
-                                BookInfo book = new BookInfo(d.get("Titulo").toString(),
-                                        (ArrayList<String>) d.get("Genero"), d.get("Autor").toString(),
-                                        Integer.parseInt(d.get("Estado").toString()),
-                                        d.get("Descripcion").toString(), null,
-                                        Integer.parseInt(d.get("Paginas").toString()));
-                                book.setPropietario(d.get("Propietario").toString());
-                                bs.add(book);
-                            }
-                            callBacks.onCallback(bs);
-                        }
-                    });
-        } */
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot d: task.getResult()){
+                        BookInfo book = new BookInfo(d.get("Titulo").toString(),
+                                (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
+                                Integer.parseInt(d.get("Estado").toString()),
+                                d.get("Descripcion").toString(),
+                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Imagen").toString()));
+                        book.setPropietario(d.get("Propietario").toString());
+                        bs.add(book);
+                    }
+                    callBacks.onCallback(bs);
+                }
+            });
+        }
 
     }
-
     public BookInfo getLibroById(String id){
 
    
