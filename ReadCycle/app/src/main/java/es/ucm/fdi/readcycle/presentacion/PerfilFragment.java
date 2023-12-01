@@ -135,15 +135,41 @@ public class PerfilFragment extends Fragment {
 
                 //si se ha editado solo la forma de contacto
                 if(nuevaZona.equals("") && !nuevaFormaContacto.equals("")){
-                    saUser.editarContacto(nuevaFormaContacto, currentUser.getEmail().toString());
+                    saUser.editarContacto(nuevaFormaContacto);
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                        @Override
+                        public void onCallback(UserInfo u) {
+
+                            contacto.setText(u.getContacto().toString());
+                        }
+
+                    });
                 }
                 //si se ha editado solo la zona
                 else if (!nuevaZona.equals("") && nuevaFormaContacto.equals("")) {
-                    saUser.editarZona(nuevaZona, currentUser.getEmail().toString());
+                    saUser.editarZona(nuevaZona);
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                        @Override
+                        public void onCallback(UserInfo u) {
+
+                            zona.setText(u.getZona().toString());
+                        }
+
+                    });
+
                 }
                 //si se han editado ambas
                 else if (!nuevaZona.equals("") && !nuevaFormaContacto.equals("")) {
-                    saUser.editarZonaYContacto(nuevaZona, nuevaFormaContacto, currentUser.getEmail().toString());
+                    saUser.editarZonaYContacto(nuevaZona, nuevaFormaContacto);
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                        @Override
+                        public void onCallback(UserInfo u) {
+
+                            zona.setText(u.getZona().toString());
+                            contacto.setText(u.getContacto().toString());
+                        }
+
+                    });
                 }
                 dialog.dismiss();
             }

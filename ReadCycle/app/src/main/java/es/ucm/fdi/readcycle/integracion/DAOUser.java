@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -12,7 +13,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +34,11 @@ public class DAOUser {
     private final String CONTACTO = "contacto";
     private final String CORREO = "correo";
     private final String ZONA = "zona";
+    private final String LIBRO = "ID_Libros";
 
     private final String COL_USUARIOS = "Usuarios";
+    private final String COL_LIBROS = "Libros";
+
 
 
 
@@ -99,7 +107,7 @@ public class DAOUser {
 
     public void getUsuario(String email, UsuarioCallBacks callBacks){
         UserInfo user = new UserInfo();
-        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo("correo",
+        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo(CORREO,
                 email).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 for (QueryDocumentSnapshot d: task.getResult()){
@@ -115,17 +123,55 @@ public class DAOUser {
 
     }
 
-    public void editZona(String nuevaZona, String correo){
-        //TODO
+    public void editZona(String nuevaZona){
+
+        CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put(ZONA, nuevaZona);
+        usersCollection.document(currentUser.getUid()).update(data);
+
     }
 
-    public void editContacto(String nuevoContacto, String correo){
-        //TODO
+    public void editContacto(String nuevoContacto){
+        CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put(CONTACTO, nuevoContacto);
+        usersCollection.document(currentUser.getUid()).update(data);
     }
 
     //Te trae la biblioteca del carreo q le llega
-    public void getBiblioteca(String correo){
-        //TODO
+    public ArrayList<BookInfo> getBiblioteca(String correo){
+        ArrayList<BookInfo> biblioteca = new ArrayList<>();
+        try {
+
+            CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
+            usersCollection.whereEqualTo(CORREO, currentUser.getEmail()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot d : task.getResult()) {
+                        BookInfo book = new BookInfo();
+                        //TODO una funcion en el DAOBOOK que segun un id me devuelva un bookinfo
+
+                    }
+                }
+            });
+            return biblioteca;
+        }
+        
+         catch (Exception e){
+            return biblioteca;
+        }
     }
 
 
