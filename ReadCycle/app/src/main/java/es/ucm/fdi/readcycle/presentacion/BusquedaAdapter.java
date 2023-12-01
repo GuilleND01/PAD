@@ -18,28 +18,27 @@ import java.util.ArrayList;
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 
-public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.ViewHolder> {
+public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.BusquedaViewHolder> {
 
-    private ArrayList<BookInfo> bs;
+    private ArrayList<BookInfo> books;
 
-    public void setBookData(ArrayList<BookInfo> bs){
-        this.bs = new ArrayList<>(bs);
+    public void setBooksData(ArrayList<BookInfo> book){
+        books = book;
     }
-
     @NonNull
     @Override
-    public  BusquedaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BusquedaAdapter.BusquedaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_busqueda, parent, false);
-        return new ViewHolder(v);
+        return new BusquedaViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BusquedaAdapter.ViewHolder holder, int position) {
-        BookInfo b_current = bs.get(position);
+    public void onBindViewHolder(@NonNull BusquedaAdapter.BusquedaViewHolder holder, int position) {
+        BookInfo b_current = books.get(position);
         Log.d("MCAGO", b_current.getAuthor());
         holder.titulo.setText(b_current.getTitle());
         holder.autor.setText(b_current.getAuthor());
-        holder.estado.setText(b_current.getState());
+       // holder.estado.setText(b_current.getState());
         Glide.with(holder.card)
                 .load(b_current.getSelectedImage())
                 .placeholder(R.drawable.libro)
@@ -48,23 +47,23 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return bs.size();
+        return books.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class BusquedaViewHolder extends RecyclerView.ViewHolder{
 
+        public ImageView imagen;
         public TextView titulo;
         public TextView autor;
         public TextView estado;
         public CardView card;
-        public ImageView imagen;
-        public ViewHolder(@NonNull View itemView) {
+        public BusquedaViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.b_titulo);
             autor = itemView.findViewById(R.id.b_autor);
             estado = itemView.findViewById(R.id.b_estado);
             imagen = itemView.findViewById(R.id.b_imagen);
-            //card = itemView.findViewById(R.id.b_card);
+            card = itemView.findViewById(R.id.b_card);
         }
     }
 }

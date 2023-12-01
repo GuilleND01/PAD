@@ -53,28 +53,23 @@ public class BuscarFragment extends Fragment {
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor){
                     b.setTitle(null);
                     b.setAuthor(query);
-                    service.bucarLibros(b, new BuscarCallBacks() {
-                        @Override
-                        public void onCallback(ArrayList<BookInfo> bs) {
-                            Log.d("BUS", bs.toString());
-                        }
-                    });
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
                 }
-                service.bucarLibros(b, new BuscarCallBacks() {
-                    @Override
-                    public void onCallback(ArrayList<BookInfo> bs) {
-                        MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
-                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frameLayout, mostrarResultadosFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-
-                        Log.d("BUS", bs.toString());
-                    }
-                });
+                if(b.getAuthor() != null || b.getTitle() != null){
+                    service.bucarLibros(b, new BuscarCallBacks() {
+                        @Override
+                        public void onCallback(ArrayList<BookInfo> bs) {
+                            MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
+                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.frameLayout, mostrarResultadosFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            Log.d("BUS", bs.toString());
+                        }
+                    });
+                }
                 return false;
             }
 
