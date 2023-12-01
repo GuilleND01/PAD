@@ -7,7 +7,6 @@
     <color name="botonAdd">#47667B</color>
     <color name="fondoOscuro">#A5C3A7</color>
     <color name="botonOscuro">#88B58B</color>
-
-
+    <color name="error">#FD0030</color>
 
 </resources>

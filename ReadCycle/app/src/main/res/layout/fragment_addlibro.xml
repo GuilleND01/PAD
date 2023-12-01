@@ -50,9 +50,7 @@
                 android:id="@+id/lay_biblioteca"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,13 +71,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/addPhotoBtn"
                         android:layout_width="150dp"
                         android:layout_height="167dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/shape"
                         android:src="@drawable/mas"
                         android:textColorHighlight="@color/fondoClaro"
@@ -93,16 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/form_genero"
-                        android:textSize="18sp" />
 
                     <Spinner
                         android:id="@+id/formestado2"
@@ -125,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_weight="1"
-                        android:text="reset" />
+                        android:text="RESET" />
                 </LinearLayout>
 
                 <LinearLayout

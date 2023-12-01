@@ -18,6 +18,12 @@
     <string name="form_libroestado">Book´s condition</string>
     <string name="form_resumen">Summary</string>
     <string name="form_añadir">Add</string>
+    <string name="MSG_FORM_INCOMPLETO">Incomplete form</string>
+    <string name="MSG_EROR_EXITO">Book added successfully</string>
+    <string name="MSG_ERROR_GENERAL">Something went wrong. Please try again</string>
+    <string name="MSG_FORM_INCOMPLETO_FOTO">Incomplete form. Include a photo.</string>
+    <string name="reset_btn">RESET</string>
+
 
     <!--Formulario login y registro-->
     <string name="correo">Email</string>
@@ -50,7 +56,7 @@
 
     <!-- Posibles generos -->
     <string-array name="genero_array">
-        <item>Acction</item>
+        <item>Action</item>
         <item>Adventure</item>
         <item>Biography</item>
         <item>Science Fiction</item>
@@ -65,7 +71,7 @@
         <item>Crime</item>
         <item>Politics</item>
         <item>Romance</item>
-        <item>Suspense</item>
+        <item>Thriller</item>
         <item>Theater</item>
         <item>Horror</item>
     </string-array>
