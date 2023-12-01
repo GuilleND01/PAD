@@ -15,11 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.DAOBook;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
+import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.SAUser;
 import kotlin.jvm.internal.Intrinsics;
 
 public class MiBibliotecaFragment extends Fragment {
@@ -34,6 +39,7 @@ public class MiBibliotecaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_biblioteca, container, false);
 
         //PRUEBA PARA LAS CARDS
+
 
         ArrayList<Integer> g = new ArrayList<Integer>();
         g.add(0);
@@ -65,32 +71,20 @@ public class MiBibliotecaFragment extends Fragment {
 
         //CLAUDIA PROBANDO COSAS CARGANDOSE LA JERARQUIA DE PAQUETES
 
-        DAOBook daoBook = new DAOBook();
-        daoBook.getLibroById("vHnr1YEWPjhwHxyIDxpA");
+        /*
+        SABook sa = new SABook();
+        BookInfo bookGet = sa.getLibroById("vHnr1YEWPjhwHxyIDxpA");
+        if(bookGet != null) Log.d("JUL", bookGet.getTitle());*/
 
 
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        SAUser saUser = new SAUser();
+        //ArrayList<BookInfo> books = saUser.getBiblioteca(currentUser.getEmail());
+        //if(books != null) Log.d("JUL", books.get(0).getTitle());
 
 
-        /*addBtn = view.findViewById(R.id.addBtn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onClick(View v) {
-
-                //  Creamos el nuevo libro
-                AddLibroFragment nuevoLibroFragment = new AddLibroFragment();
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-                // Indicamos el contenedor a reemplazar
-                transaction.replace(R.id.frameLayout, nuevoLibroFragment);
-                transaction.addToBackStack(null);
-
-                //String title, String genre, String author, String state, String description, String img, Integer pages
-
-                transaction.commit();
-            }
-        });*/
 
         return view;
 

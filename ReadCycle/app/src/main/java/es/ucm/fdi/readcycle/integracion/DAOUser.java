@@ -21,6 +21,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
@@ -154,22 +155,23 @@ public class DAOUser {
 
             CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
 
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser = mAuth.getCurrentUser();
             DAOBook daoBook = new DAOBook();
-            usersCollection.whereEqualTo(CORREO, currentUser.getEmail()).get().addOnCompleteListener(task -> {
+            usersCollection.whereEqualTo(CORREO, correo).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot d : task.getResult()) {
-                        biblioteca.add(daoBook.getLibroById(d.toString()));
+                        // Obtenesmos el array ID_Libros del documento del usuario
+                        List<String> idLibros = (List<String>) d.get(LIBRO);
+                        for(String libro: idLibros){
+                            biblioteca.add(daoBook.getLibroById(libro));
+                        }
 
                     }
                 }
             });
             return biblioteca;
         }
-        
          catch (Exception e){
-            return biblioteca;
+            return null;
         }
     }
 

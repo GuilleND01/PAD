@@ -81,7 +81,7 @@ public class VerLibroFragment extends Fragment {
             String g = "";
             for(int i = 0; i<generos.size();i++){
                 g += generoArray[generos.get(i)];
-                if(i != generos.size()-1){ //Si no es el útimo elmento añado la coma
+                if( generos.size()>1 && i != generos.size()-1 ){ //Si no es el útimo elmento añado la coma
                     g += ", ";
                 }
             }

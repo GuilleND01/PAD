@@ -5,6 +5,8 @@ import android.util.Pair;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.ArrayList;
+
 import es.ucm.fdi.readcycle.integracion.DAOUser;
 import es.ucm.fdi.readcycle.integracion.UsuarioCallBacks;
 
@@ -60,5 +62,10 @@ public class SAUser {
         DAOUser dao = new DAOUser();
         dao.editZona(zona);
         dao.editContacto(contacto);
+    }
+
+    public ArrayList<BookInfo> getBiblioteca(String correo){
+        DAOUser dao = new DAOUser();
+        return dao.getBiblioteca(correo);
     }
 }
