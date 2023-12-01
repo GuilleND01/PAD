@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,6 +39,7 @@ public class DAOBook {
     private final String TITULO = "Titulo";
     private final String PROPIETARIO = "Propietario";
     private final String RUTA_IMAGEN = "Ruta_Imagen";
+    private BookInfo bookInfo;
 
 
 
@@ -146,6 +149,38 @@ public class DAOBook {
 
     }
 
+    public BookInfo getLibroById(String id){
+
+   
+        try{
+            DocumentReference bookDocument = SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(id);
+            bookDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    DocumentSnapshot ds = task.getResult();
+
+                    Log.d("ah", ds.getData().toString());
+                //(ArrayList<Integer>) ds.getData().get(GENERO)
+
+
+                    bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), (Integer) ds.getData().get(ESTADO),
+                            ds.getData().get(DESC).toString(), (Integer) ds.getData().get(NUM_PAGINAS), (android.net.Uri)ds.getData().get(RUTA_IMAGEN));
+
+
+                    Log.d("CLAU", bookInfo.getAuthor());
+                }
+
+            });
+
+            return bookInfo;
+
+
+        }catch (Exception e){
+
+        }
+        return null;
+    }
     public boolean eliminarLibro(BookInfo libro){
         //TODO
         return true;
