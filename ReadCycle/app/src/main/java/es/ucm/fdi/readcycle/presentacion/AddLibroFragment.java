@@ -70,11 +70,12 @@ public class AddLibroFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_addlibro, container, false);
         añadirBtn = view.findViewById(R.id.buttonAñadir);
         añadirGenero = view.findViewById(R.id.btn_anadir_genero);
-
-        añadirGenero.setBackgroundColor(getResources().getColor(R.color.fondoOscuro));
-        añadirBtn.setBackgroundColor(getResources().getColor(R.color.botonAdd));
-
         resetGeneros = view.findViewById(R.id.btn_reset_genero);
+
+        añadirGenero.setBackgroundColor(getResources().getColor(R.color.botonAdd));
+        añadirBtn.setBackgroundColor(getResources().getColor(R.color.botonAdd));
+        resetGeneros.setBackgroundColor(getResources().getColor(R.color.botonAdd));
+
         lista_generos_view = view.findViewById(R.id.generos_anadidos);
 
         añadirFoto = view.findViewById(R.id.addPhotoBtn);
