@@ -3,6 +3,7 @@ package es.ucm.fdi.readcycle.presentacion;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.DAOBook;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import kotlin.jvm.internal.Intrinsics;
 
@@ -60,6 +62,11 @@ public class MiBibliotecaFragment extends Fragment {
         b.setBookData(a);
         RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
         recyclerView.setAdapter(b);
+
+        //CLAUDIA PROBANDO COSAS CARGANDOSE LA JERARQUIA DE PAQUETES
+        DAOBook daoBook = new DAOBook();
+        daoBook.getLibroById("vHnr1YEWPjhwHxyIDxpA");
+
 
 
 

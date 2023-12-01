@@ -156,12 +156,11 @@ public class DAOUser {
 
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
-
+            DAOBook daoBook = new DAOBook();
             usersCollection.whereEqualTo(CORREO, currentUser.getEmail()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot d : task.getResult()) {
-                        BookInfo book = new BookInfo();
-                        //TODO una funcion en el DAOBOOK que segun un id me devuelva un bookinfo
+                        biblioteca.add(daoBook.getLibroById(d.toString()));
 
                     }
                 }

@@ -42,7 +42,7 @@ public class AddLibroFragment extends Fragment {
     private EditText resumen, titulo, autor, num_paginas;
     private Spinner estado, genero;
 
-    private android.net.Uri selectedImage;
+    private android.net.Uri selectedImage = null;
 
     private Button añadirBtn, añadirGenero, resetGeneros;
 
@@ -51,11 +51,7 @@ public class AddLibroFragment extends Fragment {
 
     private ArrayList<Integer> lista_generos = new ArrayList<Integer>();
 
-    private String generoText = "";
-    private String MSG_FORM_INCOMPLETO = "Formulario incompleto";
-    private String MSG_EROR_YA_EXISTE = "El libro ya existe en tu biblioteca";
-    private String MSG_EROR_EXITO = "Libro añadido con éxito";
-    private String MSG_ERROR_GENERAL = "Algo ha salido mal. Vuelve a intentarlo";
+    private ArrayList<String> generoText = new ArrayList<String>();
     private int estado_sel, genero_sel;
     private View view;
 
@@ -130,21 +126,24 @@ public class AddLibroFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 lista_generos.clear();
-                lista_generos_view.setText("No ha generos añadidos"); //TODO CAMBIAR A STRINGS
-                generoText = "";
+                generoText.clear();
+                lista_generos_view.setText("No hay generos añadidos"); //TODO CAMBIAR A STRINGS
             }
         });
         añadirGenero.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                lista_generos.add(genero_sel);
-                if(lista_generos.size()==1){
-                    generoText = "Géneros añadidos: ";
-                }
                 String[] generoArray = getResources().getStringArray(R.array.genero_array);
-                generoText += generoArray[genero_sel] +" ";
-                lista_generos_view.setText(generoText);
+
+                if (lista_generos_view.getError() != null){
+                    lista_generos_view.setError(null);
+                }
+                if (!generoText.contains(generoArray[genero_sel])){
+                    lista_generos.add(genero_sel);
+                    generoText.add(generoArray[genero_sel]);
+                }
+                lista_generos_view.setText("Generos añadidos: " + generoText.toString());
 
             }
         });
@@ -160,7 +159,7 @@ public class AddLibroFragment extends Fragment {
                 num_paginas = view.findViewById(R.id.formnumpaginas);
 
                 ArrayList<EditText> editTextObligatorios = new ArrayList<EditText>() {{add(titulo);
-                        add(autor);}};
+                        add(autor); add(num_paginas);}};
 
                 boolean form_valido = true;
 
@@ -174,11 +173,20 @@ public class AddLibroFragment extends Fragment {
                 }
 
                 if (lista_generos.isEmpty()){
+                    lista_generos_view.setText("Incluye al menos un género ");
+                    lista_generos_view.setError("");
                     form_valido = false;
-                    //genero.setError("Requerido");
+                }
+
+                if (selectedImage == null) {
+                    form_valido = false;
                 }
                 if (!form_valido) {
-                    Toast.makeText(view.getContext(), MSG_FORM_INCOMPLETO, Toast.LENGTH_LONG).show();
+                    if (selectedImage == null){
+                        añadirFoto.setBackgroundResource(R.drawable.shape_bad);
+                    }
+                    Toast.makeText(view.getContext(), R.string.MSG_FORM_INCOMPLETO, Toast.LENGTH_LONG).show();
+
                 } else {
                     BookInfo nuevo_libro = new BookInfo(titulo.getText().toString(), lista_generos,
                             autor.getText().toString(), estado_sel, resumen.getText().toString(),
@@ -187,8 +195,8 @@ public class AddLibroFragment extends Fragment {
                     SABook saBookInfo = new SABook();
                     int res_guardar = saBookInfo.guardarLibro(nuevo_libro);
                     if (res_guardar == 1) {
-                        Toast.makeText(view.getContext(), MSG_EROR_EXITO, Toast.LENGTH_LONG).show();
-                    } else Toast.makeText(view.getContext(), MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(), R.string.MSG_EROR_EXITO, Toast.LENGTH_LONG).show();
+                    } else Toast.makeText(view.getContext(), R.string.MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -213,13 +221,12 @@ public class AddLibroFragment extends Fragment {
         Log.i("CLAU", "ESTAMOS EN EL onactivity");
         super.onActivityResult(requestCode, resultCode, data);
         //seleccionamos la imagen y la sustituimos por el boton
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data.getData() != null) {
             Uri selectedImageUri = data.getData();
             Glide.with(requireContext())
                     .load(selectedImageUri)
                     .into(añadirFoto);
             selectedImage = data.getData();
-            // Hacer algo con la URI de la imagen seleccionada
         }
     }
 

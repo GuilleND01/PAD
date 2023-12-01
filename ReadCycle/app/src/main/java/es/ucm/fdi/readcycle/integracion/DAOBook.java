@@ -6,18 +6,24 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
@@ -37,8 +43,12 @@ public class DAOBook {
     private final String TITULO = "Titulo";
     private final String PROPIETARIO = "Propietario";
     private final String RUTA_IMAGEN = "Ruta_Imagen";
+    private BookInfo bookInfo;
 
 
+    private final String CORREO = "correo";
+    private final String LIBROS_LISTA = "ID_Libros";
+    private boolean exito;
 
 
 
@@ -146,10 +156,112 @@ public class DAOBook {
 
     }
 
-    public boolean eliminarLibro(BookInfo libro){
-        //TODO
-        return true;
+    public BookInfo getLibroById(String id){
+
+   
+        try{
+            DocumentReference bookDocument = SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(id);
+            bookDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    DocumentSnapshot ds = task.getResult();
+
+                    Log.d("ah", ds.getData().toString());
+                //(ArrayList<Integer>) ds.getData().get(GENERO)
+
+
+                    bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), (Integer) ds.getData().get(ESTADO),
+                            ds.getData().get(DESC).toString(), (Integer) ds.getData().get(NUM_PAGINAS), (android.net.Uri)ds.getData().get(RUTA_IMAGEN));
+
+
+                    Log.d("CLAU", bookInfo.getAuthor());
+                }
+
+            });
+
+            return bookInfo;
+
+
+        }catch (Exception e){
+
+        }
+        return null;
     }
+
+    public boolean eliminarLibro(BookInfo libro){
+
+        FirebaseFirestore db = SingletonDataBase.getInstance().getDB();
+
+        //Borramos el libro de la biblioteca del usuario, para ello primero encontramos el usuario
+        db.collection(COL_USUARIOS)
+                .whereEqualTo(CORREO, libro.getPropietario())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Obtenemos el id del documento del usuario
+                                String userID = document.getId();
+
+                                // Creaamos una referencia al documento del usuario
+                                DocumentReference userRef = db.collection(COL_USUARIOS).document(userID);
+
+                                // Obtenesmos el array ID_Libros del documento del usuario
+                                List<String> idLibros = (List<String>) document.get(LIBROS_LISTA);
+
+                                // Eliminamos un libro del array ID_Libros
+                                if (idLibros != null) {
+                                    String libroEliminar = libro.getId();
+                                    idLibros.remove(libroEliminar);
+
+                                    // Actualizamos el campo ID_Libros con el array sin el libro eliminado
+                                    userRef.update(LIBROS_LISTA, idLibros)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        exito = true;
+                                                    } else {
+                                                        exito = false;
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        } else {
+                            exito = false;
+                        }
+                    }
+                });
+
+        //si no ha tenido exito borrar el libro de la biblioteca del usuario no lo eliminamos de la lista de libros
+        if(exito){
+            //Elimino el libro de la coleccion de libros
+            db.collection(COL_LIBROS).document(libro.getId())
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("JULIA", "DocumentSnapshot successfully deleted!");
+                            exito = true;
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("JULIA", "Error deleting document", e);
+                            exito = false;
+                        }
+                    });
+        }
+        return exito;
+    }
+
+
+
+
 
 
 }

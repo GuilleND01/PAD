@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -119,17 +120,15 @@ public class VerLibroFragment extends Fragment {
                    public void onClick(View v) {
                         //TODO -- llamar al SA
 
-
                        SABook saBookInfo = new SABook();
                        int res_eliminar = saBookInfo.eliminarLibro(bookInfo);
-                       if (res_eliminar == 1) {  //redirigir a la biblioteca si se ha podido eliminar el libro
-                              /*
-                           MiBibliotecaFragment miBibliotecaFragment = new MiBibliotecaFragment();
+                       if (res_eliminar == 1) {
+                           //redirigir a la biblioteca si se ha podido eliminar el libro
+                           /*MiBibliotecaFragment miBibliotecaFragment = new MiBibliotecaFragment();
                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                            transaction.replace(R.id.frameLayout, miBibliotecaFragment);
                            transaction.addToBackStack(null);
-                           transaction.commit();
-                           */
+                           transaction.commit();*/
                        } else Toast.makeText(v.getContext(), MSG_ERROR, Toast.LENGTH_LONG).show();
 
                    }
