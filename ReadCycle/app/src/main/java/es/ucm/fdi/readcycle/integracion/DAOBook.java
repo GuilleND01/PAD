@@ -129,7 +129,7 @@ public class DAOBook {
                                 (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
                                 Integer.parseInt(d.get("Estado").toString()),
                                 d.get("Descripcion").toString(),
-                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Imagen").toString()));
+                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Ruta_Imagen").toString()));
                         book.setPropietario(d.get("Propietario").toString());
                         bs.add(book);
                     }
@@ -146,7 +146,7 @@ public class DAOBook {
                                 (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
                                 Integer.parseInt(d.get("Estado").toString()),
                                 d.get("Descripcion").toString(),
-                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Imagen").toString()));
+                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Ruta_Imagen").toString()));
                         book.setPropietario(d.get("Propietario").toString());
                         bs.add(book);
                     }

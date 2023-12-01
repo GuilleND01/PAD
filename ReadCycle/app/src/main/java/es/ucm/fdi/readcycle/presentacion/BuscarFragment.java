@@ -62,11 +62,16 @@ public class BuscarFragment extends Fragment {
                         @Override
                         public void onCallback(ArrayList<BookInfo> bs) {
                             MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
+                            // Crear un Bundle para pasar datos al nuevo fragmento
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("bookInfoList", bs);
+
+                            // Asignar el Bundle al fragmento
+                            mostrarResultadosFragment.setArguments(bundle);
                             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                             transaction.replace(R.id.frameLayout, mostrarResultadosFragment);
                             transaction.addToBackStack(null);
                             transaction.commit();
-                            Log.d("BUS", bs.toString());
                         }
                     });
                 }
@@ -80,5 +85,4 @@ public class BuscarFragment extends Fragment {
             }
         });
     }
-
 }

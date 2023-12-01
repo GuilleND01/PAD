@@ -38,7 +38,8 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
         Log.d("MCAGO", b_current.getAuthor());
         holder.titulo.setText(b_current.getTitle());
         holder.autor.setText(b_current.getAuthor());
-       // holder.estado.setText(b_current.getState());
+        String[] booksArray = holder.card.getContext().getResources().getStringArray(R.array.books_array);
+        holder.estado.setText(booksArray[b_current.getState()]);
         Glide.with(holder.card)
                 .load(b_current.getSelectedImage())
                 .placeholder(R.drawable.libro)

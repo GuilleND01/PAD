@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,24 +28,24 @@ public class MostrarResultadosFragment extends Fragment {
         Intrinsics.checkNotNullParameter(inflater, "inflater");
         View v = inflater.inflate(R.layout.fragment_mostrar_resultados, container, false);
 
+        ArrayList<BookInfo> bookInfoList = (ArrayList<BookInfo>) getArguments().getSerializable("bookInfoList");
+
+        TextView res = v.findViewById(R.id.n_resultados);
+        if(bookInfoList != null) {
+            String s = String.valueOf(bookInfoList.size());
+            res.setText(s);
+        }
+        else{
+            res.setText("0");
+        }
+
         BusquedaAdapter adapter = new BusquedaAdapter();
-        ArrayList<Integer> g = new ArrayList<Integer>();
-        g.add(0);
-        android.net.Uri selectedImage =null;
-        BookInfo book1 = new BookInfo("Hola",g, "Manolo",1,"", 1, selectedImage);
-        BookInfo book2 = new BookInfo("ADIOS",g, "Esther",1,"", 1, selectedImage);
-        BookInfo book3 = new BookInfo("DCNDJKC",g, "Gerardo",0,"", 1, selectedImage);
-        ArrayList<BookInfo> a = new ArrayList<>();
-        a.add(book1);
-        a.add(book2);
-        a.add(book3);
-        adapter.setBooksData(a);
+        adapter.setBooksData(bookInfoList);
 
         RecyclerView recyclerView = v.findViewById(R.id.r_mostrar_busquedas);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-
         return v;
     }
 }
