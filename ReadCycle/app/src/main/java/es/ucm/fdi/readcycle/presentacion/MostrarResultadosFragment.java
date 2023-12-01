@@ -37,9 +37,9 @@ public class MostrarResultadosFragment extends Fragment {
         a.add(book1);
         a.add(book2);
         a.add(book3);
-        adapter.setBookData(a);
+        adapter.setBooksData(a);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.r_mostrar_busquedas);
+        RecyclerView recyclerView = v.findViewById(R.id.r_mostrar_busquedas);
         recyclerView.setAdapter(adapter);
         return v;
     }
