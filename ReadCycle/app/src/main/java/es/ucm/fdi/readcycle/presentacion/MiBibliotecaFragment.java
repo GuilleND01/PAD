@@ -64,9 +64,10 @@ public class MiBibliotecaFragment extends Fragment {
         recyclerView.setAdapter(b);
 
         //CLAUDIA PROBANDO COSAS CARGANDOSE LA JERARQUIA DE PAQUETES
+        /*
         DAOBook daoBook = new DAOBook();
         daoBook.getLibroById("vHnr1YEWPjhwHxyIDxpA");
-
+*/
 
 
 
