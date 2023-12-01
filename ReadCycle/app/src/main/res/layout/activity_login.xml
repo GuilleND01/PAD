@@ -12,9 +12,6 @@
         android:background="@color/navbar"
         android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginRight="40dp"
                     android:background="@color/fondoClaro" />
 
@@ -115,7 +112,7 @@
                     android:textColor="@color/fondoClaro"
                     android:textSize="18dp" />
             </LinearLayout>
-        </ScrollView>
+
 
 
     </LinearLayout>
