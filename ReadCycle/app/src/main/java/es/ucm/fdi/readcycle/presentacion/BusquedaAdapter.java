@@ -25,6 +25,10 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
     public void setBooksData(ArrayList<BookInfo> book){
         books = book;
     }
+
+    public void notifyData(){
+        notifyDataSetChanged();
+    };
     @NonNull
     @Override
     public BusquedaAdapter.BusquedaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
