@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +51,23 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
                 .load(b_current.getSelectedImage())
                 .placeholder(R.drawable.libro)
                 .into(holder.imagen);
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookInfo selectedBook = books.get(holder.getAdapterPosition());
+
+                // Crear una instancia del fragmento VerLibroFragment y pasar el objeto BookInfo
+                VerLibroFragment nuevoLibroFragment = VerLibroFragment.newInstance(selectedBook);
+
+                // FragmentTransaction para reemplazar el fragmento actual
+                FragmentManager fragmentManager = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, nuevoLibroFragment);
+                fragmentTransaction.addToBackStack(null); // Opcional, para agregar a la pila de retroceso
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override

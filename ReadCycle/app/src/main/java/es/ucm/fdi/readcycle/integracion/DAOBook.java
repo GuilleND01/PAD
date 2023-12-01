@@ -143,7 +143,7 @@ public class DAOBook {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot d: task.getResult()){
                         BookInfo book = new BookInfo(d.get("Titulo").toString(),
-                                (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
+                                new ArrayList<Integer>(Integer.parseInt(d.get("genero").toString())), d.get("Autor").toString(),
                                 Integer.parseInt(d.get("Estado").toString()),
                                 d.get("Descripcion").toString(),
                                 Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Ruta_Imagen").toString()));
