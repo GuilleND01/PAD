@@ -66,11 +66,20 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onCallback(UserInfo u) {
 
-                Log.d("CLAU", u.getNombre());
                 nombre.setText(u.getNombre());
                 correo.setText(u.getCorreo());
                 contacto.setText(u.getContacto().toString());
                 zona.setText(u.getZona().toString());
+            }
+
+            @Override
+            public void onCallbackBookInfo(BookInfo b) {
+
+            }
+
+            @Override
+            public void onCallbackBooks(ArrayList<BookInfo> bs) {
+
             }
 
         });
@@ -143,6 +152,16 @@ public class PerfilFragment extends Fragment {
                             contacto.setText(u.getContacto().toString());
                         }
 
+                        @Override
+                        public void onCallbackBookInfo(BookInfo b) {
+
+                        }
+
+                        @Override
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+
+                        }
+
                     });
                 }
                 //si se ha editado solo la zona
@@ -153,6 +172,16 @@ public class PerfilFragment extends Fragment {
                         public void onCallback(UserInfo u) {
 
                             zona.setText(u.getZona().toString());
+                        }
+
+                        @Override
+                        public void onCallbackBookInfo(BookInfo b) {
+
+                        }
+
+                        @Override
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+
                         }
 
                     });
@@ -167,6 +196,16 @@ public class PerfilFragment extends Fragment {
 
                             zona.setText(u.getZona().toString());
                             contacto.setText(u.getContacto().toString());
+                        }
+
+                        @Override
+                        public void onCallbackBookInfo(BookInfo b) {
+
+                        }
+
+                        @Override
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+
                         }
 
                     });

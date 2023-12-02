@@ -64,8 +64,8 @@ public class SAUser {
         dao.editContacto(contacto);
     }
 
-    public ArrayList<BookInfo> getBiblioteca(String correo){
+    public void getBiblioteca(String correo, UsuarioCallBacks callBacks){
         DAOUser dao = new DAOUser();
-        return dao.getBiblioteca(correo);
+        dao.getBiblioteca(correo, callBacks);
     }
 }

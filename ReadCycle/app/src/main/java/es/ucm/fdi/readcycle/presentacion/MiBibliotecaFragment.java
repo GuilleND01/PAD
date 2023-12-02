@@ -22,9 +22,11 @@ import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.DAOBook;
+import es.ucm.fdi.readcycle.integracion.UsuarioCallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
 import es.ucm.fdi.readcycle.negocio.SAUser;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class MiBibliotecaFragment extends Fragment {
@@ -41,7 +43,7 @@ public class MiBibliotecaFragment extends Fragment {
         //PRUEBA PARA LAS CARDS
 
 
-        ArrayList<Integer> g = new ArrayList<Integer>();
+       /* ArrayList<Integer> g = new ArrayList<Integer>();
         g.add(0);
         g.add(1);
         g.add(2);
@@ -67,22 +69,50 @@ public class MiBibliotecaFragment extends Fragment {
         BookAdapter b = new BookAdapter();
         b.setBookData(a);
         RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
-        recyclerView.setAdapter(b);
-
-        //CLAUDIA PROBANDO COSAS CARGANDOSE LA JERARQUIA DE PAQUETES
-
-        /*
-        SABook sa = new SABook();
-        BookInfo bookGet = sa.getLibroById("vHnr1YEWPjhwHxyIDxpA");
-        if(bookGet != null) Log.d("JUL", bookGet.getTitle());*/
+        recyclerView.setAdapter(b);*/
 
 
+
+
+        BookAdapter b = new BookAdapter();
+        ArrayList<BookInfo> biblioteca = new ArrayList<>();
+
+        //AÑADIMOS EL BOOKADD, tal como esta implementada la recycler view coge el primer elemento del
+        //arraylist de books y lo sobreescribe mostrando la card de añadir, asi que metemos un libro nulo
+        //para que no sobrreescriba uno real de la biblioteca
+
+        ArrayList<Integer> g = new ArrayList<Integer>();
+        g.add(0);
+        android.net.Uri selectedImage=null;
+        BookInfo bookAdd = new BookInfo("",g, "",0,"", 0, selectedImage);
+
+        biblioteca.add(bookAdd);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         SAUser saUser = new SAUser();
-        //ArrayList<BookInfo> books = saUser.getBiblioteca(currentUser.getEmail());
-        //if(books != null) Log.d("JUL", books.get(0).getTitle());
+        saUser.getBiblioteca(currentUser.getEmail(), new UsuarioCallBacks() {
+            @Override
+            public void onCallback(UserInfo u) {
+
+            }
+
+            @Override
+            public void onCallbackBookInfo(BookInfo b) {
+
+            }
+
+            @Override
+            public void onCallbackBooks(ArrayList<BookInfo> bs) {
+                biblioteca.addAll(bs);
+                b.setBookData(biblioteca);
+                RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
+                recyclerView.setAdapter(b);
+            }
+        });
+
+
+       // if(books != null) Log.d("JUL", books.get(0).getTitle());
 
 
 

@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
@@ -149,7 +150,7 @@ public class DAOUser {
     }
 
     //Te trae la biblioteca del carreo q le llega
-    public ArrayList<BookInfo> getBiblioteca(String correo){
+    public void getBiblioteca(String correo, UsuarioCallBacks cb){
         ArrayList<BookInfo> biblioteca = new ArrayList<>();
         try {
 
@@ -161,17 +162,35 @@ public class DAOUser {
                     for (QueryDocumentSnapshot d : task.getResult()) {
                         // Obtenesmos el array ID_Libros del documento del usuario
                         List<String> idLibros = (List<String>) d.get(LIBRO);
+                        AtomicInteger count = new AtomicInteger(idLibros.size());
                         for(String libro: idLibros){
-                            biblioteca.add(daoBook.getLibroById(libro));
+                            daoBook.getLibroById(libro, new UsuarioCallBacks() {
+                                @Override
+                                public void onCallback(UserInfo u) {}
+
+                                @Override
+                                public void onCallbackBookInfo(BookInfo b) {
+                                    if(b != null){
+                                        biblioteca.add(b);
+                                    }
+                                    if (count.decrementAndGet() == 0) {
+                                        // Todos los libros se han cargado, llamar al callback
+                                        cb.onCallbackBooks(biblioteca);
+                                    }
+                                }
+
+                                @Override
+                                public void onCallbackBooks(ArrayList<BookInfo> bs) {}
+                            });
                         }
 
                     }
                 }
             });
-            return biblioteca;
+
         }
          catch (Exception e){
-            return null;
+
         }
     }
 

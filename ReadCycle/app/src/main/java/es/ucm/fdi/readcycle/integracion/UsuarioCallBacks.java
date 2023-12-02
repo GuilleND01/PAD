@@ -8,4 +8,6 @@ import es.ucm.fdi.readcycle.negocio.UserInfo;
 public interface UsuarioCallBacks {
 
     void onCallback(UserInfo u);
+    void onCallbackBookInfo(BookInfo b);
+    void onCallbackBooks(ArrayList<BookInfo> bs);
 }

@@ -156,7 +156,7 @@ public class DAOBook {
         }
 
     }
-    public BookInfo getLibroById(String id){
+    public void getLibroById(String id, UsuarioCallBacks callBacks){
 
    
         try{
@@ -164,27 +164,24 @@ public class DAOBook {
             bookDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                    DocumentSnapshot ds = task.getResult();
-                    bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), Integer.parseInt(ds.getData().get(ESTADO).toString()),
-                            ds.getData().get(DESC).toString(), Integer.parseInt(ds.getData().get(NUM_PAGINAS).toString()), Uri.parse(ds.getData().get(RUTA_IMAGEN).toString()));
-
-                    
-                    Log.d("JUL", bookInfo.getTitle());
-
-
-
+                    if(task.isSuccessful()){
+                        DocumentSnapshot ds = task.getResult();
+                        if(ds.exists()){
+                            bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), Integer.parseInt(ds.getData().get(ESTADO).toString()),
+                                    ds.getData().get(DESC).toString(), Integer.parseInt(ds.getData().get(NUM_PAGINAS).toString()), Uri.parse(ds.getData().get(RUTA_IMAGEN).toString()));
+                        }
+                    }
+                    callBacks.onCallbackBookInfo(bookInfo);
                 }
 
             });
-
-            return bookInfo;
 
 
         }catch (Exception e){
 
         }
-        return null;
+
+
     }
 
     public boolean eliminarLibro(BookInfo libro){

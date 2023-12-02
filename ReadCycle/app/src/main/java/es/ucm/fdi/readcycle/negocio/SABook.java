@@ -22,10 +22,10 @@ public class SABook {
         daoBook.bucarLibros(b, callBacks);
     }
 
-    public BookInfo getLibroById(String id){
+    /*public BookInfo getLibroById(String id){
         DAOBook daoBook = new DAOBook();
         return daoBook.getLibroById(id);
-    }
+    }*/
 
     public int eliminarLibro(BookInfo book){
         DAOBook daoBook = new DAOBook();
