@@ -44,6 +44,7 @@ public class DAOBook {
     private final String TITULO = "Titulo";
     private final String PROPIETARIO = "Propietario";
     private final String RUTA_IMAGEN = "Ruta_Imagen";
+
     private BookInfo bookInfo;
 
 
@@ -121,16 +122,24 @@ public class DAOBook {
 
         ArrayList<BookInfo> bs = new ArrayList<>();
         if(b.getAuthor() != null){
-            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Autor",
+            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo(AUTOR,
                     b.getAuthor()).get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot d: task.getResult()){
-                        BookInfo book = new BookInfo(d.get("Titulo").toString(),
-                                (ArrayList<Integer>) d.get("Genero"), d.get("Autor").toString(),
-                                Integer.parseInt(d.get("Estado").toString()),
-                                d.get("Descripcion").toString(),
-                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Ruta_Imagen").toString()));
-                        book.setPropietario(d.get("Propietario").toString());
+
+                        ArrayList<Long> datosLong = (ArrayList<Long>) d.getData().get(GENERO);
+                        ArrayList<Integer> generosInteger = new ArrayList<>();
+                        for (Long datoLong : datosLong) {
+                            generosInteger.add(datoLong.intValue());
+                        }
+
+                        BookInfo book = new BookInfo(d.get(TITULO).toString(),
+                                generosInteger, d.get(AUTOR).toString(),
+                                Integer.parseInt(d.get(ESTADO).toString()),
+                                d.get(DESC).toString(),
+                                Integer.parseInt(d.get(NUM_PAGINAS).toString()), Uri.parse(d.get(RUTA_IMAGEN).toString()));
+                        book.setPropietario(d.get(PROPIETARIO).toString());
+                        book.setId(d.getId());
                         bs.add(book);
                     }
                     callBacks.onCallback(bs);
@@ -138,16 +147,24 @@ public class DAOBook {
             });
         }
         else{
-            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo("Titulo",
+            SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).whereEqualTo(TITULO,
                     b.getTitle()).get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot d: task.getResult()){
-                        BookInfo book = new BookInfo(d.get("Titulo").toString(),
-                                new ArrayList<Integer>(Integer.parseInt(d.get("genero").toString())), d.get("Autor").toString(),
-                                Integer.parseInt(d.get("Estado").toString()),
-                                d.get("Descripcion").toString(),
-                                Integer.parseInt(d.get("Paginas").toString()), Uri.parse(d.get("Ruta_Imagen").toString()));
-                        book.setPropietario(d.get("Propietario").toString());
+
+                        ArrayList<Long> datosLong = (ArrayList<Long>) d.getData().get(GENERO);
+                        ArrayList<Integer> generosInteger = new ArrayList<>();
+                        for (Long datoLong : datosLong) {
+                            generosInteger.add(datoLong.intValue());
+                        }
+
+                        BookInfo book = new BookInfo(d.get(TITULO).toString(),
+                                generosInteger, d.get(AUTOR).toString(),
+                                Integer.parseInt(d.get(ESTADO).toString()),
+                                d.get(DESC).toString(),
+                                Integer.parseInt(d.get(NUM_PAGINAS).toString()), Uri.parse(d.get(RUTA_IMAGEN).toString()));
+                        book.setPropietario(d.get(PROPIETARIO).toString());
+                        book.setId(d.getId());
                         bs.add(book);
                     }
                     callBacks.onCallback(bs);
@@ -167,8 +184,19 @@ public class DAOBook {
                     if(task.isSuccessful()){
                         DocumentSnapshot ds = task.getResult();
                         if(ds.exists()){
-                            bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), (ArrayList<Integer>) ds.getData().get(GENERO),ds.getData().get(AUTOR).toString(), Integer.parseInt(ds.getData().get(ESTADO).toString()),
+
+                            //Hacemos el parse de los generos
+                            ArrayList<Long> datosLong = (ArrayList<Long>) ds.getData().get(GENERO);
+                            ArrayList<Integer> generosInteger = new ArrayList<>();
+                            for (Long datoLong : datosLong) {
+                                generosInteger.add(datoLong.intValue());
+                            }
+                            bookInfo = new BookInfo(ds.getData().get(TITULO).toString(), generosInteger,ds.getData().get(AUTOR).toString(), Integer.parseInt(ds.getData().get(ESTADO).toString()),
                                     ds.getData().get(DESC).toString(), Integer.parseInt(ds.getData().get(NUM_PAGINAS).toString()), Uri.parse(ds.getData().get(RUTA_IMAGEN).toString()));
+
+                            //Asignamos el propietario e id por separado
+                            bookInfo.setPropietario(ds.getData().get(PROPIETARIO).toString());
+                            bookInfo.setId(ds.getId());
                         }
                     }
                     callBacks.onCallbackBookInfo(bookInfo);
