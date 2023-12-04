@@ -2,13 +2,8 @@ package es.ucm.fdi.readcycle.negocio;
 
 import android.util.Pair;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.auth.User;
-
-import java.util.ArrayList;
-
 import es.ucm.fdi.readcycle.integracion.DAOUser;
-import es.ucm.fdi.readcycle.integracion.UsuarioCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 
 public class SAUser {
 
@@ -32,7 +27,7 @@ public class SAUser {
         dao.entrar(correo, contraseña);
     }
 
-    public void infoUsuario(String correo, UsuarioCallBacks callBacks) {
+    public void infoUsuario(String correo, CallBacks callBacks) {
         DAOUser dao = new DAOUser();
         dao.getUsuario(correo, callBacks);
     }
@@ -64,7 +59,7 @@ public class SAUser {
         dao.editContacto(contacto);
     }
 
-    public void getBiblioteca(String correo, UsuarioCallBacks callBacks){
+    public void getBiblioteca(String correo, CallBacks callBacks){
         DAOUser dao = new DAOUser();
         dao.getBiblioteca(correo, callBacks);
     }

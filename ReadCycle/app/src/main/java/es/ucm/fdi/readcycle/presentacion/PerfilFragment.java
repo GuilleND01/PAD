@@ -3,7 +3,6 @@ package es.ucm.fdi.readcycle.presentacion;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -26,9 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
-import es.ucm.fdi.readcycle.integracion.BuscarCallBacks;
-import es.ucm.fdi.readcycle.integracion.DAOUser;
-import es.ucm.fdi.readcycle.integracion.UsuarioCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
@@ -62,7 +59,7 @@ public class PerfilFragment extends Fragment {
         SAUser saUser = new SAUser();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+        saUser.infoUsuario(currentUser.getEmail().toString(), new CallBacks() {
             @Override
             public void onCallback(UserInfo u) {
 
@@ -126,6 +123,9 @@ public class PerfilFragment extends Fragment {
 
         editContacto = dialogView.findViewById(R.id.editarFormaContacto);
         editZona = dialogView.findViewById(R.id.editarZona);
+
+        editContacto.setText(contacto.getText().toString());
+        editZona.setText(zona.getText().toString());
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
         Button btnAceptar = dialogView.findViewById(R.id.btnAceptar);
 
@@ -145,7 +145,7 @@ public class PerfilFragment extends Fragment {
                 //si se ha editado solo la forma de contacto
                 if(nuevaZona.equals("") && !nuevaFormaContacto.equals("")){
                     saUser.editarContacto(nuevaFormaContacto);
-                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new CallBacks() {
                         @Override
                         public void onCallback(UserInfo u) {
 
@@ -167,7 +167,7 @@ public class PerfilFragment extends Fragment {
                 //si se ha editado solo la zona
                 else if (!nuevaZona.equals("") && nuevaFormaContacto.equals("")) {
                     saUser.editarZona(nuevaZona);
-                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new CallBacks() {
                         @Override
                         public void onCallback(UserInfo u) {
 
@@ -190,7 +190,7 @@ public class PerfilFragment extends Fragment {
                 //si se han editado ambas
                 else if (!nuevaZona.equals("") && !nuevaFormaContacto.equals("")) {
                     saUser.editarZonaYContacto(nuevaZona, nuevaFormaContacto);
-                    saUser.infoUsuario(currentUser.getEmail().toString(), new UsuarioCallBacks() {
+                    saUser.infoUsuario(currentUser.getEmail().toString(), new CallBacks() {
                         @Override
                         public void onCallback(UserInfo u) {
 

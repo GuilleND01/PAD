@@ -1,12 +1,10 @@
 package es.ucm.fdi.readcycle.presentacion;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +19,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
-import es.ucm.fdi.readcycle.integracion.BuscarCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class MostrarResultadosFragment extends Fragment {
@@ -84,9 +83,19 @@ public class MostrarResultadosFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
                 }
                 if(b.getAuthor() != null || b.getTitle() != null){
-                    service.bucarLibros(b, new BuscarCallBacks() {
+                    service.bucarLibros(b, new CallBacks() {
                         @Override
-                        public void onCallback(ArrayList<BookInfo> bs) {
+                        public void onCallback(UserInfo u) {
+
+                        }
+
+                        @Override
+                        public void onCallbackBookInfo(BookInfo b) {
+
+                        }
+
+                        @Override
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
                             adapter.setBooksData(bs);
                             if(bs != null) {
                                 String s = String.valueOf(bs.size());
@@ -97,6 +106,7 @@ public class MostrarResultadosFragment extends Fragment {
                             }
                             adapter.notifyData();
                         }
+
                     });
                 }
                 return false;

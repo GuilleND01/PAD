@@ -1,8 +1,6 @@
 package es.ucm.fdi.readcycle.negocio;
 
-import java.util.ArrayList;
-
-import es.ucm.fdi.readcycle.integracion.BuscarCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.integracion.DAOBook;
 
 public class SABook {
@@ -17,7 +15,7 @@ public class SABook {
 
     }
 
-    public void bucarLibros(BookInfo b, BuscarCallBacks callBacks){
+    public void bucarLibros(BookInfo b, CallBacks callBacks){
         DAOBook daoBook = new DAOBook();
         daoBook.bucarLibros(b, callBacks);
     }

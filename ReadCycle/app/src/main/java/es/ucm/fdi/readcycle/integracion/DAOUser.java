@@ -1,34 +1,25 @@
 package es.ucm.fdi.readcycle.integracion;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
-import es.ucm.fdi.readcycle.presentacion.Registro;
 
 public class DAOUser {
     private FirebaseAuth mAuth;
@@ -107,7 +98,7 @@ public class DAOUser {
                 });
     }
 
-    public void getUsuario(String email, UsuarioCallBacks callBacks){
+    public void getUsuario(String email, CallBacks callBacks){
         UserInfo user = new UserInfo();
         SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo(CORREO,
                 email).get().addOnCompleteListener(task -> {
@@ -150,7 +141,7 @@ public class DAOUser {
     }
 
     //Te trae la biblioteca del carreo q le llega
-    public void getBiblioteca(String correo, UsuarioCallBacks cb){
+    public void getBiblioteca(String correo, CallBacks cb){
         ArrayList<BookInfo> biblioteca = new ArrayList<>();
         try {
 
@@ -164,7 +155,7 @@ public class DAOUser {
                         List<String> idLibros = (List<String>) d.get(LIBRO);
                         AtomicInteger count = new AtomicInteger(idLibros.size());
                         for(String libro: idLibros){
-                            daoBook.getLibroById(libro, new UsuarioCallBacks() {
+                            daoBook.getLibroById(libro, new CallBacks() {
                                 @Override
                                 public void onCallback(UserInfo u) {}
 

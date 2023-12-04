@@ -1,7 +1,6 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,10 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
-import es.ucm.fdi.readcycle.integracion.BuscarCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class BuscarFragment extends Fragment {
@@ -58,9 +58,15 @@ public class BuscarFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
                 }
                 if(b.getAuthor() != null || b.getTitle() != null){
-                    service.bucarLibros(b, new BuscarCallBacks() {
+                    service.bucarLibros(b, new CallBacks() {
                         @Override
-                        public void onCallback(ArrayList<BookInfo> bs) {
+                        public void onCallback(UserInfo u) {}
+
+                        @Override
+                        public void onCallbackBookInfo(BookInfo b) {}
+
+                        @Override
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
                             MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
                             // Crear un Bundle para pasar datos al nuevo fragmento
                             Bundle bundle = new Bundle();
@@ -73,6 +79,7 @@ public class BuscarFragment extends Fragment {
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
+
                     });
                 }
                 return false;

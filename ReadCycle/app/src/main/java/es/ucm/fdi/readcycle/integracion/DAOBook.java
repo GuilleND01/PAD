@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 
@@ -118,7 +117,7 @@ public class DAOBook {
         }
     }
 
-    public void bucarLibros(@NonNull BookInfo b, BuscarCallBacks callBacks){
+    public void bucarLibros(@NonNull BookInfo b, CallBacks callBacks){
 
         ArrayList<BookInfo> bs = new ArrayList<>();
         if(b.getAuthor() != null){
@@ -142,7 +141,7 @@ public class DAOBook {
                         book.setId(d.getId());
                         bs.add(book);
                     }
-                    callBacks.onCallback(bs);
+                    callBacks.onCallbackBooks(bs);
                 }
             });
         }
@@ -167,13 +166,13 @@ public class DAOBook {
                         book.setId(d.getId());
                         bs.add(book);
                     }
-                    callBacks.onCallback(bs);
+                    callBacks.onCallbackBooks(bs);
                 }
             });
         }
 
     }
-    public void getLibroById(String id, UsuarioCallBacks callBacks){
+    public void getLibroById(String id, CallBacks callBacks){
 
    
         try{

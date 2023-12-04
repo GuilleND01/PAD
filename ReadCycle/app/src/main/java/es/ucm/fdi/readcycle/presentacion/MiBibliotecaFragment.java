@@ -1,9 +1,6 @@
 package es.ucm.fdi.readcycle.presentacion;
 
-import android.annotation.SuppressLint;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,6 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,10 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
-import es.ucm.fdi.readcycle.integracion.DAOBook;
-import es.ucm.fdi.readcycle.integracion.UsuarioCallBacks;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
-import es.ucm.fdi.readcycle.negocio.SABook;
 import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
@@ -91,7 +85,7 @@ public class MiBibliotecaFragment extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         SAUser saUser = new SAUser();
-        saUser.getBiblioteca(currentUser.getEmail(), new UsuarioCallBacks() {
+        saUser.getBiblioteca(currentUser.getEmail(), new CallBacks() {
             @Override
             public void onCallback(UserInfo u) {
 
