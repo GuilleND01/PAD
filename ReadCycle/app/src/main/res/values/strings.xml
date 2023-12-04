@@ -87,5 +87,8 @@
     <!--Ver libro-->
     <string name="solicitar">Solicitar</string>
     <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="confirmar">¿Seguro que quieres eliminar este libro?</string>
+
 
 </resources>

@@ -172,6 +172,11 @@ public class DAOUser {
 
                                 @Override
                                 public void onCallbackBooks(ArrayList<BookInfo> bs) {}
+
+                                @Override
+                                public void onCallbackExito(Boolean exito) {
+
+                                }
                             });
                         }
 

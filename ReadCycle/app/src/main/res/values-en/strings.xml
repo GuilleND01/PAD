@@ -86,5 +86,9 @@
     <!--Ver libro-->
     <string name="solicitar">Request</string>
     <string name="eliminar">Delete</string>
+    <string name="cancelar">Cancel</string>
+    <string name="confirmar">Are you sure you want to delete this book?</string>
+
+
 
 </resources>

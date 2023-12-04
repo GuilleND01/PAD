@@ -1,5 +1,8 @@
 package es.ucm.fdi.readcycle.presentacion;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -24,8 +27,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class VerLibroFragment extends Fragment {
@@ -118,18 +123,47 @@ public class VerLibroFragment extends Fragment {
                btnEliminar.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
-                        //TODO -- llamar al SA
 
-                       SABook saBookInfo = new SABook();
-                       int res_eliminar = saBookInfo.eliminarLibro(bookInfo);
-                       if (res_eliminar == 1) {
-                           //redirigir a la biblioteca si se ha podido eliminar el libro
-                           /*MiBibliotecaFragment miBibliotecaFragment = new MiBibliotecaFragment();
-                           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                           transaction.replace(R.id.frameLayout, miBibliotecaFragment);
-                           transaction.addToBackStack(null);
-                           transaction.commit();*/
-                       } else Toast.makeText(v.getContext(), MSG_ERROR, Toast.LENGTH_LONG).show();
+                       AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                       builder.setTitle(R.string.confirmar);
+                       builder.setPositiveButton(R.string.eliminar, new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                              SABook saBookInfo = new SABook();
+                              saBookInfo.eliminarLibro(bookInfo, new CallBacks() {
+                                   @Override
+                                   public void onCallback(UserInfo u) {}
+                                   @Override
+                                   public void onCallbackBookInfo(BookInfo b) {}
+                                   @Override
+                                   public void onCallbackBooks(ArrayList<BookInfo> bs) {}
+                                   @Override
+                                   public void onCallbackExito(Boolean exito) {
+                                       dialog.dismiss();
+                                       if(exito){
+                                           //redirigir a la biblioteca si se ha podido eliminar el libro
+                                           MiBibliotecaFragment miBibliotecaFragment = new MiBibliotecaFragment();
+                                           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                                           transaction.replace(R.id.frameLayout, miBibliotecaFragment);
+                                           transaction.addToBackStack(null);
+                                           transaction.commit();
+
+                                       }else {
+                                           Toast.makeText(v.getContext(), MSG_ERROR, Toast.LENGTH_LONG).show();
+                                       }
+
+                                   }
+
+                               });
+                           }
+                       });
+                       builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                               dialog.dismiss();
+                           }
+                       });
+                       AlertDialog dialog = builder.create();
+                       dialog.show();
+
 
                    }
                });
@@ -148,4 +182,6 @@ public class VerLibroFragment extends Fragment {
         }
         return v;
     }
+
+
 }

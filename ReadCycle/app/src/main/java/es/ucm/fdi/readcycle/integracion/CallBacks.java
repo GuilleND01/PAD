@@ -10,4 +10,7 @@ public interface CallBacks {
     void onCallback(UserInfo u);
     void onCallbackBookInfo(BookInfo b);
     void onCallbackBooks(ArrayList<BookInfo> bs);
+    void onCallbackExito(Boolean exito);
+
+
 }

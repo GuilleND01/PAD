@@ -80,6 +80,9 @@ public class BuscarFragment extends Fragment {
                             transaction.commit();
                         }
 
+                        @Override
+                        public void onCallbackExito(Boolean exito) {}
+
                     });
                 }
                 return false;

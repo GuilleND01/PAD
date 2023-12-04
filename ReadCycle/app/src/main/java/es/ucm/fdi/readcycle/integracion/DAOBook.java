@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import es.ucm.fdi.readcycle.negocio.BookInfo;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 
 /* Clase que accede a la colección "Libros" y realiza las operaciones CRUD básicas*/
 public class DAOBook {
@@ -49,7 +51,7 @@ public class DAOBook {
 
     private final String CORREO = "correo";
     private final String LIBROS_LISTA = "ID_Libros";
-    private boolean exito;
+    private static boolean exito;
 
 
 
@@ -211,74 +213,57 @@ public class DAOBook {
 
     }
 
-    public boolean eliminarLibro(BookInfo libro){
+    public void eliminarLibro(BookInfo libro, CallBacks callBacks){
 
-        FirebaseFirestore db = SingletonDataBase.getInstance().getDB();
+        DocumentReference bookDocument = SingletonDataBase.getInstance().getDB().collection(COL_LIBROS).document(libro.getId());
+        CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
+        usersCollection.whereEqualTo(CORREO, libro.getPropietario()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot d : task.getResult()) {
 
-        //Borramos el libro de la biblioteca del usuario, para ello primero encontramos el usuario
-        db.collection(COL_USUARIOS)
-                .whereEqualTo(CORREO, libro.getPropietario())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Obtenemos el id del documento del usuario
-                                String userID = document.getId();
+                    // Creaamos una referencia al documento del usuario
+                    String userID = d.getId();
+                    DocumentReference userRef = usersCollection.document(userID);
 
-                                // Creaamos una referencia al documento del usuario
-                                DocumentReference userRef = db.collection(COL_USUARIOS).document(userID);
+                    // Obtenesmos el array ID_Libros del documento del usuario
+                    List<String> idLibros = (List<String>) d.get(LIBROS_LISTA);
 
-                                // Obtenesmos el array ID_Libros del documento del usuario
-                                List<String> idLibros = (List<String>) document.get(LIBROS_LISTA);
+                    // Eliminamos un libro del array ID_Libros
+                    if (idLibros != null) {
+                        String libroEliminar = libro.getId();
+                        idLibros.remove(libroEliminar);
 
-                                // Eliminamos un libro del array ID_Libros
-                                if (idLibros != null) {
-                                    String libroEliminar = libro.getId();
-                                    idLibros.remove(libroEliminar);
-
-                                    // Actualizamos el campo ID_Libros con el array sin el libro eliminado
-                                    userRef.update(LIBROS_LISTA, idLibros)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        // Actualizamos el campo ID_Libros con el array sin el libro eliminado
+                        userRef.update(LIBROS_LISTA, idLibros).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Task<Void> booksCollectionTask = bookDocument.delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        exito = true;
-                                                    } else {
-                                                        exito = false;
-                                                    }
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("JULIA", "Libro eliminado");
+                                                    callBacks.onCallbackExito(true);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w("JULIA", "Error al eliminar libro", e);
+                                                    callBacks.onCallbackExito(false);
                                                 }
                                             });
+                                } else {
+                                    Log.w("JULIA", "Error al eliminar libro de biblioteca");
+                                    callBacks.onCallbackExito(false);
                                 }
                             }
-                        } else {
-                            exito = false;
-                        }
+                        });
                     }
-                });
 
-        //si no ha tenido exito borrar el libro de la biblioteca del usuario no lo eliminamos de la lista de libros
-        if(exito){
-            //Elimino el libro de la coleccion de libros
-            db.collection(COL_LIBROS).document(libro.getId())
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("JULIA", "DocumentSnapshot successfully deleted!");
-                            exito = true;
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("JULIA", "Error deleting document", e);
-                            exito = false;
-                        }
-                    });
-        }
-        return exito;
+                }
+            }
+        });
     }
 
 

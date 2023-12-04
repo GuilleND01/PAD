@@ -25,10 +25,8 @@ public class SABook {
         return daoBook.getLibroById(id);
     }*/
 
-    public int eliminarLibro(BookInfo book){
+    public void eliminarLibro(BookInfo book, CallBacks callBacks){
         DAOBook daoBook = new DAOBook();
-        if(daoBook.eliminarLibro(book)){
-            return 1;
-        } else return -1;
+        daoBook.eliminarLibro(book, callBacks);
     }
 }

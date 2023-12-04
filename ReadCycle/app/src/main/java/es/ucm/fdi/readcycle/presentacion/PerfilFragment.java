@@ -70,14 +70,13 @@ public class PerfilFragment extends Fragment {
             }
 
             @Override
-            public void onCallbackBookInfo(BookInfo b) {
-
-            }
+            public void onCallbackBookInfo(BookInfo b) {}
 
             @Override
-            public void onCallbackBooks(ArrayList<BookInfo> bs) {
+            public void onCallbackBooks(ArrayList<BookInfo> bs) {}
 
-            }
+            @Override
+            public void onCallbackExito(Boolean exito) {}
 
         });
 
@@ -153,14 +152,13 @@ public class PerfilFragment extends Fragment {
                         }
 
                         @Override
-                        public void onCallbackBookInfo(BookInfo b) {
-
-                        }
+                        public void onCallbackBookInfo(BookInfo b) {}
 
                         @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
 
-                        }
+                        @Override
+                        public void onCallbackExito(Boolean exito) {}
 
                     });
                 }
@@ -175,14 +173,13 @@ public class PerfilFragment extends Fragment {
                         }
 
                         @Override
-                        public void onCallbackBookInfo(BookInfo b) {
-
-                        }
+                        public void onCallbackBookInfo(BookInfo b) {}
 
                         @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
 
-                        }
+                        @Override
+                        public void onCallbackExito(Boolean exito) {}
 
                     });
 
@@ -199,14 +196,13 @@ public class PerfilFragment extends Fragment {
                         }
 
                         @Override
-                        public void onCallbackBookInfo(BookInfo b) {
-
-                        }
+                        public void onCallbackBookInfo(BookInfo b) {}
 
                         @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {
+                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
 
-                        }
+                        @Override
+                        public void onCallbackExito(Boolean exito) {}
 
                     });
                 }
