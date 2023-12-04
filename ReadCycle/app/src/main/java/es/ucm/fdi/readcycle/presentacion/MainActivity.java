@@ -40,57 +40,37 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);
         }
+        else{
+            setContentView(R.layout.activity_main);
+            //CARGAMOS LA BIBLIOTECA DE PRIMERAS
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();
 
-        setContentView(R.layout.activity_main);
-        //CARGAMOS LA BIBLIOTECA DE PRIMERAS
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();
-
-        //Navbar
-        BottomNavigationView navbar = (BottomNavigationView) this.findViewById(R.id.navigationView);
-        navbar.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener)(new NavigationBarView.OnItemSelectedListener(){
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.navbar_biblioteca){
-                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();//remplazo el blanco por el fragmento nuevo
-                    return true;
-                }
-                else if(item.getItemId() == R.id.navbar_buscar){
-                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new BuscarFragment()).commit();
-                    return true;
-                }
-                else if(item.getItemId() == R.id.navbar_perfil){
-                    MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new PerfilFragment()).commit();
-                    return true;
-                }
-                return true;
-            }
-        }));
-
-
-
-        //conexion con la base de datos//////////////////
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        /*
-        //prueba de lectura
-        db.collection("Usuarios")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
+            //Navbar
+            BottomNavigationView navbar = (BottomNavigationView) this.findViewById(R.id.navigationView);
+            navbar.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener)(new NavigationBarView.OnItemSelectedListener(){
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    if(item.getItemId() == R.id.navbar_biblioteca){
+                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();//remplazo el blanco por el fragmento nuevo
+                        return true;
                     }
-                });
-        setContentView(R.layout.activity_main);
+                    else if(item.getItemId() == R.id.navbar_buscar){
+                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new BuscarFragment()).commit();
+                        return true;
+                    }
+                    else if(item.getItemId() == R.id.navbar_perfil){
+                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new PerfilFragment()).commit();
+                        return true;
+                    }
+                    return true;
+                }
+            }));
+
+        }
 
 
-     */
+
+
 
     }
 
