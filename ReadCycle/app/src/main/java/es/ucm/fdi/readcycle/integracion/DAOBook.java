@@ -107,13 +107,27 @@ public class DAOBook {
                                     return usersCollection.document(currentUser.getUid()).update("ID_Libros", FieldValue.arrayUnion(nuevoLibroId));
 
                                 }
+                            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    callbacks.onCallbackExito(true);
+                                }
                             });
 
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                callbacks.onCallbackExito(false);
+                            }
                         });
 
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callbacks.onCallbackExito(false);
+                        }
                     });
 
-            callbacks.onCallbackExito(true);
         } catch (Exception e){
             callbacks.onCallbackExito(false);
         }

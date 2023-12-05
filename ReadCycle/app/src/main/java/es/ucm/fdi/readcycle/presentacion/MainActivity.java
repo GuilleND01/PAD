@@ -2,6 +2,7 @@ package es.ucm.fdi.readcycle.presentacion;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -68,20 +69,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        /* Para no dejar volver al login */
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                
+            }
+        };
 
-
-
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
 
 
-    //Usamos esto para obligar a recargar la vista la volver atras y asi no ir a log in cuandose esta registrado
-    @Override
-    public void onBackPressed() {
-        // Recarga la actividad actual
-        super.onBackPressed();
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
 }

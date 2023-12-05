@@ -163,8 +163,7 @@ public class AddLibroFragment extends Fragment {
                     generoText.add(generoArray[genero_sel]);
                 }
 
-                lista_generos_view.setText(R.string.generos_añadidos + generoText.toString());
-
+                lista_generos_view.setText(getResources().getString(R.string.generos_añadidos) + generoText.toString());
             }
         });
         añadirBtn.setOnClickListener(new View.OnClickListener() {
