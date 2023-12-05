@@ -68,16 +68,6 @@ public class PerfilFragment extends Fragment {
                 contacto.setText(u.getContacto().toString());
                 zona.setText(u.getZona().toString());
             }
-
-            @Override
-            public void onCallbackBookInfo(BookInfo b) {}
-
-            @Override
-            public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-
-            @Override
-            public void onCallbackExito(Boolean exito) {}
-
         });
 
         opt.setOnClickListener(new View.OnClickListener() {
@@ -150,16 +140,6 @@ public class PerfilFragment extends Fragment {
 
                             contacto.setText(u.getContacto().toString());
                         }
-
-                        @Override
-                        public void onCallbackBookInfo(BookInfo b) {}
-
-                        @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-
-                        @Override
-                        public void onCallbackExito(Boolean exito) {}
-
                     });
                 }
                 //si se ha editado solo la zona
@@ -171,16 +151,6 @@ public class PerfilFragment extends Fragment {
 
                             zona.setText(u.getZona().toString());
                         }
-
-                        @Override
-                        public void onCallbackBookInfo(BookInfo b) {}
-
-                        @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-
-                        @Override
-                        public void onCallbackExito(Boolean exito) {}
-
                     });
 
                 }
@@ -194,16 +164,6 @@ public class PerfilFragment extends Fragment {
                             zona.setText(u.getZona().toString());
                             contacto.setText(u.getContacto().toString());
                         }
-
-                        @Override
-                        public void onCallbackBookInfo(BookInfo b) {}
-
-                        @Override
-                        public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-
-                        @Override
-                        public void onCallbackExito(Boolean exito) {}
-
                     });
                 }
                 dialog.dismiss();

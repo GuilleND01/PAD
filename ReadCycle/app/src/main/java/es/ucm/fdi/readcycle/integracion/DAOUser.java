@@ -157,9 +157,6 @@ public class DAOUser {
                         for(String libro: idLibros){
                             daoBook.getLibroById(libro, new CallBacks() {
                                 @Override
-                                public void onCallback(UserInfo u) {}
-
-                                @Override
                                 public void onCallbackBookInfo(BookInfo b) {
                                     if(b != null){
                                         biblioteca.add(b);
@@ -168,14 +165,6 @@ public class DAOUser {
                                         // Todos los libros se han cargado, llamar al callback
                                         cb.onCallbackBooks(biblioteca);
                                     }
-                                }
-
-                                @Override
-                                public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-
-                                @Override
-                                public void onCallbackExito(Boolean exito) {
-
                                 }
                             });
                         }

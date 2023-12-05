@@ -87,21 +87,12 @@ public class MiBibliotecaFragment extends Fragment {
         SAUser saUser = new SAUser();
         saUser.getBiblioteca(currentUser.getEmail(), new CallBacks() {
             @Override
-            public void onCallback(UserInfo u) {}
-
-            @Override
-            public void onCallbackBookInfo(BookInfo b) {}
-
-            @Override
             public void onCallbackBooks(ArrayList<BookInfo> bs) {
                 biblioteca.addAll(bs);
                 b.setBookData(biblioteca);
                 RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
                 recyclerView.setAdapter(b);
             }
-
-            @Override
-            public void onCallbackExito(Boolean exito) {}
         });
 
 

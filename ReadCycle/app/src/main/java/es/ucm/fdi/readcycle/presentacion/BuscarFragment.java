@@ -60,12 +60,6 @@ public class BuscarFragment extends Fragment {
                 if(b.getAuthor() != null || b.getTitle() != null){
                     service.bucarLibros(b, new CallBacks() {
                         @Override
-                        public void onCallback(UserInfo u) {}
-
-                        @Override
-                        public void onCallbackBookInfo(BookInfo b) {}
-
-                        @Override
                         public void onCallbackBooks(ArrayList<BookInfo> bs) {
                             MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
                             // Crear un Bundle para pasar datos al nuevo fragmento
@@ -79,10 +73,6 @@ public class BuscarFragment extends Fragment {
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
-
-                        @Override
-                        public void onCallbackExito(Boolean exito) {}
-
                     });
                 }
                 return false;

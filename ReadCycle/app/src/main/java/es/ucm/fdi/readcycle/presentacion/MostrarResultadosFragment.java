@@ -85,12 +85,6 @@ public class MostrarResultadosFragment extends Fragment {
                 if(b.getAuthor() != null || b.getTitle() != null){
                     service.bucarLibros(b, new CallBacks() {
                         @Override
-                        public void onCallback(UserInfo u) {}
-
-                        @Override
-                        public void onCallbackBookInfo(BookInfo b) {}
-
-                        @Override
                         public void onCallbackBooks(ArrayList<BookInfo> bs) {
                             adapter.setBooksData(bs);
                             if(bs != null) {
@@ -102,9 +96,6 @@ public class MostrarResultadosFragment extends Fragment {
                             }
                             adapter.notifyData();
                         }
-
-                        @Override
-                        public void onCallbackExito(Boolean exito) {}
 
                     });
                 }
