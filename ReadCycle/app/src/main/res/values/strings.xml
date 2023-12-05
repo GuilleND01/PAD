@@ -91,6 +91,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="confirmar">¿Seguro que quieres eliminar este libro?</string>
     <string name="bibliotecOtro">Ir a biblioteca</string>
+    <string name="MSG_ERROR_ELIMINAR">"El libro no se ha podido eliminar, vuelva a intentarlo más tarde"</string>
+
 
     <!--UsuarioBiblioteca-->
     <string name="bibliotecaDe"> biblioteca</string>

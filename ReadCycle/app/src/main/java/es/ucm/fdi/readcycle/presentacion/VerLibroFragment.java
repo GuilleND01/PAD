@@ -41,8 +41,6 @@ public class VerLibroFragment extends Fragment {
     private FrameLayout layout;
     private Button btnSolicitar, btnEliminar;
 
-    private String MSG_ERROR = "El libro no se ha podido eliminar, vuelva a intentarlo más tarde";
-
     public static VerLibroFragment newInstance(BookInfo bookInfo) {
         VerLibroFragment fragment = new VerLibroFragment();
         Bundle args = new Bundle();
@@ -139,7 +137,7 @@ public class VerLibroFragment extends Fragment {
                                            transaction.commit();
 
                                        }else {
-                                           Toast.makeText(v.getContext(), MSG_ERROR, Toast.LENGTH_LONG).show();
+                                           Toast.makeText(v.getContext(), getResources().getString(R.string.MSG_ERROR_ELIMINAR), Toast.LENGTH_LONG).show();
                                        }
 
                                    }
@@ -163,10 +161,10 @@ public class VerLibroFragment extends Fragment {
                 btnEliminar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //redirigir a la biblioteca si se ha podido eliminar el libro
+                        //redirigir a la biblioteca del usuario
                         UsuarioBibliotecaFragment usuarioBibliotecaFragment = new UsuarioBibliotecaFragment();
 
-                        // Crear un Bundle para pasar datos
+                        // Crear un Bundle para pasar el correo
                         Bundle bundle = new Bundle();
                         bundle.putString("propietario", bookInfo.getPropietario());
 

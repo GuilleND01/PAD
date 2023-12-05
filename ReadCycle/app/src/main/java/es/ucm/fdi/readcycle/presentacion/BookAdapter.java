@@ -88,7 +88,7 @@ public class BookAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         //tiene mas sentido hacerlo con el switch ADD_BOOK / NORMAL_BOOK pero por alguna razón
         //que no logro entender no quiere hacer caso al switch :)
-        if(position == 0){
+        if(getItemViewType(position) == ADD_BOOK){
             ViewHolderAdd vha = (ViewHolderAdd) holder;
             vha.addCardView.setOnClickListener(new View.OnClickListener() {
                 @Override

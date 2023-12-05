@@ -48,7 +48,7 @@ public class UsuarioBibliotecaFragment extends Fragment {
             saUser.infoUsuario(user, new CallBacks() {
                 @Override
                 public void onCallback(UserInfo u) {
-                    nombre.setText( u.getNombre() + getResources().getString(R.string.bibliotecaDe));
+                    nombre.setText( u.getNombre() +" "+ getResources().getString(R.string.bibliotecaDe));
                 }
             });
 
