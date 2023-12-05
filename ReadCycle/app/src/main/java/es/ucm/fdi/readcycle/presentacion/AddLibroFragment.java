@@ -50,7 +50,7 @@ public class AddLibroFragment extends Fragment {
 
     private Button añadirBtn, añadirGenero, resetGeneros;
 
-    private ImageButton añadirFoto;
+    private ImageButton añadirFoto, btnVolver;
     private TextView lista_generos_view;
 
     private ArrayList<Integer> lista_generos = new ArrayList<Integer>();
@@ -66,6 +66,7 @@ public class AddLibroFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -87,6 +88,7 @@ public class AddLibroFragment extends Fragment {
         añadirGenero = view.findViewById(R.id.btn_anadir_genero);
         resetGeneros = view.findViewById(R.id.btn_reset_genero);
 
+
         añadirGenero.setBackgroundColor(getResources().getColor(R.color.botonAdd));
         añadirBtn.setBackgroundColor(getResources().getColor(R.color.botonAdd));
         resetGeneros.setBackgroundColor(getResources().getColor(R.color.botonAdd));
@@ -97,6 +99,15 @@ public class AddLibroFragment extends Fragment {
         estado = (Spinner) view.findViewById(R.id.formestado);
         genero = (Spinner) view.findViewById(R.id.formestado2);
 
+        btnVolver = view.findViewById(R.id.btn_back_user_biblioteca);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                callback.handleOnBackPressed();
+            }
+        });
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.books_array, android.R.layout.simple_spinner_item);
@@ -104,7 +115,6 @@ public class AddLibroFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         estado.setAdapter(adapter);
-
         estado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -139,6 +149,7 @@ public class AddLibroFragment extends Fragment {
                 // Acciones cuando no se ha seleccionado nada
             }
         });
+
 
 
         resetGeneros.setOnClickListener(new View.OnClickListener() {

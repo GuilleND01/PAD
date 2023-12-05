@@ -1,6 +1,7 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 
@@ -22,6 +25,7 @@ public class Registro extends AppCompatActivity {
 
 private EditText nombre, correo, contraseña, confirmarContraseña, zona, contacto;
 private Button registrarse;
+private TextView volverLogIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,8 @@ private Button registrarse;
         contacto = findViewById(R.id.formaContactoRegistro);
         zona = findViewById(R.id.zonaLocalizacionRegistro);
         registrarse = findViewById(R.id.registro);
+
+        volverLogIn = findViewById(R.id.loginBackBtn);
 
 
         registrarse.setOnClickListener(new View.OnClickListener() {
@@ -93,29 +99,33 @@ private Button registrarse;
                             confirmarContraseña.setError(getString(R.string.contraseñasDiferentes));
                         }
                         else{
-                            try {
-                                saUser.crearUsuario(u);
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    public void run() {
+                            saUser.crearUsuario(u, new CallBacks(){
+                                @Override
+                                public void onCallbackExito(Boolean exito) {
+                                    if(exito){
                                         Intent intent2 = new Intent(Registro.this, MainActivity.class);
                                         startActivity(intent2);
-                                    }
-                                }, 2000);
-                            } catch (Exception e){
-                                Toast.makeText(Registro.this, getString(R.string.correoExiste), Toast.LENGTH_SHORT).show();
-                            }
+
+                                    }else Toast.makeText(Registro.this, getString(R.string.correoExiste), Toast.LENGTH_SHORT).show();                                    }
+
+                            });
 
                         }
                     }
 
                 }
 
-
-
-
             }
         });
+
+        volverLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registro.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 }

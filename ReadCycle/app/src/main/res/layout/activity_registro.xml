@@ -146,17 +146,17 @@
                     android:layout_marginRight="40dp"
                     android:background="@color/fondoClaro" />
 
-                <Button
-                    android:id="@+id/signinGoogleBtn"
+                <TextView
+                    android:id="@+id/loginBackBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:backgroundTint="@color/fondoClaro"
-                    android:elevation="4dp"
-                    android:text="@string/registrarseGoogle"
-                    android:textColor="@color/botonAdd" />
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="@string/entrar"
+                    android:textColor="@color/fondoClaro"
+                    android:textSize="18dp" />
             </LinearLayout>
         </ScrollView>
 

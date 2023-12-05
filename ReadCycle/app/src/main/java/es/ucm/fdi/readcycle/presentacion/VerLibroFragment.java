@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class VerLibroFragment extends Fragment {
 
     private FrameLayout layout;
     private Button btnSolicitar, btnEliminar;
+
+    private ImageButton btnVolver;
 
     public static VerLibroFragment newInstance(BookInfo bookInfo) {
         VerLibroFragment fragment = new VerLibroFragment();
@@ -75,6 +78,9 @@ public class VerLibroFragment extends Fragment {
             textAutor.setText(bookInfo.getAuthor());
             textPag.setText(bookInfo.getPages().toString());
 
+
+
+
             //Genero un string con los generos
             String[] generoArray = getResources().getStringArray(R.array.genero_array);
             ArrayList<Integer> generos = bookInfo.getGenre();
@@ -109,6 +115,14 @@ public class VerLibroFragment extends Fragment {
             //Damos funcionalidad a los botones
             btnSolicitar = v.findViewById(R.id.btn_solicitar);
             btnEliminar = v.findViewById(R.id.btn_eliminar);
+            btnVolver = v.findViewById(R.id.btn_back_user_biblioteca);
+
+            btnVolver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
 
             //Si el propietario del libro es el usuario registrado mostramos el boton de eliminar, si no el de solicitar
             //De esta manera podemos reutilizar la vista
@@ -186,6 +200,7 @@ public class VerLibroFragment extends Fragment {
                         //TODO -- no se si esto lo vamos ha hacer al final asi q lo dejo asi
                     }
                 });
+
 
             }
 

@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 
@@ -52,14 +54,17 @@ public class Login extends AppCompatActivity {
                 }
                 else{
                     SAUser saUser = new SAUser();
-                    saUser.entrarUsuario(correo.getText().toString(), contraseña.getText().toString());
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            Intent intent2 = new Intent(Login.this, MainActivity.class);
-                            startActivity(intent2);
-                        }
-                    }, 1000);
+                    saUser.entrarUsuario(correo.getText().toString(), contraseña.getText().toString(),new CallBacks(){
+                        @Override
+                        public void onCallbackExito(Boolean exito) {
+                            if(exito){
+                                Intent intent2 = new Intent(Login.this, MainActivity.class);
+                                startActivity(intent2);
+
+                            }else Toast.makeText(Login.this, getString(R.string.datosNoValidos), Toast.LENGTH_SHORT).show();                                    }
+
+                    });
+
                 }
 
 

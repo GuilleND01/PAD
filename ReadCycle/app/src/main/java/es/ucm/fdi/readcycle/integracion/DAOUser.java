@@ -41,7 +41,7 @@ public class DAOUser {
     }
 
 
-    public void createAccount(UserInfo usuarioInsertar)  {
+    public void createAccount(UserInfo usuarioInsertar, CallBacks cb)  {
 
         mAuth.createUserWithEmailAndPassword(usuarioInsertar.getCorreo(), usuarioInsertar.getContraseña())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -65,12 +65,13 @@ public class DAOUser {
 
                             //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
                             SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
-
+                            cb.onCallbackExito(true);
 
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("USUARIO", "createUserWithEmail:failure", task.getException());
+                            cb.onCallbackExito(false);
                         }
                     }
                 });
@@ -80,7 +81,7 @@ public class DAOUser {
         FirebaseAuth.getInstance().signOut();
     }
 
-    public void entrar(String correo, String contraseña){
+    public void entrar(String correo, String contraseña, CallBacks cb){
         mAuth.signInWithEmailAndPassword(correo, contraseña)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -89,9 +90,11 @@ public class DAOUser {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("CLAU", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            cb.onCallbackExito(true);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("CLAU", "signInWithEmail:failure", task.getException());
+                            cb.onCallbackExito(false);
 
                         }
                     }

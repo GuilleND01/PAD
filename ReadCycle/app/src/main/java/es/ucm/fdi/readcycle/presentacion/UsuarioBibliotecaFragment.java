@@ -1,5 +1,6 @@
 package es.ucm.fdi.readcycle.presentacion;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class UsuarioBibliotecaFragment extends Fragment {
 
     private TextView nombre;
     private String user;
+    private ImageButton btnVolver;
 
     @Nullable
     @Override
@@ -42,7 +44,14 @@ public class UsuarioBibliotecaFragment extends Fragment {
             user = bundle.getString("propietario", "");
 
             nombre = view.findViewById(R.id.nombre_usuario);
+            btnVolver = view.findViewById(R.id.btn_back_user_biblioteca);
 
+            btnVolver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
             SAUser saUser = new SAUser();
             //Obtenemos el usuario
             saUser.infoUsuario(user, new CallBacks() {

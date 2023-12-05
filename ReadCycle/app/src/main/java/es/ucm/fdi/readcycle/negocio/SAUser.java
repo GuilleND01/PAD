@@ -17,14 +17,14 @@ public class SAUser {
 
     }
 
-    public void crearUsuario(UserInfo u){
+    public void crearUsuario(UserInfo u, CallBacks cb){
         DAOUser dao = new DAOUser();
-        dao.createAccount(u);
+        dao.createAccount(u, cb);
     }
 
-    public void entrarUsuario(String correo, String contraseña){
+    public void entrarUsuario(String correo, String contraseña, CallBacks cb){
         DAOUser dao = new DAOUser();
-        dao.entrar(correo, contraseña);
+        dao.entrar(correo, contraseña, cb);
     }
 
     public void infoUsuario(String correo, CallBacks callBacks) {
