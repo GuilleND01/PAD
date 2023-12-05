@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class DAOUser {
     private final String NOMBRE = "nombre";
     private final String CONTACTO = "contacto";
     private final String CORREO = "correo";
+    private final String TOKEN = "token";
     private final String ZONA = "zona";
     private final String LIBRO = "ID_Libros";
 
@@ -43,40 +45,59 @@ public class DAOUser {
     }
 
 
+    /* Añado un nuevo parámetro token en la BD. Cuando un dispositivo se registra para recibir
+    notificaciones push a través de Firebase Cloud Messaging, se le asigna un token que
+    identifica de manera única ese dispositivo. De esta manera, cuando se le solicite un libro a
+    un usuario, al tener vinculado el token, se puede recuperar rápido y enviarle la notificación. */
     public void createAccount(UserInfo usuarioInsertar, CallBacks cb)  {
 
-        mAuth.createUserWithEmailAndPassword(usuarioInsertar.getCorreo(), usuarioInsertar.getContraseña())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)  {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()){
+                    String token = task.getResult();
 
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("USUARIO", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                    mAuth.createUserWithEmailAndPassword(usuarioInsertar.getCorreo(), usuarioInsertar.getContraseña())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task)  {
 
-                           new ArrayList<String>();
+                                    if (task.isSuccessful()) {
 
-                            //metemos en la bd la informacion del usuario
-                            Map<String, Object> data = new HashMap<>();
-                            data.put(NOMBRE, usuarioInsertar.getNombre());
-                            data.put(CONTACTO, usuarioInsertar.getContacto());
-                            data.put(ZONA, usuarioInsertar.getZona());
-                            data.put(CORREO, usuarioInsertar.getCorreo());
-                            data.put(LIBRO, new ArrayList<String>());
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("USUARIO", "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
 
-                            //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
-                            SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
-                            cb.onCallbackExito(true);
+                                        new ArrayList<String>();
+
+                                        //metemos en la bd la informacion del usuario
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put(NOMBRE, usuarioInsertar.getNombre());
+                                        data.put(CONTACTO, usuarioInsertar.getContacto());
+                                        data.put(ZONA, usuarioInsertar.getZona());
+                                        data.put(CORREO, usuarioInsertar.getCorreo());
+                                        data.put(LIBRO, new ArrayList<String>());
+                                        data.put(TOKEN, token);
+
+                                        //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
+                                        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
+                                        cb.onCallbackExito(true);
 
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("USUARIO", "createUserWithEmail:failure", task.getException());
-                            cb.onCallbackExito(false);
-                        }
-                    }
-                });
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("USUARIO", "createUserWithEmail:failure", task.getException());
+                                        cb.onCallbackExito(false);
+                                    }
+                                }
+                            });
+                } else {
+                    cb.onCallbackExito(false);
+                }
+            }
+        });
+
+
     }
 
     public void logOut(){

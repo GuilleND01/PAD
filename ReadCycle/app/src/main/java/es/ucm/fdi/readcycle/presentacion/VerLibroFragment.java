@@ -1,6 +1,7 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,16 +21,34 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.CallBacks;
+import es.ucm.fdi.readcycle.integracion.SingletonDataBase;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import io.grpc.okhttp.OkHttpChannelBuilder;
+import io.grpc.okhttp.OkHttpChannelProvider;
 import kotlin.jvm.internal.Intrinsics;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.MediaType;
+import okhttp3.Response;
 
 public class VerLibroFragment extends Fragment {
 
@@ -52,6 +71,7 @@ public class VerLibroFragment extends Fragment {
         return fragment;
     }
 
+    FirebaseUser currentUser = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,7 +146,7 @@ public class VerLibroFragment extends Fragment {
 
             //Si el propietario del libro es el usuario registrado mostramos el boton de eliminar, si no el de solicitar
             //De esta manera podemos reutilizar la vista
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if(bookInfo.getPropietario().equals(currentUser.getEmail())){
                 btnSolicitar.setVisibility(View.GONE);
                btnEliminar.setOnClickListener(new View.OnClickListener() {
@@ -195,9 +215,28 @@ public class VerLibroFragment extends Fragment {
                 });
 
                 btnSolicitar.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
-                        //TODO -- no se si esto lo vamos ha hacer al final asi q lo dejo asi
+
+                        /* Recupero el USER_TOKEN de la persona */
+
+                        // TODO mover a DAO
+                        SingletonDataBase.getInstance().getDB().collection("Usuarios").whereEqualTo("correo",
+                                bookInfo.getPropietario()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                                        String userToken = document.getString("token");
+                                        realizar_Https(userToken);
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 });
 
@@ -209,5 +248,50 @@ public class VerLibroFragment extends Fragment {
         return v;
     }
 
+    /* Para realizar la comunicación device-to-device utilizamos peticiones https de tipo POST a la
+    * api de Firebase Cloud Messaging. Se pasa como parámetro el token del dispositivo al que se va
+    * a mandar la notificación. También, para realizar la llamada es necesario auntenticarse por eso
+    * el Bearer, que he sacado del proyecto de la web de Firebase.*/
+    public void realizar_Https (String USER_TOKEN){
+        MediaType mediaType = MediaType.parse("application/json");
+        JSONObject jsonObject = null;
 
+        try{
+            jsonObject  = new JSONObject();
+
+            JSONObject notificationObj = new JSONObject();
+            notificationObj.put("title", "Notificación de Reserva");
+            notificationObj.put("body", "Enhorabuena! El usuario " + currentUser.getEmail() + " acaba de reservar tu libro " + bookInfo.getTitle() +
+                    " del autor " + bookInfo.getAuthor());
+
+            jsonObject.put("notification",notificationObj);
+            jsonObject.put("to", USER_TOKEN);
+
+
+        }catch (Exception e){
+            Log.d("error", e.toString());
+        }
+
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(), mediaType);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization","Bearer AAAAabD_4J8:APA91bHFi2tlM3CUqssG1jqw0HqSsDbWyeCZHUWwLxQDGO_BKYHwlbUC2bISS6zEJ38P3cxVfWiNVWbU_XrXKU0RF2Z4nw0AwQBaxgHLrlajhWnyRk6bNzjwU-wlQf-WmWcEkWZc5oK1")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d("Notifjorge", "Fallo al mandar la notificación");
+                Toast.makeText(getContext(), "Solicitud de reserva enviada con éxito", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Log.d("Notifjorge", response.toString());
+            }
+        });
+    }
 }

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                
+
             }
         };
 

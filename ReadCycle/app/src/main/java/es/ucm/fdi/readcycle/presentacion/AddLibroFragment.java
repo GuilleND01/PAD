@@ -240,7 +240,7 @@ public class AddLibroFragment extends Fragment {
                                     @Override
                                     public void onBackStackChanged() {
                                         // Muestra el Toast en el contexto del nuevo fragmento
-                                        Toast.makeText(bibliotecaFragment.getActivity(), R.string.MSG_EXITO, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(bibliotecaFragment.getContext(), R.string.MSG_EXITO, Toast.LENGTH_LONG).show();
 
                                         // Remueve el listener para que no se ejecute nuevamente innecesariamente
                                         fragmentManager.removeOnBackStackChangedListener(this);
