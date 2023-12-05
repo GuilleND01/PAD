@@ -95,6 +95,7 @@ public class MostrarResultadosFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
+                    return false;
                 }
                 if(b.getAuthor() != null || b.getTitle() != null){
                     service.bucarLibros(b, new CallBacks() {
