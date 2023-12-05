@@ -1,11 +1,9 @@
 package es.ucm.fdi.readcycle.presentacion;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
-import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
 public class VerLibroFragment extends Fragment {
@@ -65,7 +62,7 @@ public class VerLibroFragment extends Fragment {
             this.bookInfo = (BookInfo) args.getSerializable(ARG_BOOK_INFO);
             Log.d("JULIA", bookInfo.getTitle());
 
-            textTitulo =  v.findViewById(R.id.tit_verlibro);
+            textTitulo =  v.findViewById(R.id.nombre_usuario);
             textGenero = v.findViewById(R.id.libro_genero);
             textAutor  = v.findViewById(R.id.libro_autor);
             textPag  = v.findViewById(R.id.libro_numpaginas);
@@ -162,7 +159,29 @@ public class VerLibroFragment extends Fragment {
                    }
                });
             }else{
-                btnEliminar.setVisibility(View.GONE);
+                btnEliminar.setText(getResources().getString(R.string.bibliotecOtro));
+                btnEliminar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //redirigir a la biblioteca si se ha podido eliminar el libro
+                        UsuarioBibliotecaFragment usuarioBibliotecaFragment = new UsuarioBibliotecaFragment();
+
+                        // Crear un Bundle para pasar datos
+                        Bundle bundle = new Bundle();
+                        bundle.putString("propietario", bookInfo.getPropietario());
+
+                        // Asignar el Bundle al fragmento
+                        usuarioBibliotecaFragment.setArguments(bundle);
+
+                        // Iniciar la transacción del fragmento
+                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, usuarioBibliotecaFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                    }
+                });
+
                 btnSolicitar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

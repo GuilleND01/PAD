@@ -28,24 +28,39 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_back_verlibro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/arrow_back" />
-
-                <TextView
-                    android:id="@+id/tit_verlibro"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Libro  "
-                    android:textColor="@color/navbar"
-                    android:textSize="34sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/btn_back_user_biblioteca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/arrow_back" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/nombre_usuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Libro  "
+                        android:textColor="@color/navbar"
+                        android:textSize="34sp" />
+                </LinearLayout>
 
             </LinearLayout>
 

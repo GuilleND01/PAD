@@ -89,7 +89,7 @@ public class MiBibliotecaFragment extends Fragment {
             @Override
             public void onCallbackBooks(ArrayList<BookInfo> bs) {
                 biblioteca.addAll(bs);
-                b.setBookData(biblioteca);
+                b.setBookData(biblioteca, true);
                 RecyclerView recyclerView = view.findViewById(R.id.reclyclerViewBook);
                 recyclerView.setAdapter(b);
             }

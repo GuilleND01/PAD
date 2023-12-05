@@ -23,6 +23,9 @@
     <string name="MSG_ERROR_GENERAL">Something went wrong. Please try again</string>
     <string name="MSG_FORM_INCOMPLETO_FOTO">Incomplete form. Include a photo.</string>
     <string name="reset_btn">RESET</string>
+    <string name="nogeneros">No genres added </string>
+    <string name="generos_añadidos">Added genres: </string>
+    <string name="minimo_un_genero">Add at least one genre </string>
 
 
     <!--Formulario login y registro-->
@@ -88,6 +91,11 @@
     <string name="eliminar">Delete</string>
     <string name="cancelar">Cancel</string>
     <string name="confirmar">Are you sure you want to delete this book?</string>
+    <string name="bibliotecOtro">Go to library</string>
+
+    <!--UsuarioBiblioteca-->
+    <string name="bibliotecaDe">´ library</string>
+
 
 
 

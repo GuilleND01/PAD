@@ -22,8 +22,9 @@
     <string name="MSG_ERROR_GENERAL">Algo ha salido mal. Vuelve a intentarlo</string>
     <string name="MSG_FORM_INCOMPLETO_FOTO">Formulario incompleto. Incluye una foto.</string>
     <string name="reset_btn">RESET.</string>
-
-
+    <string name="nogeneros">No hay generos añadidos </string>
+    <string name="generos_añadidos">Generos añadidos: </string>
+    <string name="minimo_un_genero">Incluye al menos un género </string>
 
 
     <!--Formulario login y registro-->
@@ -89,6 +90,11 @@
     <string name="eliminar">Eliminar</string>
     <string name="cancelar">Cancelar</string>
     <string name="confirmar">¿Seguro que quieres eliminar este libro?</string>
+    <string name="bibliotecOtro">Ir a biblioteca</string>
+
+    <!--UsuarioBiblioteca-->
+    <string name="bibliotecaDe"> biblioteca</string>
+
 
 
 </resources>

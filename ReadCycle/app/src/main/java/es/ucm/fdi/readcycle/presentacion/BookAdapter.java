@@ -26,18 +26,21 @@ import es.ucm.fdi.readcycle.negocio.BookInfo;
 public class BookAdapter extends RecyclerView.Adapter {
 
     private ArrayList<BookInfo> booksData;
+
+    private Boolean miBiblioteca;
     private static final int NORMAL_BOOK = 1;
     private static final int ADD_BOOK = 0;
 
-    public void setBookData(List<BookInfo> booksData){
+    public void setBookData(List<BookInfo> booksData, Boolean miBiblioteca){
         this.booksData = ( ArrayList<BookInfo>) booksData;
+        this.miBiblioteca = miBiblioteca;
     }
 
     @Override
     public int getItemViewType(int position) {
         // Devuelve el tipo de vista según la posición
-
-        return (position == 0) ? ADD_BOOK : NORMAL_BOOK;
+        if(miBiblioteca) return (position == 0) ? ADD_BOOK : NORMAL_BOOK;
+        else return NORMAL_BOOK;
     }
 
     public static class ViewHolderBook extends RecyclerView.ViewHolder {
