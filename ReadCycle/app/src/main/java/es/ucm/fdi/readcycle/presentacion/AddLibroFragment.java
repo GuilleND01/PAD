@@ -20,12 +20,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 
@@ -33,6 +36,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import es.ucm.fdi.readcycle.R;
+import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
 import kotlin.jvm.internal.Intrinsics;
@@ -62,6 +66,21 @@ public class AddLibroFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                MiBibliotecaFragment bibliotecaFragment = new MiBibliotecaFragment();
+                fragmentTransaction.replace(R.id.frameLayout, bibliotecaFragment);
+                fragmentTransaction.commit();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(this.getViewLifecycleOwner(), callback);
+
 
         view = inflater.inflate(R.layout.fragment_addlibro, container, false);
         añadirBtn = view.findViewById(R.id.buttonAñadir);
@@ -127,7 +146,7 @@ public class AddLibroFragment extends Fragment {
             public void onClick(View v) {
                 lista_generos.clear();
                 generoText.clear();
-                lista_generos_view.setText("No hay generos añadidos"); //TODO CAMBIAR A STRINGS
+                lista_generos_view.setText(R.string.nogeneros);
             }
         });
         añadirGenero.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +162,8 @@ public class AddLibroFragment extends Fragment {
                     lista_generos.add(genero_sel);
                     generoText.add(generoArray[genero_sel]);
                 }
-                lista_generos_view.setText("Generos añadidos: " + generoText.toString());
+
+                lista_generos_view.setText(R.string.generos_añadidos + generoText.toString());
 
             }
         });
@@ -173,7 +193,7 @@ public class AddLibroFragment extends Fragment {
                 }
 
                 if (lista_generos.isEmpty()){
-                    lista_generos_view.setText("Incluye al menos un género ");
+                    lista_generos_view.setText(R.string.minimo_un_genero);
                     lista_generos_view.setError("");
                     form_valido = false;
                 }
@@ -193,9 +213,33 @@ public class AddLibroFragment extends Fragment {
                             Integer.parseInt(num_paginas.getText().toString()), selectedImage);
 
                     SABook saBookInfo = new SABook();
-                    int res_guardar = saBookInfo.guardarLibro(nuevo_libro);
+                    int res_guardar = saBookInfo.guardarLibro(nuevo_libro, new CallBacks() {
+                        @Override
+                        public void onCallbackExito(Boolean exito) {
+
+                        }
+                    });
+                    
                     if (res_guardar == 1) {
-                        Toast.makeText(view.getContext(), R.string.MSG_EROR_EXITO, Toast.LENGTH_LONG).show();
+
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        MiBibliotecaFragment bibliotecaFragment = new MiBibliotecaFragment();
+                        fragmentTransaction.replace(R.id.frameLayout, bibliotecaFragment);
+                        fragmentTransaction.commit();
+
+                        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                            @Override
+                            public void onBackStackChanged() {
+                                // Muestra el Toast en el contexto del nuevo fragmento
+                                Toast.makeText(bibliotecaFragment.getActivity(), R.string.MSG_EXITO, Toast.LENGTH_LONG).show();
+
+                                // Remueve el listener para que no se ejecute nuevamente innecesariamente
+                                fragmentManager.removeOnBackStackChangedListener(this);
+                            }
+                        });
+
                     } else Toast.makeText(view.getContext(), R.string.MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
                 }
             }
@@ -229,7 +273,5 @@ public class AddLibroFragment extends Fragment {
             selectedImage = data.getData();
         }
     }
-
-
 
 }
