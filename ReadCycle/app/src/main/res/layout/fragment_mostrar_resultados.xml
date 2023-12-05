@@ -31,9 +31,10 @@
 
             <RadioGroup
                 android:id="@+id/opt_busqueda_2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="0.5"
+                android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/radioButtonAutor2"
@@ -49,6 +50,19 @@
                     android:layout_weight="1"
                     android:text="@string/titulo" />
 
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/bus_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <RadioButton
+                    android:id="@+id/opt_users2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bus_usuario" />
             </RadioGroup>
         </LinearLayout>
 

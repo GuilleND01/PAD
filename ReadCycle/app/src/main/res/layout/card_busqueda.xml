@@ -50,6 +50,7 @@
                     android:text="@string/form_libroestado" />
 
                 <TextView
+                    android:id="@+id/dotDot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

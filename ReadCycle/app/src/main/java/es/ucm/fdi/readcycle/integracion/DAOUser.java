@@ -1,5 +1,6 @@
 package es.ucm.fdi.readcycle.integracion;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -188,17 +190,17 @@ public class DAOUser {
         ArrayList<UserInfo> us = new ArrayList<>();
         SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo(NOMBRE,
                 u.getNombre()).get().addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot d: task.getResult()){
-                            UserInfo user = new UserInfo();
-                            user.setNombre(d.get(NOMBRE).toString());
-                            user.setContacto(d.get(CONTACTO).toString());
-                            user.setCorreo(d.get(CORREO).toString());
-                            user.setZona(d.get(ZONA).toString());
-                            us.add(user);
-                        }
-                        cb.onCallbackUsers(us);
-                    }
+            if(task.isSuccessful()){
+                for (QueryDocumentSnapshot d: task.getResult()){
+                    UserInfo user = new UserInfo();
+                    user.setNombre(d.get(NOMBRE).toString());
+                    user.setZona(d.get(ZONA).toString());
+                    user.setCorreo(d.get(CORREO).toString());
+                    user.setContacto(d.get(CONTACTO).toString());
+                    us.add(user);
+                }
+                cb.onCallbackUsers(us);
+            }
         });
     }
 }

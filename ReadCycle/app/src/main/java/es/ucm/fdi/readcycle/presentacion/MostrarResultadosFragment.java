@@ -22,6 +22,7 @@ import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
@@ -33,6 +34,8 @@ public class MostrarResultadosFragment extends Fragment {
     private TextView res;
 
     private BusquedaAdapter adapter;
+
+    private RadioGroup opt_users;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,12 +73,15 @@ public class MostrarResultadosFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         opt_busqueda = view.findViewById(R.id.opt_busqueda_2);
         s = view.findViewById(R.id.n_barra_busqueda);
+        opt_users = view.findViewById(R.id.bus_user);
 
         s.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 SABook service = new SABook();
+                SAUser saUser = new SAUser();
                 BookInfo b = new BookInfo();
+                UserInfo u = new UserInfo();
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo2){
                     b.setTitle(query);
                     b.setAuthor(null);
@@ -83,6 +89,9 @@ public class MostrarResultadosFragment extends Fragment {
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor2){
                     b.setTitle(null);
                     b.setAuthor(query);
+                }
+                else if(opt_users.getCheckedRadioButtonId() == R.id.opt_users2){
+                    u.setNombre(query);
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
@@ -102,6 +111,22 @@ public class MostrarResultadosFragment extends Fragment {
                             adapter.notifyData();
                         }
 
+                    });
+                }
+                else if(u != null){
+                    saUser.buscarUsuarios(u, new CallBacks() {
+                        @Override
+                        public void onCallbackUsers(ArrayList<UserInfo> us) {
+                            adapter.setUsersData(us);
+                            if(us != null){
+                                String s = String.valueOf(us.size());
+                                res.setText(s);
+                            }
+                            else{
+                                res.setText("0");
+                            }
+                            adapter.notifyData();
+                        }
                     });
                 }
                 return false;

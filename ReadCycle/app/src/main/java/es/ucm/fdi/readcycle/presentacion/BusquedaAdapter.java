@@ -56,6 +56,8 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
             holder.autor.setText(b_current.getAuthor());
             String[] booksArray = holder.card.getContext().getResources().getStringArray(R.array.books_array);
             holder.estado.setText(booksArray[b_current.getState()]);
+            holder.textEstado.setText(holder.card.getContext().getResources().getString(R.string.form_libroestado));
+            holder.dotDot.setText(":");
             Glide.with(holder.card)
                     .load(b_current.getSelectedImage())
                     .placeholder(R.drawable.libro)
@@ -83,7 +85,8 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
             holder.titulo.setText(u_current.getNombre());
             holder.autor.setText(u_current.getZona());
             holder.estado.setText("");
-
+            holder.textEstado.setText("");
+            holder.dotDot.setText("");
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -110,6 +113,9 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
         public TextView autor;
         public TextView estado;
         public CardView card;
+        public TextView textEstado;
+
+        public TextView dotDot;
         public BusquedaViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.b_titulo);
@@ -117,6 +123,8 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
             estado = itemView.findViewById(R.id.b_estado);
             imagen = itemView.findViewById(R.id.b_imagen);
             card = itemView.findViewById(R.id.b_card);
+            textEstado = itemView.findViewById(R.id.textEstado);
+            dotDot = itemView.findViewById(R.id.dotDot);
         }
     }
 }
