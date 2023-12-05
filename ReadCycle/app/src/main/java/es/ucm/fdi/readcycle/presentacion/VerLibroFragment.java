@@ -131,12 +131,6 @@ public class VerLibroFragment extends Fragment {
                               SABook saBookInfo = new SABook();
                               saBookInfo.eliminarLibro(bookInfo, new CallBacks() {
                                    @Override
-                                   public void onCallback(UserInfo u) {}
-                                   @Override
-                                   public void onCallbackBookInfo(BookInfo b) {}
-                                   @Override
-                                   public void onCallbackBooks(ArrayList<BookInfo> bs) {}
-                                   @Override
                                    public void onCallbackExito(Boolean exito) {
                                        dialog.dismiss();
                                        if(exito){

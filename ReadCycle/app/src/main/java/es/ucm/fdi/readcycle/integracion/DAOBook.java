@@ -243,7 +243,22 @@ public class DAOBook {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.d("JULIA", "Libro eliminado");
-                                                    callBacks.onCallbackExito(true);
+                                                    FirebaseImageStorage imageStorage = new FirebaseImageStorage();
+
+                                                    String id = String.format("%s-%s-%s", libro.getTitle(), libro.getAuthor(), libro.getPropietario()).replace("", "");
+                                                    StorageReference fileReference = imageStorage.getStorageRef().child(id + ".png");
+                                                    fileReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            callBacks.onCallbackExito(true);
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception exception) {
+                                                            callBacks.onCallbackExito(false);
+                                                        }
+                                                    });
+                                                    //callBacks.onCallbackExito(true);
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {

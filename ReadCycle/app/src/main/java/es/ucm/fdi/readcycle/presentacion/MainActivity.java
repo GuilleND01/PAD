@@ -74,16 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("CLAU", " prueba");
-        if(currentUser != null){
-            Log.d("CLAU", " eres usuario registrado");
-        }
-    }
 
+    //Usamos esto para obligar a recargar la vista la volver atras y asi no ir a log in cuandose esta registrado
+    @Override
+    public void onBackPressed() {
+        // Recarga la actividad actual
+        super.onBackPressed();
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
 }

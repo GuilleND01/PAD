@@ -52,16 +52,16 @@ public class DAOUser {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("USUARIO", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+
+                           new ArrayList<String>();
 
                             //metemos en la bd la informacion del usuario
-
-                            // Id provisonal hay que pensar cuál dar
                             Map<String, Object> data = new HashMap<>();
                             data.put(NOMBRE, usuarioInsertar.getNombre());
                             data.put(CONTACTO, usuarioInsertar.getContacto());
                             data.put(ZONA, usuarioInsertar.getZona());
                             data.put(CORREO, usuarioInsertar.getCorreo());
+                            data.put(LIBRO, new ArrayList<String>());
 
                             //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
                             SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).document(user.getUid()).set(data);
@@ -179,6 +179,8 @@ public class DAOUser {
                                 }
                             });
                         }
+                        //No habia ningun libro
+                        cb.onCallbackBooks(biblioteca);
 
                     }
                 }

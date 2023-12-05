@@ -7,10 +7,11 @@ import es.ucm.fdi.readcycle.negocio.UserInfo;
 
 public interface CallBacks {
 
-    void onCallback(UserInfo u);
-    void onCallbackBookInfo(BookInfo b);
-    void onCallbackBooks(ArrayList<BookInfo> bs);
-    void onCallbackExito(Boolean exito);
+    default void onCallback(UserInfo u){}
+
+    default void onCallbackBookInfo(BookInfo b){}
+    default void onCallbackBooks(ArrayList<BookInfo> bs){}
+    default void onCallbackExito(Boolean exito){}
 
 
 }

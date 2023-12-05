@@ -30,7 +30,7 @@
     <string name="nombre">Name</string>
     <string name="contraseña">Password</string>
     <string name="contraseñaConfirm">Confirm Password</string>
-    <string name="entrar">Sign in</string>
+    <string name="entrar">Log in</string>
     <string name="entrarGoogle">Sign in Google</string>
     <string name="registrarse">Sign up</string>
     <string name="registrarseGoogle">Sign up with  Google</string>
