@@ -18,7 +18,7 @@
     <string name="form_resumen">Resumen</string>
     <string name="form_añadir">Añadir</string>
     <string name="MSG_FORM_INCOMPLETO">Formulario incompleto</string>
-    <string name="MSG_EROR_EXITO">Libro añadido con éxito</string>
+    <string name="MSG_EXITO">Libro añadido con éxito</string>
     <string name="MSG_ERROR_GENERAL">Algo ha salido mal. Vuelve a intentarlo</string>
     <string name="MSG_FORM_INCOMPLETO_FOTO">Formulario incompleto. Incluye una foto.</string>
     <string name="reset_btn">RESET.</string>

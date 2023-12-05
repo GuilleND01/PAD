@@ -213,34 +213,34 @@ public class AddLibroFragment extends Fragment {
                             Integer.parseInt(num_paginas.getText().toString()), selectedImage);
 
                     SABook saBookInfo = new SABook();
-                    int res_guardar = saBookInfo.guardarLibro(nuevo_libro, new CallBacks() {
+                    saBookInfo.guardarLibro(nuevo_libro, new CallBacks(){
+
                         @Override
                         public void onCallbackExito(Boolean exito) {
+                            if(exito){
 
+                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                                MiBibliotecaFragment bibliotecaFragment = new MiBibliotecaFragment();
+                                fragmentTransaction.replace(R.id.frameLayout, bibliotecaFragment);
+                                fragmentTransaction.commit();
+
+                                fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                                    @Override
+                                    public void onBackStackChanged() {
+                                        // Muestra el Toast en el contexto del nuevo fragmento
+                                        Toast.makeText(bibliotecaFragment.getActivity(), R.string.MSG_EXITO, Toast.LENGTH_LONG).show();
+
+                                        // Remueve el listener para que no se ejecute nuevamente innecesariamente
+                                        fragmentManager.removeOnBackStackChangedListener(this);
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(view.getContext(), R.string.MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
-                    
-                    if (res_guardar == 1) {
-
-                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                        MiBibliotecaFragment bibliotecaFragment = new MiBibliotecaFragment();
-                        fragmentTransaction.replace(R.id.frameLayout, bibliotecaFragment);
-                        fragmentTransaction.commit();
-
-                        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-                            @Override
-                            public void onBackStackChanged() {
-                                // Muestra el Toast en el contexto del nuevo fragmento
-                                Toast.makeText(bibliotecaFragment.getActivity(), R.string.MSG_EXITO, Toast.LENGTH_LONG).show();
-
-                                // Remueve el listener para que no se ejecute nuevamente innecesariamente
-                                fragmentManager.removeOnBackStackChangedListener(this);
-                            }
-                        });
-
-                    } else Toast.makeText(view.getContext(), R.string.MSG_ERROR_GENERAL, Toast.LENGTH_LONG).show();
                 }
             }
         });

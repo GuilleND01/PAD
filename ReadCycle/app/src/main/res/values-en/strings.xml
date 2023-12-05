@@ -19,7 +19,7 @@
     <string name="form_resumen">Summary</string>
     <string name="form_añadir">Add</string>
     <string name="MSG_FORM_INCOMPLETO">Incomplete form</string>
-    <string name="MSG_EROR_EXITO">Book added successfully</string>
+    <string name="MSG_EXITO">Book added successfully</string>
     <string name="MSG_ERROR_GENERAL">Something went wrong. Please try again</string>
     <string name="MSG_FORM_INCOMPLETO_FOTO">Incomplete form. Include a photo.</string>
     <string name="reset_btn">RESET</string>

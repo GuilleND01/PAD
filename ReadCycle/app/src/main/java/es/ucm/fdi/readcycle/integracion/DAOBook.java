@@ -55,7 +55,7 @@ public class DAOBook {
 
 
 
-    public boolean guardarLibro (BookInfo libro) {
+    public void guardarLibro (BookInfo libro, CallBacks callbacks) {
 
         boolean exito = true;
         try {
@@ -113,9 +113,9 @@ public class DAOBook {
 
                     });
 
-            return true;
+            callbacks.onCallbackExito(true);
         } catch (Exception e){
-            return false;
+            callbacks.onCallbackExito(false);
         }
     }
 
