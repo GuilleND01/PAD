@@ -40,18 +40,23 @@ public class MostrarResultadosFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_mostrar_resultados, container, false);
 
         ArrayList<BookInfo> bookInfoList = (ArrayList<BookInfo>) getArguments().getSerializable("bookInfoList");
+        ArrayList<UserInfo> userInfoList = (ArrayList<UserInfo>) getArguments().getSerializable("userInfoList");
 
         res = v.findViewById(R.id.n_resultados);
+        adapter = new BusquedaAdapter();
         if(bookInfoList != null) {
+            adapter.setBooksData(bookInfoList);
             String s = String.valueOf(bookInfoList.size());
+            res.setText(s);
+        }
+        else if(userInfoList != null){
+            adapter.setUsersData(userInfoList);
+            String s = String.valueOf(userInfoList.size());
             res.setText(s);
         }
         else{
             res.setText("0");
         }
-
-        adapter = new BusquedaAdapter();
-        adapter.setBooksData(bookInfoList);
 
         RecyclerView recyclerView = v.findViewById(R.id.r_mostrar_busquedas);
         recyclerView.setAdapter(adapter);

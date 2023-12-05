@@ -12,6 +12,5 @@ public interface CallBacks {
     default void onCallbackBookInfo(BookInfo b){}
     default void onCallbackBooks(ArrayList<BookInfo> bs){}
     default void onCallbackExito(Boolean exito){}
-
-
+    default void onCallbackUsers(ArrayList<UserInfo> us){}
 }

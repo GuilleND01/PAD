@@ -184,5 +184,21 @@ public class DAOUser {
         }
     }
 
-
+    public void buscarUsuarios(UserInfo u, CallBacks cb){
+        ArrayList<UserInfo> us = new ArrayList<>();
+        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo(NOMBRE,
+                u.getNombre()).get().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            UserInfo user = new UserInfo();
+                            user.setNombre(d.get(NOMBRE).toString());
+                            user.setContacto(d.get(CONTACTO).toString());
+                            user.setCorreo(d.get(CORREO).toString());
+                            user.setZona(d.get(ZONA).toString());
+                            us.add(user);
+                        }
+                        cb.onCallbackUsers(us);
+                    }
+        });
+    }
 }

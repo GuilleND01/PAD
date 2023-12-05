@@ -8,6 +8,7 @@
     <string name="buscarLibro">Find a book</string>
     <string name="autor">Author</string>
     <string name="titulo">Title</string>
+    <string name="bus_usuario">Users</string>
     <string name="aviso_no_opcion">Please select a search option.</string>
 
     <!--Formulario añadir libro-->

@@ -7,6 +7,7 @@
     <string name="buscarLibro">Encuentra un libro</string>
     <string name="autor">Autor</string>
     <string name="titulo">Titulo</string>
+    <string name="bus_usuario">Usuarios</string>
     <string name="aviso_no_opcion">Por favor, seleccione unna opción de búsqueda.</string>
 
     <!--Formulario añadir libro-->

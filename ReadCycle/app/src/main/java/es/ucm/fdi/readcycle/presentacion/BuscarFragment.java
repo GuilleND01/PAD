@@ -19,6 +19,7 @@ import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
 import kotlin.jvm.internal.Intrinsics;
 
@@ -26,6 +27,8 @@ public class BuscarFragment extends Fragment {
 
     private RadioGroup opt_busqueda;
     private SearchView searchView;
+
+    private RadioGroup busqueda_users;
 
     @Nullable
     @Override
@@ -40,12 +43,15 @@ public class BuscarFragment extends Fragment {
 
         opt_busqueda = view.findViewById(R.id.opt_busqueda); // Asegúrate de tener un RadioGroup con este id en tu layout
         searchView = view.findViewById(R.id.search); // Asegúrate de tener un SearchView con este id en tu layout
+        busqueda_users = view.findViewById(R.id.busqueda_users);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 SABook service = new SABook();
+                SAUser saUser = new SAUser();
                 BookInfo b = new BookInfo();
+                UserInfo u = new UserInfo();
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo){
                     b.setTitle(query);
                     b.setAuthor(null);
@@ -53,6 +59,9 @@ public class BuscarFragment extends Fragment {
                 else if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonAutor){
                     b.setTitle(null);
                     b.setAuthor(query);
+                }
+                else if(busqueda_users.getCheckedRadioButtonId() == R.id.opt_users){
+                    u.setNombre(query);
                 }
                 else{
                     Toast.makeText(getActivity(), R.string.aviso_no_opcion, Toast.LENGTH_SHORT).show();
@@ -67,6 +76,22 @@ public class BuscarFragment extends Fragment {
                             bundle.putSerializable("bookInfoList", bs);
 
                             // Asignar el Bundle al fragmento
+                            mostrarResultadosFragment.setArguments(bundle);
+                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.frameLayout, mostrarResultadosFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    });
+                }
+                else if(u.getNombre() != null){
+                    saUser.buscarUsuarios(u, new CallBacks() {
+                        @Override
+                        public void onCallbackUsers(ArrayList<UserInfo> us) {
+                            MostrarResultadosFragment mostrarResultadosFragment = new MostrarResultadosFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("userInfoList", us);
+
                             mostrarResultadosFragment.setArguments(bundle);
                             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                             transaction.replace(R.id.frameLayout, mostrarResultadosFragment);

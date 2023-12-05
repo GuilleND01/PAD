@@ -63,4 +63,9 @@ public class SAUser {
         DAOUser dao = new DAOUser();
         dao.getBiblioteca(correo, callBacks);
     }
+
+    public void buscarUsuarios(UserInfo u, CallBacks callBacks){
+        DAOUser dao = new DAOUser();
+        dao.buscarUsuarios(u, callBacks);
+    }
 }
