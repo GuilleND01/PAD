@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -28,14 +29,15 @@ import kotlin.jvm.internal.Intrinsics;
 
 public class MostrarResultadosFragment extends Fragment {
 
-    private RadioGroup opt_busqueda;
+    private RadioGroup opt_busqueda, opt_users;
     private SearchView s;
 
     private TextView res;
 
     private BusquedaAdapter adapter;
 
-    private RadioGroup opt_users;
+    private RadioButton title, author, user;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +76,26 @@ public class MostrarResultadosFragment extends Fragment {
         opt_busqueda = view.findViewById(R.id.opt_busqueda_2);
         s = view.findViewById(R.id.n_barra_busqueda);
         opt_users = view.findViewById(R.id.bus_user);
+
+        title = view.findViewById(R.id.radioButtonTitulo2);
+        author = view.findViewById(R.id.radioButtonAutor2);
+        user = view.findViewById(R.id.opt_users2);
+
+        title.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                opt_users.clearCheck();
+            }
+        });
+        author.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                opt_users.clearCheck();
+            }
+        });
+        user.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                opt_busqueda.clearCheck();
+            }
+        });
 
         s.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

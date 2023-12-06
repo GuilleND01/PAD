@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }));
 
         }
+        handleNotificationIntent(getIntent());
 
         /* Para no dejar volver al login */
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -80,6 +81,40 @@ public class MainActivity extends AppCompatActivity {
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        // Si la actividad ya estaba en primer plano y se recibe una notificación
+        handleNotificationIntent(intent);
+    }
+
+    private void handleNotificationIntent(Intent intent) {
+        if (intent != null && intent.hasExtra("fragmentToLoad")) {
+            String fragmentName = intent.getStringExtra("fragmentToLoad");
+
+            // Verificamos q fragmento se debe abrir
+            if (fragmentName != null && fragmentName.equals("UsuarioBibliotecaFragment")) {
+                UsuarioBibliotecaFragment usuarioBibliotecaFragment = new UsuarioBibliotecaFragment();
+
+                // Recogemos los datos adicionales
+                Bundle bundle = new Bundle();
+                if(intent.hasExtra("propietario")) {
+                    String propietario = intent.getStringExtra("propietario");
+                    bundle.putString("propietario", propietario);
+                }
+                usuarioBibliotecaFragment.setArguments(bundle);
+
+                // Abrimos el fragmento
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayout, usuarioBibliotecaFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }
+    }
+
 
 
 }

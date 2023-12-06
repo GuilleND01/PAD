@@ -2,7 +2,9 @@ package es.ucm.fdi.readcycle.integracion;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -16,6 +18,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import es.ucm.fdi.readcycle.presentacion.MainActivity;
 
 
 /* Esta clase se encarga de gestionar la llegada de notificaciones. No se instancia en ningún sitio.
@@ -31,14 +35,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             String title = notification.getTitle();
             String body = notification.getBody();
-            //Log.d("Notifrecibida", "Title: " + title + ", Body: " + body);
-            showNotification(title, body);
+            String email = notification.getTag();
+            showNotification(title, body, email);
         }
     }
 
     /* Esta función crea la vista de la notificación. Ocurre que en las versiones más nuevas es
     * obligatorio crear un canal de comunicación pero en las más antiguas no, por eso el IF. */
-    private void showNotification(String title, String body) {
+    private void showNotification(String title, String body, String email) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         String channelId = "my_channel_id";
@@ -58,6 +62,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(body)
                 .setStyle(bigTextStyle)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragmentToLoad", "UsuarioBibliotecaFragment");
+        intent.putExtra("propietario", email);
+
+        // Creamos PendingIntent para la notificación con el Intent configurado
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
 
 
         /* El id debería ser un número aleatorio, de momento lo dejo en 0 */

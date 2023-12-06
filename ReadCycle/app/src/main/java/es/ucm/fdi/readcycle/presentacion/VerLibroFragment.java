@@ -260,13 +260,13 @@ public class VerLibroFragment extends Fragment {
             jsonObject  = new JSONObject();
 
             JSONObject notificationObj = new JSONObject();
+            //notificationObj.put("title", currentUser.getEmail());
             notificationObj.put("title", "Notificación de Reserva");
             notificationObj.put("body", "Enhorabuena! El usuario " + currentUser.getEmail() + " acaba de reservar tu libro " + bookInfo.getTitle() +
                     " del autor " + bookInfo.getAuthor());
-
+            notificationObj.put("tag",  currentUser.getEmail());
             jsonObject.put("notification",notificationObj);
             jsonObject.put("to", USER_TOKEN);
-
 
         }catch (Exception e){
             Log.d("error", e.toString());
@@ -285,7 +285,7 @@ public class VerLibroFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.d("Notifjorge", "Fallo al mandar la notificación");
-                Toast.makeText(getContext(), "Solicitud de reserva enviada con éxito", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Algo ha ido mal, intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
             }
 
             @Override

@@ -1,5 +1,6 @@
 package es.ucm.fdi.readcycle.presentacion;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,9 +88,32 @@ public class BusquedaAdapter extends RecyclerView.Adapter<BusquedaAdapter.Busque
             holder.estado.setText("");
             holder.textEstado.setText("");
             holder.dotDot.setText("");
+            Glide.with(holder.card)
+                    .load(R.drawable.perfil)
+                    .into(holder.imagen);
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    UserInfo selectedUser = users.get(holder.getBindingAdapterPosition());
+
+                    //redirigir a la biblioteca del usuario
+                    UsuarioBibliotecaFragment usuarioBibliotecaFragment = new UsuarioBibliotecaFragment();
+
+                    // Crear un Bundle para pasar el correo
+                    Bundle bundle = new Bundle();
+                    bundle.putString("propietario", selectedUser.getCorreo());
+
+                    // Asignar el Bundle al fragmento
+                    usuarioBibliotecaFragment.setArguments(bundle);
+
+                    // Iniciar la transacción del fragmento
+                    FragmentManager fragmentManager = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frameLayout, usuarioBibliotecaFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
 
                 }
             });

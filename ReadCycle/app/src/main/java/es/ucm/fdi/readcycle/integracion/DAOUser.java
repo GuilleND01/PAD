@@ -105,24 +105,39 @@ public class DAOUser {
     }
 
     public void entrar(String correo, String contraseña, CallBacks cb){
-        mAuth.signInWithEmailAndPassword(correo, contraseña)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("CLAU", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            cb.onCallbackExito(true);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("CLAU", "signInWithEmail:failure", task.getException());
-                            cb.onCallbackExito(false);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()){
+                    String newToken = task.getResult();
 
-                        }
+                    mAuth.signInWithEmailAndPassword(correo, contraseña)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("CLAU", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Map<String, Object> updates = new HashMap<>();
+                                        updates.put("token", newToken);
+                                        SingletonDataBase.getInstance().getDB()
+                                                .collection("Usuarios").document(user.getUid()).update(updates);
+
+                                        cb.onCallbackExito(true);
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("CLAU", "signInWithEmail:failure", task.getException());
+                                        cb.onCallbackExito(false);
+
+                                    }
+                                }
+                            });
                     }
-                });
+            }
+        });
     }
+
 
     public void getUsuario(String email, CallBacks callBacks){
         UserInfo user = new UserInfo();

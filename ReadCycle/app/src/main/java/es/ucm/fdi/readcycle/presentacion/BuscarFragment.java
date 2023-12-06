@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -25,10 +26,10 @@ import kotlin.jvm.internal.Intrinsics;
 
 public class BuscarFragment extends Fragment {
 
-    private RadioGroup opt_busqueda;
+    private RadioGroup opt_busqueda, busqueda_users;
     private SearchView searchView;
 
-    private RadioGroup busqueda_users;
+    private RadioButton title, author, user;
 
     @Nullable
     @Override
@@ -44,6 +45,26 @@ public class BuscarFragment extends Fragment {
         opt_busqueda = view.findViewById(R.id.opt_busqueda); // Asegúrate de tener un RadioGroup con este id en tu layout
         searchView = view.findViewById(R.id.search); // Asegúrate de tener un SearchView con este id en tu layout
         busqueda_users = view.findViewById(R.id.busqueda_users);
+
+        title = view.findViewById(R.id.radioButtonTitulo);
+        author = view.findViewById(R.id.radioButtonAutor);
+        user = view.findViewById(R.id.opt_users);
+
+        title.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                busqueda_users.clearCheck();
+            }
+        });
+        author.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                busqueda_users.clearCheck();
+            }
+        });
+        user.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                opt_busqueda.clearCheck();
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
