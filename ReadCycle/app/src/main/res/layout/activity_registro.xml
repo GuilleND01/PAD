@@ -24,10 +24,10 @@
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="50dp"
-                    android:src="@drawable/shape" />
+                    android:src="@drawable/icono"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

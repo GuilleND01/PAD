@@ -32,6 +32,8 @@ public class DAOUser {
     private final String TOKEN = "token";
     private final String ZONA = "zona";
     private final String LIBRO = "ID_Libros";
+    private final String NOTIFICACIONES = "notificaciones";
+
 
     private final String COL_USUARIOS = "Usuarios";
     private final String COL_LIBROS = "Libros";
@@ -77,6 +79,7 @@ public class DAOUser {
                                         data.put(ZONA, usuarioInsertar.getZona());
                                         data.put(CORREO, usuarioInsertar.getCorreo());
                                         data.put(LIBRO, new ArrayList<String>());
+                                        data.put(NOTIFICACIONES, new ArrayList<String>());
                                         data.put(TOKEN, token);
 
                                         //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente

@@ -73,6 +73,7 @@ public class BuscarFragment extends Fragment {
                 SAUser saUser = new SAUser();
                 BookInfo b = new BookInfo();
                 UserInfo u = new UserInfo();
+                query = query.trim();
                 if(opt_busqueda.getCheckedRadioButtonId() == R.id.radioButtonTitulo){
                     b.setTitle(query);
                     b.setAuthor(null);

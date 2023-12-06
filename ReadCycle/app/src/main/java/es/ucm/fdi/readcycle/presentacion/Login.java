@@ -27,7 +27,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button b = findViewById(R.id.loginBtn);
-        b.setBackgroundColor( getResources().getColor(R.color.fondoOscuro));
+        b.setBackgroundColor( getResources().getColor(R.color.botonAdd
+        ));
 
         correo = findViewById(R.id.correoInput);
         contraseña = findViewById(R.id.contraseñaInput);
