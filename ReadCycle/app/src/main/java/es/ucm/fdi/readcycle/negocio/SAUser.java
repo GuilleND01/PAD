@@ -68,4 +68,14 @@ public class SAUser {
         DAOUser dao = new DAOUser();
         dao.buscarUsuarios(u, callBacks);
     }
+
+    public void aniadirNotificacion(String body, String fecha, String email) {
+        DAOUser dao = new DAOUser();
+        dao.anadirNotificacion(body, fecha, email);
+    }
+
+    public void getNotificaciones(String correo, CallBacks callBacks){
+        DAOUser dao = new DAOUser();
+        dao.getNotifs(correo, callBacks);
+    }
 }

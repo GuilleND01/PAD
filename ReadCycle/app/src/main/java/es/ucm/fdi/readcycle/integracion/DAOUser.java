@@ -11,11 +11,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.auth.User;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +85,7 @@ public class DAOUser {
                                         data.put(ZONA, usuarioInsertar.getZona());
                                         data.put(CORREO, usuarioInsertar.getCorreo());
                                         data.put(LIBRO, new ArrayList<String>());
-                                        data.put(NOTIFICACIONES, new ArrayList<String>());
+                                        data.put(NOTIFICACIONES, new ArrayList<Map<String,String>>());
                                         data.put(TOKEN, token);
 
                                         //getUID() me devuelve el user id de la tabla de usuarios para emparejarlo con el usuario correspondiente
@@ -241,5 +247,35 @@ public class DAOUser {
                 cb.onCallbackUsers(us);
             }
         });
+    }
+
+    public void anadirNotificacion (String body, String fecha, String email){
+        CollectionReference usersCollection = SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Map<String, String> not =  new HashMap<>();
+        not.put("mensaje", body);
+        not.put("fecha", fecha);
+        not.put("email", email);
+
+        usersCollection.document(currentUser.getUid()).update(NOTIFICACIONES,
+                FieldValue.arrayUnion(not));;
+    }
+
+    public void getNotifs(String email, CallBacks callBacks){
+        SingletonDataBase.getInstance().getDB().collection(COL_USUARIOS).whereEqualTo(CORREO,
+                email).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                ArrayList<Map<String,String>> ls = new ArrayList<>();
+                for (QueryDocumentSnapshot d: task.getResult()){
+                    for(Map<String,String> str : (ArrayList<Map<String,String>>) d.get(NOTIFICACIONES))
+                        ls.add(str);
+                }
+                callBacks.onCallback(ls);
+            }
+        });
+
     }
 }

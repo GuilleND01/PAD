@@ -3,6 +3,7 @@ package es.ucm.fdi.readcycle.presentacion;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -18,11 +19,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.integracion.CallBacks;
@@ -67,6 +70,33 @@ public class PerfilFragment extends Fragment {
                 correo.setText(u.getCorreo());
                 contacto.setText(u.getContacto().toString());
                 zona.setText(u.getZona().toString());
+            }
+        });
+
+        notificaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SAUser sa = new SAUser();
+                sa.getNotificaciones(currentUser.getEmail(), new CallBacks() {
+                    @Override
+                    public void onCallback(ArrayList<Map<String,String>> n) {
+
+                        NotificacionesFragment notif = new NotificacionesFragment();
+
+                        // Montar la recycler view en otra ventana
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("notifHist", n);
+
+                        // Asignar el Bundle al fragmento
+                        notif.setArguments(bundle);
+
+                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, notif);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+
+                });
             }
         });
 

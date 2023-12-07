@@ -18,7 +18,11 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
+import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.presentacion.MainActivity;
 
 
@@ -37,6 +41,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String body = notification.getBody();
             String email = notification.getTag();
             showNotification(title, body, email);
+
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+            String fecha = dateFormat.format(calendar.getTime());
+
+            SAUser sa = new SAUser();
+            sa.aniadirNotificacion(body, fecha, email);
         }
     }
 

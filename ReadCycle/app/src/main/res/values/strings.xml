@@ -98,6 +98,12 @@
     <!--UsuarioBiblioteca-->
     <string name="bibliotecaDe"> biblioteca</string>
 
+    <!--Notificaciones-->
+    <string name="notif">Notificaciones</string>
+    <string name="fecha_n">Fecha</string>
+    <string name="email_n">Email</string>
+    <string name="mensa_n">Mensaje</string>
+    <string name="no_notif">No hay notificaciones pendientes</string>
 
 
 </resources>
