@@ -90,6 +90,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /* Función que se invoca cuando el token del usuario ha cambiado. Existen diversas razones como
     * reinstalar la aplicación o ejecutarla en modo debug. Explico qué es el token del usuario en
     * DAOUser */
+    /*
     @Override
     public void onNewToken(String newToken) {
 
@@ -104,4 +105,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .collection("Usuarios").document(idUsuario).update(updates);
 
     }
+    */
+
 }

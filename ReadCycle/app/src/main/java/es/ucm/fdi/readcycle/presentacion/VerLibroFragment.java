@@ -55,6 +55,8 @@ public class VerLibroFragment extends Fragment {
     private  BookInfo bookInfo;
     private static final String ARG_BOOK_INFO = "book_info";
 
+    private static final String BEARER_TOKEN = "Bearer AAAAabD_4J8:APA91bHFi2tlM3CUqssG1jqw0HqSsDbWyeCZHUWwLxQDGO_BKYHwlbUC2bISS6zEJ38P3cxVfWiNVWbU_XrXKU0RF2Z4nw0AwQBaxgHLrlajhWnyRk6bNzjwU-wlQf-WmWcEkWZc5oK1";
+
     private TextView textTitulo, textGenero, textAutor, textPag, textEstado, textResumen, titResumen;
     private ImageView img;
 
@@ -260,10 +262,9 @@ public class VerLibroFragment extends Fragment {
             jsonObject  = new JSONObject();
 
             JSONObject notificationObj = new JSONObject();
-            //notificationObj.put("title", currentUser.getEmail());
-            notificationObj.put("title", "Notificación de Reserva");
-            notificationObj.put("body", "Enhorabuena! El usuario " + currentUser.getEmail() + " acaba de reservar tu libro " + bookInfo.getTitle() +
-                    " del autor " + bookInfo.getAuthor());
+            notificationObj.put("title", getString(R.string.noti_solicitud));
+            String bodyNotification = getString(R.string.body_noti, currentUser.getEmail(), bookInfo.getTitle(), bookInfo.getAuthor());
+            notificationObj.put("body", bodyNotification);
             notificationObj.put("tag",  currentUser.getEmail());
             jsonObject.put("notification",notificationObj);
             jsonObject.put("to", USER_TOKEN);
@@ -278,19 +279,23 @@ public class VerLibroFragment extends Fragment {
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .header("Authorization","Bearer AAAAabD_4J8:APA91bHFi2tlM3CUqssG1jqw0HqSsDbWyeCZHUWwLxQDGO_BKYHwlbUC2bISS6zEJ38P3cxVfWiNVWbU_XrXKU0RF2Z4nw0AwQBaxgHLrlajhWnyRk6bNzjwU-wlQf-WmWcEkWZc5oK1")
+                .header("Authorization", BEARER_TOKEN)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("Notifjorge", "Fallo al mandar la notificación");
-                Toast.makeText(getContext(), "Algo ha ido mal, intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.d("Notifjorge", response.toString());
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), getString(R.string.exito_noti), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

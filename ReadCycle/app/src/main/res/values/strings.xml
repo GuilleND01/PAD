@@ -93,6 +93,9 @@
     <string name="confirmar">¿Seguro que quieres eliminar este libro?</string>
     <string name="bibliotecOtro">Ir a biblioteca</string>
     <string name="MSG_ERROR_ELIMINAR">"El libro no se ha podido eliminar, vuelva a intentarlo más tarde"</string>
+    <string name="noti_solicitud">Request Notification</string>
+    <string name="body_noti">Enhorabuena! El usuario %1$s acaba de solicitar tu libro %2$s del autor %3$s</string>
+    <string name="exito_noti">Notificación enviada con éxito</string>
 
 
     <!--UsuarioBiblioteca-->
