@@ -26,8 +26,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import es.ucm.fdi.readcycle.R;
 import es.ucm.fdi.readcycle.negocio.SAUser;
 import es.ucm.fdi.readcycle.negocio.UserInfo;
+import androidx.lifecycle.ViewModelProvider;
+
+
 
 public class MainActivity extends AppCompatActivity {
+    private MainViewModel mainViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +48,34 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             setContentView(R.layout.activity_main);
-            //CARGAMOS LA BIBLIOTECA DE PRIMERAS
-            this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();
 
-            //Navbar
-            BottomNavigationView navbar = (BottomNavigationView) this.findViewById(R.id.navigationView);
-            navbar.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener)(new NavigationBarView.OnItemSelectedListener(){
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    if(item.getItemId() == R.id.navbar_biblioteca){
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new MiBibliotecaFragment()).commit();//remplazo el blanco por el fragmento nuevo
-                        return true;
-                    }
-                    else if(item.getItemId() == R.id.navbar_buscar){
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new BuscarFragment()).commit();
-                        return true;
-                    }
-                    else if(item.getItemId() == R.id.navbar_perfil){
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, (Fragment) new PerfilFragment()).commit();
-                        return true;
-                    }
-                    return true;
+            mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+            //Si hay aguna instancia guardada para la rotación
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new MiBibliotecaFragment()).commit();
+            } else {
+                int currentFragmentId = mainViewModel.getCurrentFragmentId();
+                loadFragment(currentFragmentId);
+            }
+
+            //La navbar
+            BottomNavigationView navbar = findViewById(R.id.navigationView);
+            navbar.setOnItemSelectedListener(item -> {
+                int fragmentId;
+                if (item.getItemId() == R.id.navbar_biblioteca) {
+                    fragmentId = R.id.fragment_biblioteca;
+                } else if (item.getItemId() == R.id.navbar_buscar) {
+                    fragmentId = R.id.fragment_buscar;
+                } else if (item.getItemId() == R.id.navbar_perfil) {
+                    fragmentId = R.id.fragment_perfil;
+                } else {
+                    return false;
                 }
-            }));
 
+                loadFragment(fragmentId);
+                return true;
+            });
         }
         handleNotificationIntent(getIntent());
 
@@ -116,5 +125,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void loadFragment(int fragmentId) {
+        Fragment fragment;
+        //cargo el fragmento correspodiente
+        if(fragmentId == R.id.fragment_biblioteca){
+            fragment = new MiBibliotecaFragment();
+        }else if(fragmentId == R.id.fragment_buscar){
+            fragment = new BuscarFragment();
+        }else if(fragmentId == R.id.fragment_perfil){
+            fragment = new PerfilFragment();
+        }else{//por defecto voy a la biblioteca
+            fragment = new MiBibliotecaFragment();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+        mainViewModel.setCurrentFragmentId(fragmentId);
+    }
 
 }

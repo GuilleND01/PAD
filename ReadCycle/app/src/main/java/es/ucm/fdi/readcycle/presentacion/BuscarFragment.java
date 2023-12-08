@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,11 @@ public class BuscarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Obtener el ViewModel de la MainActivity
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        // Actualizar el estado del fragmento actual en el ViewModel
+        mainViewModel.setCurrentFragmentId(R.id.fragment_buscar);
 
         opt_busqueda = view.findViewById(R.id.opt_busqueda); // Asegúrate de tener un RadioGroup con este id en tu layout
         searchView = view.findViewById(R.id.search); // Asegúrate de tener un SearchView con este id en tu layout

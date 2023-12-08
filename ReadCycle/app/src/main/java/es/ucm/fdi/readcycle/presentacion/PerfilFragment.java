@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,9 +47,12 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Intrinsics.checkNotNullParameter(inflater, "inflater");
-
-
         View v = inflater.inflate(R.layout.fragment_perfil, container, false);
+
+        // Obtener el ViewModel de la MainActivity
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        // Actualizar el estado del fragmento actual en el ViewModel
+        mainViewModel.setCurrentFragmentId(R.id.fragment_perfil);
 
         nombre = v.findViewById(R.id.nombreP);
         correo = v.findViewById(R.id.corrreoP);

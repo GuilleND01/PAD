@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="presentacion.MiBibliotecaFragment"
     android:background="@color/fondoClaro"
-    >
+    android:id="@+id/fragment_biblioteca">
 
     <LinearLayout
         android:layout_width="match_parent"

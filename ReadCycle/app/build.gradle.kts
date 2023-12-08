@@ -51,6 +51,8 @@ dependencies {
     implementation("androidx.activity:activity:1.3.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.4.0")
+
 
 
 }
