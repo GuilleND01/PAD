@@ -39,6 +39,8 @@ import es.ucm.fdi.readcycle.integracion.CallBacks;
 import es.ucm.fdi.readcycle.integracion.SingletonDataBase;
 import es.ucm.fdi.readcycle.negocio.BookInfo;
 import es.ucm.fdi.readcycle.negocio.SABook;
+import es.ucm.fdi.readcycle.negocio.SAUser;
+import es.ucm.fdi.readcycle.negocio.UserInfo;
 import io.grpc.okhttp.OkHttpChannelBuilder;
 import io.grpc.okhttp.OkHttpChannelProvider;
 import kotlin.jvm.internal.Intrinsics;
@@ -64,6 +66,8 @@ public class VerLibroFragment extends Fragment {
     private Button btnSolicitar, btnEliminar;
 
     private ImageButton btnVolver;
+
+    private String nombre, contacto;
 
     public static VerLibroFragment newInstance(BookInfo bookInfo) {
         VerLibroFragment fragment = new VerLibroFragment();
@@ -149,6 +153,16 @@ public class VerLibroFragment extends Fragment {
             //Si el propietario del libro es el usuario registrado mostramos el boton de eliminar, si no el de solicitar
             //De esta manera podemos reutilizar la vista
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            //Cojo los parametros del usuario q voy a necesitar luego
+            SAUser saUser = new SAUser();
+            saUser.infoUsuario(currentUser.getEmail(), new CallBacks() {
+                @Override
+                public void onCallback(UserInfo u) {
+                    nombre = u.getNombre();
+                    contacto = u.getContacto();
+                }
+            });
+
             if(bookInfo.getPropietario().equals(currentUser.getEmail())){
                 btnSolicitar.setVisibility(View.GONE);
                btnEliminar.setOnClickListener(new View.OnClickListener() {
@@ -263,7 +277,7 @@ public class VerLibroFragment extends Fragment {
 
             JSONObject notificationObj = new JSONObject();
             notificationObj.put("title", getString(R.string.noti_solicitud));
-            String bodyNotification = getString(R.string.body_noti, currentUser.getEmail(), bookInfo.getTitle(), bookInfo.getAuthor());
+            String bodyNotification = getString(R.string.body_noti, nombre, bookInfo.getTitle(), bookInfo.getAuthor(), contacto);
             notificationObj.put("body", bodyNotification);
             notificationObj.put("tag",  currentUser.getEmail());
             jsonObject.put("notification",notificationObj);
@@ -272,6 +286,7 @@ public class VerLibroFragment extends Fragment {
         }catch (Exception e){
             Log.d("error", e.toString());
         }
+
 
         OkHttpClient client = new OkHttpClient();
         String url = "https://fcm.googleapis.com/fcm/send";
@@ -298,5 +313,8 @@ public class VerLibroFragment extends Fragment {
                 });
             }
         });
+
+
+
     }
 }

@@ -95,7 +95,7 @@
     <string name="bibliotecOtro">Go to library</string>
     <string name="MSG_ERROR_ELIMINAR">"The book could not be deleted, please try again later"</string>
     <string name="noti_solicitud">Request Notification</string>
-    <string name="body_noti">Congratulations! User %1$s just requested your book %2$s from author %3$s</string>
+    <string name="body_noti">Congratulations! %1$s just requested your book %2$s from author %3$s. Take a look at their library and if something interests you, here is their contact: %4$s</string>
     <string name="exito_noti">The notification was sent successfully</string>
 
     <!--UsuarioBiblioteca-->
