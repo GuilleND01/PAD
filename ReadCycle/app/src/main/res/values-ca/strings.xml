@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReadCycle</string>
+    <string name="navbar_buscar">Cercar</string>
+    <string name="navbar_perfil">Perfil</string>
+    <string name="navbar_biblioteca">La meva Biblioteca</string>
+    <string name="titbblioteca">La teva Biblioteca</string>
+    <string name="buscarLibro">Cercar un llibre</string>
+    <string name="autor">Autor</string>
+    <string name="titulo">Titol</string>
+    <string name="bus_usuario">Usuaris</string>
+    <string name="aviso_no_opcion">Si us plau, selecciona una opció de recerca</string>
+
+    <!--Formulario añadir libro-->
+    <string name="titaddlibro">Anyadir llibre</string>
+    <string name="form_titulolibro">Titol llibre</string>
+    <string name="form_genero">Genere</string>
+    <string name="form_numpaginas">Num. Pagines</string>
+    <string name="form_libroestado">Estat del llibre</string>
+    <string name="form_resumen">Resumen</string>
+    <string name="form_añadir">Anyadir</string>
+    <string name="MSG_FORM_INCOMPLETO">Formulari incomplet</string>
+    <string name="MSG_EXITO">Llibre agregat amb exit</string>
+    <string name="MSG_ERROR_GENERAL">Alguna cosa ha sortit malament. Torna a intentar-ho</string>
+    <string name="MSG_FORM_INCOMPLETO_FOTO">Formulari incomplet. Agrega una foto.</string>
+    <string name="reset_btn">RESET.</string>
+    <string name="nogeneros">No hi ha generes agregats</string>
+    <string name="generos_añadidos">Generes agregats: </string>
+    <string name="minimo_un_genero">Inclou almenys un genere</string>
+
+
+    <!--Formulario login y registro-->
+    <string name="correo">Correu electronic</string>
+    <string name="nombre">Nom</string>
+    <string name="contraseña">Contrasenya</string>
+    <string name="contraseñaConfirm">Confirmar Contrasenya</string>
+    <string name="entrar">Iniciar sesió</string>
+    <string name="entrarGoogle">Entrar amb Google</string>
+    <string name="registrarse">Registrar-se</string>
+    <string name="registrarseGoogle">Registrar-se amb Google</string>
+    <string name="contacto">Forma de contacte</string>
+    <string name="zona">Zona de localització</string>
+
+    <!--Manejo de errores en formularios de inicio y registro-->
+    <string name="req">Requerit</string>
+    <string name="errorNombre">Format del nom no vàlid</string>
+    <string name="errorCorreo">Format del correu no vàlid</string>
+    <string name="errorContraseña">La contrasenya ha de tenir almenys 6 caracters y un nombre</string>
+    <string name="contraseñasDiferentes">Les contrasenyes han de coincidir</string>
+    <string name="correoExiste">Ja existeix un compte amb aquest correu</string>
+    <string name="datosNoValidos">L´usuario o la contrasenya no son correctes</string>
+
+    <!--Mostar búsqueda-->
+    <string name="resultados">resultats:</string>
+
+    <!-- Posibles estados de un libro -->
+    <string-array name="books_array">
+        <item>Nou</item>
+        <item>Usat</item>
+        <item>Antic</item>
+        <item>Restaurat</item>
+    </string-array>
+
+    <!-- Posibles generos -->
+    <string-array name="genero_array">
+        <item>Acció</item>
+        <item>Aventures</item>
+        <item>Biografic</item>
+        <item>Ciencia Ficció</item>
+        <item>Comedia</item>
+        <item>Drama</item>
+        <item>Fantasia</item>
+        <item>Infantil</item>
+        <item>Juvenil</item>
+        <item>Misteri</item>
+        <item>Novel.la</item>
+        <item>Poesía</item>
+        <item>Policiac</item>
+        <item>Política</item>
+        <item>Romanç</item>
+        <item>Suspens</item>
+        <item>Teatre</item>
+        <item>Terror</item>
+    </string-array>
+
+    <!--Menu perfil -->
+    <string name="editar">Editar perfil</string>
+    <string name="cerrar">Cerrar sesio</string>
+
+    <!--Ver libro-->
+    <string name="solicitar">Sol.licitar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancel.lar</string>
+    <string name="confirmar">¿Vols eliminar aquest llibre?</string>
+    <string name="bibliotecOtro">Anar a biblioteca</string>
+    <string name="MSG_ERROR_ELIMINAR">"El llibre no s`ha eliminat, torna a intentar-ho més tard"</string>
+    <string name="noti_solicitud">Request Notification</string>
+    <string name="body_noti">Enhorabona! %1$s acava de sol.licitar el teu llibre %2$s de l`autor %3$s. Mira la seva biblioteca i si alguna cosa t´agrada, aqui tens el seu contacte: %4$s</string>
+    <string name="exito_noti">Notificació enviada amb éxit</string>
+
+
+    <!--UsuarioBiblioteca-->
+    <string name="bibliotecaDe"> biblioteca</string>
+
+    <!--Notificaciones-->
+    <string name="notif">Notificacions</string>
+    <string name="fecha_n">Fecha</string>
+    <string name="email_n">Email</string>
+    <string name="mensa_n">Missatge</string>
+    <string name="no_notif">No hi ha notificacions pendents</string>
+
+
+</resources>
