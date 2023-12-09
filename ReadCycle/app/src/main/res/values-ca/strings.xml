@@ -85,7 +85,7 @@
 
     <!--Menu perfil -->
     <string name="editar">Editar perfil</string>
-    <string name="cerrar">Cerrar sesio</string>
+    <string name="cerrar">Tancar sesio</string>
 
     <!--Ver libro-->
     <string name="solicitar">Sol.licitar</string>
